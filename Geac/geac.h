@@ -12,6 +12,10 @@ public:
 
 private:
     Ui::Geac ui;
+
+private slots:
+    void on_actionOpen_Folder_triggered();
+    void on_actionOpen_File_triggered();
 };
 
 #endif // GEAC_H

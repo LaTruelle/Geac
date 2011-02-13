@@ -16,3 +16,5 @@ SOURCES += main.cpp\
 HEADERS  += geac.h
 
 FORMS    += geac.ui
+
+TRANSLATIONS += geac_fr.ts
