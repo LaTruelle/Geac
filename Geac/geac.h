@@ -2,6 +2,8 @@
 #define GEAC_H
 
 #include "ui_geac.h"
+#include <QDir>
+#include <QFile>
 
 class Geac : public QMainWindow
 {
@@ -12,6 +14,9 @@ public:
 
 private:
     Ui::Geac ui;
+    QDir baseFolder;
+    QFile fileToConvert;
+    QFile convertedFile;
 
 private slots:
     void on_actionOpen_Folder_triggered();
