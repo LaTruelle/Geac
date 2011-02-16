@@ -2,6 +2,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <iostream>
+#include "checkfiledialog.h"
 
 Geac::Geac(QWidget *parent) :
     QMainWindow(parent){
@@ -13,7 +14,11 @@ void Geac::on_actionOpen_File_triggered()
     // Open File Dialog to select File --> With filters (or without)
     // TODO: Add Filters in QFileDialog
     // Create object QFile fileToConvert and open it.
-    QString fileToConvertName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath());
+    CheckFileDialog *dialog = new CheckFileDialog(this);
+    dialog->addCheckBoxIn();
+    dialog->setOption(QFileDialog::DontUseNativeDialog);
+    QString fileToConvertName = dialog->getOpenFileName(this, tr("Open File"), QDir::homePath());
+
     fileToConvert.setFileName(fileToConvertName);
     fileToConvert.open(QIODevice::ReadOnly);
 
