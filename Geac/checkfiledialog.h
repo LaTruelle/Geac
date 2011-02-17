@@ -8,10 +8,9 @@ class CheckFileDialog : public QFileDialog
 {
 public:
     CheckFileDialog(QWidget *parent);
-    void addCheckBoxIn();
 
 private:
-    // QCheckBox *recursive;
+    QCheckBox *recursive;
 };
 
 #endif // CHECKFILEDIALOG_H
