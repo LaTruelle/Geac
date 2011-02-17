@@ -1,8 +1,9 @@
 #include "checkfiledialog.h"
 #include <QDialogButtonBox>
 #include <QBoxLayout>
-
-CheckFileDialog::CheckFileDialog(QWidget *parent) : QFileDialog(parent),recursive(0)
+// http://www.qtforum.org/article/20841/how-to-add-a-qwidget-in-qfiledialog.html
+//CheckFileDialog::CheckFileDialog(QWidget *parent) : QFileDialog(parent),recursive(0)
+CheckFileDialog::CheckFileDialog(QWidget *parent) : QFileDialog(parent)
 {
 }
 

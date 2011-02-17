@@ -16,6 +16,7 @@ void Geac::on_actionOpen_File_triggered()
     // Create object QFile fileToConvert and open it.
     CheckFileDialog *dialog = new CheckFileDialog(this);
     dialog->addCheckBoxIn();
+    dialog->setWindowTitle("Mouahahah");
     dialog->setOption(QFileDialog::DontUseNativeDialog);
     QString fileToConvertName = dialog->getOpenFileName(this, tr("Open File"), QDir::homePath());
 
