@@ -22,25 +22,6 @@ void EsiExtractor::createParser()
 
 void EsiExtractor::createEsi()
 {
-    this->parseInput();
+
 }
 
-QStringList EsiExtractor::getThermochemistry()
-{
-    return thermochemistry;
-}
-
-QStringList EsiExtractor::getHarmonicFrequencies()
-{
-    return harmonicFrequencies;
-}
-
-QStringList EsiExtractor::getStandardCoordinates()
-{
-    return standardCoordinates;
-}
-
-QString EsiExtractor::getHartreeFockEnergy()
-{
-    return hartreeFockEnergy;
-}

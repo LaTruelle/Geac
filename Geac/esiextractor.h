@@ -20,11 +20,6 @@ public:
     EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
 
-    QStringList getThermochemistry();
-    QStringList getHarmonicFrequencies();
-    QStringList getStandardCoordinates();
-    QString getHartreeFockEnergy();
-
 private:
     void createParser();
     void createEsi();
@@ -32,10 +27,6 @@ private:
     LogParser parser;
     QFile *inputFile;
     QFile *outputFile;
-    QStringList thermochemistry;
-    QStringList harmonicFrequencies;
-    QStringList standardCoordinates;
-    QString hartreeFockEnergy;
 };
 
 #endif // ESIEXTRACTOR_H
