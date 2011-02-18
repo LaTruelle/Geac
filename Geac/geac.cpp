@@ -11,6 +11,11 @@ Geac::Geac(QWidget *parent) :
     ui.setupUi(this);
 }
 
+void Geac::setupFileDisplayer()
+{
+    ui.fileDisplayer->setModel(&fileDisplayerModel);
+}
+
 void Geac::on_actionOpen_File_triggered()
 {
     // Open File Dialog to select File --> With filters (or without)

@@ -28,7 +28,7 @@ void LogParser::parse()
         if (line.contains("Gibbs")){
             // Zou, Four next lines in thermochemistry
         }
-        if (line.contains("\HF=")){
+        if (line.contains("HF")){
             //Hartree Fock
         }
     }

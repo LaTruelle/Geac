@@ -14,12 +14,14 @@ SOURCES += main.cpp\
         geac.cpp \
     esiextractor.cpp \
     checkfiledialog.cpp \
-    logparser.cpp
+    logparser.cpp \
+    filemanager.cpp
 
 HEADERS  += geac.h \
     esiextractor.h \
     checkfiledialog.h \
-    logparser.h
+    logparser.h \
+    filemanager.h
 
 FORMS    += geac.ui
 

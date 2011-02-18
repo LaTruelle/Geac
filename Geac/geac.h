@@ -4,6 +4,7 @@
 #include "ui_geac.h"
 #include <QDir>
 #include <QFile>
+#include "filemanager.h"
 
 class Geac : public QMainWindow
 {
@@ -13,6 +14,9 @@ public:
     explicit Geac(QWidget *parent = 0);
 
 private:
+    void setupFileDisplayer();
+
+    FileManager fileDisplayerModel;
     Ui::Geac ui;
     QDir baseFolder;
     QFile fileToConvert;
