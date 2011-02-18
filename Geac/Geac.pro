@@ -23,4 +23,5 @@ HEADERS  += geac.h \
 
 FORMS    += geac.ui
 
-TRANSLATIONS += geac_fr.ts
+TRANSLATIONS += geac_fr.ts \
+                geac_en.ts

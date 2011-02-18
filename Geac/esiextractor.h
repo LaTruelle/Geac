@@ -19,7 +19,7 @@ class EsiExtractor
 public:
     EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
-    void createEsi();
+
     QStringList getThermochemistry();
     QStringList getHarmonicFrequencies();
     QStringList getStandardCoordinates();
@@ -27,7 +27,7 @@ public:
 
 private:
     void createParser();
-    void parseInput();
+    void createEsi();
 
     LogParser parser;
     QFile *inputFile;

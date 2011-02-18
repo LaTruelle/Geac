@@ -25,11 +25,6 @@ void EsiExtractor::createEsi()
     this->parseInput();
 }
 
-void EsiExtractor::parseInput()
-{
-
-}
-
 QStringList EsiExtractor::getThermochemistry()
 {
     return thermochemistry;
