@@ -17,7 +17,7 @@ This class extracts all necessary elements from a given file to build an ESI.
 class EsiExtractor
 {
 public:
-    EsiExtractor(QFile &inputFile, QFile &ESI);
+    EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
     void createEsi();
     QStringList getThermochemistry();
@@ -28,7 +28,10 @@ public:
 private:
     void createParser();
     void parseInput();
-    QFile outputFile;
+
+    LogParser parser;
+    QFile *inputFile;
+    QFile *outputFile;
     QStringList thermochemistry;
     QStringList harmonicFrequencies;
     QStringList standardCoordinates;

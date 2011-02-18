@@ -6,7 +6,9 @@
 class LogParser
 {
 public:
+    LogParser();
     LogParser(QFile &file);
+    void setFileToParse(QFile &file);
 
 private:
     QFile *fileToParse;
