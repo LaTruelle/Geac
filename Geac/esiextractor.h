@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QString>
 #include <QStringList>
+#include "logparser.h"
 
 /*
 This class extracts all necessary elements from a given file to build an ESI.
@@ -25,6 +26,7 @@ public:
     QString getHartreeFockEnergy();
 
 private:
+    void createParser();
     void parseInput();
     QFile outputFile;
     QStringList thermochemistry;

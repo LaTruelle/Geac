@@ -13,11 +13,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         geac.cpp \
     esiextractor.cpp \
-    checkfiledialog.cpp
+    checkfiledialog.cpp \
+    logparser.cpp
 
 HEADERS  += geac.h \
     esiextractor.h \
-    checkfiledialog.h
+    checkfiledialog.h \
+    logparser.h
 
 FORMS    += geac.ui
 

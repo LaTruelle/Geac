@@ -10,6 +10,11 @@ EsiExtractor::EsiExtractor(QFile &inputFile)
     outputFile.fileName() = inputFile.fileName();
 }
 
+void EsiExtractor::createParser()
+{
+
+}
+
 void EsiExtractor::createEsi()
 {
     this->parseInput();
