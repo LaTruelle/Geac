@@ -7,6 +7,16 @@ CheckableFile::CheckableFile(QObject *parent) :
     toConvert = true;
 }
 
+bool CheckableFile::getConversionRequired()
+{
+    return toConvert;
+}
+
+bool CheckableFile::getConversionState()
+{
+    return converted;
+}
+
 void CheckableFile::setConversionState(bool boolean)
 {
     converted = boolean;

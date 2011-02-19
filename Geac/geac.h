@@ -15,6 +15,7 @@ public:
 
 private:
     void setupFileDisplayer();
+    void display(QString string);
 
     FileManager fileDisplayerModel;
     Ui::Geac ui;

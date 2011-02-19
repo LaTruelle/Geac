@@ -14,12 +14,15 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
 void Geac::setupFileDisplayer()
 {
     ui.fileDisplayer->setModel(&fileDisplayerModel);
-    ui.fileDisplayer->setAlternatingRowColors(true);
-    ui.fileDisplayer->adjustSize();
-    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-52);
-    ui.fileDisplayer->setColumnWidth(1,25);
-    ui.fileDisplayer->setColumnWidth(2,25);
-    ui.fileDisplayer->setCornerButtonEnabled(false);
+    ui.fileDisplayer->verticalHeader()->hide();
+    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-2*ui.fileDisplayer->horizontalHeader()->height()-2);
+    ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
+}
+
+void Geac::display(QString string)
+{
+    ui.textDisplay->setText(string);;
 }
 
 void Geac::on_actionOpen_File_triggered()
@@ -34,6 +37,7 @@ void Geac::on_actionOpen_File_triggered()
     CheckableFile *file = new CheckableFile(this);
     file->setFileName(fileToConvertName);
     fileDisplayerModel.addFile(file);
+    display(fileToConvertName);
 }
 
 void Geac::on_actionOpen_Folder_triggered()

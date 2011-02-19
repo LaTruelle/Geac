@@ -9,11 +9,9 @@ FileManager::FileManager(QObject *parent) :
 
 void FileManager::addFile(CheckableFile *file)
 {
+    beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
     listOfFiles.append(file);
-    QModelIndex index = createIndex(listOfFiles.count(file),listOfFiles.count(file));
-    emit dataChanged(index,index);
-//    std::cout << "Added File : " << file->fileName().toStdString() << " at index : "
-//              << listOfFiles.count(file) << std::endl;
+    endInsertRows();
 }
 
 int FileManager::rowCount(const QModelIndex & /* parent */ ) const
@@ -30,16 +28,27 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
-    // To check and modify. Advantage of this method : no compilation error or warning.
-    if (role == Qt::TextAlignmentRole)
+    else if (role == Qt::TextAlignmentRole)
         return QVariant();
-    else
-        return QVariant();
+    else if (role == Qt::DisplayRole)
+    {
+        switch (index.column()){
+        case 0:
+            return listOfFiles.at(index.row())->fileName();
+            // to modify according to http://www.qtcentre.org/threads/29550-How-do-I-display-a-picture-on-a-QTableView-cell
+            // in order to display ticks or colors instead of "true" or "false"
+        case 1:
+            return listOfFiles.at(index.row())->getConversionRequired();
+        case 2:
+            return listOfFiles.at(index.row())->getConversionState();
+        }
+    }
+    return QVariant();
 }
 
-QVariant FileManager::headerData(int section, Qt::Orientation /*orientation*/, int role) const
+QVariant FileManager::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (role==Qt::DisplayRole)
+    if (role==Qt::DisplayRole && orientation==Qt::Horizontal)
         return header[section];
     else
         return QVariant();

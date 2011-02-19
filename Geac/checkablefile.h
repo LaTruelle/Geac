@@ -10,6 +10,8 @@ public:
     explicit CheckableFile(QObject *parent);
     void setConversionState(bool boolean);
     void setConversionRequired(bool boolean);
+    bool getConversionState();
+    bool getConversionRequired();
 
 private:
     bool converted;
