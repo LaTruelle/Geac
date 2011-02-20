@@ -1,35 +1,34 @@
 #include "checkfiledialog.h"
+#include <QGridLayout>
 #include <QDialogButtonBox>
-#include <QBoxLayout>
 #include <iostream>
 
 // http://www.qtforum.org/article/20841/how-to-add-a-qwidget-in-qfiledialog.html
 
-CheckFileDialog::CheckFileDialog(QWidget *parent) : QFileDialog(parent), recursive(0)
+CheckFileDialog::CheckFileDialog() : QFileDialog()
 {
-    QGridLayout *mainLayout = dynamic_cast<QGridLayout*>(layout());
+    std::cout << "Constructing Checkfiledialog" << std::endl;
+    QGridLayout *mainLayout = dynamic_cast<QGridLayout*>(this->layout());
+    std::cout << "mainLayout item number : " << mainLayout->count() << std::endl;
 
     if(!mainLayout){
         assert(0);
     }
     else{
-        QHBoxLayout *hbl = new QHBoxLayout();
-        recursive = new QCheckBox(parent);
+        std::cout << "lastRow Height: " << mainLayout->rowMinimumHeight(mainLayout->rowCount()) << std::endl;
+        std::cout << "Entered layout creation" << std::endl;
+        QGridLayout *hbl = new QGridLayout();
+        hbl->setRowMinimumHeight(1,50);
+        std::cout << "QHBoxLayout created" << std::endl;
+        recursive = new QCheckBox("Checkbox",this);
+        std::cout << "QCheckbox created" << std::endl;
         hbl->addWidget(recursive);
+        std::cout << "Added Checkbox to HBoxLayout" << std::endl;
         int numRow = mainLayout->rowCount();
-        mainLayout->addLayout(hbl, numRow, 0, 1, -1);
+        std::cout << "numRow counted: " << numRow << std::endl;
+        mainLayout->addLayout(hbl,numRow, 0, 50, 50);
+        std::cout << "mainLayout item number : " << mainLayout->count() << std::endl;
+        std::cout << "hbl added to mainLayout : " << mainLayout->rowCount() << std::endl;
+        std::cout << "lastRow Height : " << mainLayout->rowMinimumHeight(mainLayout->rowCount()) << std::endl;
     }
-}
-
-/*
-void CheckFileDialog::addCheckBoxIn()
-{
-    QDialogButtonBox *box = qFindChild<QDialogButtonBox*>(this);
-    Q_ASSERT(box);
-    QBoxLayout *l = qFindChild<QBoxLayout*>(box);
-    Q_ASSERT(l);
-    QCheckBox *toProj = new QCheckBox("To Project:", box);
-    toProj->setChecked(true);
-    l->insertWidget(0, toProj);
-}
-*/
+ }

@@ -2,8 +2,6 @@
 #include <QFileDialog>
 #include <iostream>
 #include "checkfiledialog.h"
-#include <QCheckBox>
-#include <QGridLayout>
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -28,12 +26,9 @@ void Geac::display(QString string)
 void Geac::on_actionOpen_File_triggered()
 {
     // Open File Dialog to select File --> With filters (or without)
-    QFileDialog box;
-    QCheckBox *recursive = new QCheckBox(&box);
-    recursive->setChecked(true);
-    QGridLayout *layout = (QGridLayout*)box.layout();
-    layout->addWidget(recursive,0,0);
-    QString fileToConvertName = box.getOpenFileName(this, tr("Open File"), QDir::homePath());
+    // QString fileToConvertName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath());
+    CheckFileDialog *dialog = new CheckFileDialog();
+    QString fileToConvertName = dialog->getOpenFileName(this, tr("Open File"), QDir::homePath());
     CheckableFile *file = new CheckableFile(this);
     file->setFileName(fileToConvertName);
     fileDisplayerModel.addFile(file);
