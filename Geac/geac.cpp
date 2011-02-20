@@ -28,7 +28,9 @@ void Geac::on_actionOpen_File_triggered()
     // Open File Dialog to select File --> With filters (or without)
     // QString fileToConvertName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath());
     CheckFileDialog *dialog = new CheckFileDialog();
-    QString fileToConvertName = dialog->getOpenFileName(this, tr("Open File"), QDir::homePath());
+    dialog->setOption(QFileDialog::DontUseNativeDialog);
+    dialog->exec();
+    QString fileToConvertName = dialog->selectedFiles().first();
     CheckableFile *file = new CheckableFile(this);
     file->setFileName(fileToConvertName);
     fileDisplayerModel.addFile(file);
