@@ -7,27 +7,21 @@
 
 CheckFileDialog::CheckFileDialog() : QFileDialog()
 {
-    std::cout << "Constructing Checkfiledialog" << std::endl;
+    this->setOptions(QFileDialog::DontUseNativeDialog);
+    // Retrieve Layout of QFileDialog
     QGridLayout *mainLayout = dynamic_cast<QGridLayout*>(this->layout());
-    std::cout << "mainLayout item number : " << mainLayout->count() << std::endl;
-
     if(!mainLayout){
         assert(0);
     }
     else{
-        std::cout << "lastRow Height: " << mainLayout->rowMinimumHeight(mainLayout->rowCount()) << std::endl;
-        std::cout << "Entered layout creation" << std::endl;
+        // Create custom QGridLayout to add our own widgets
         QGridLayout *hbl = new QGridLayout();
-        std::cout << "QHBoxLayout created" << std::endl;
+        // Create checkbox
         recursive = new QCheckBox("Checkbox",this);
-        std::cout << "QCheckbox created" << std::endl;
+        // Add checkbox to the layout
         hbl->addWidget(recursive);
-        std::cout << "Added Checkbox to HBoxLayout" << std::endl;
+        // Add QGridLayout at the bottom of the main layout
         int numRow = mainLayout->rowCount();
-        std::cout << "numRow counted: " << numRow << std::endl;
         mainLayout->addLayout(hbl,numRow, 0);
-        std::cout << "mainLayout item number : " << mainLayout->count() << std::endl;
-        std::cout << "hbl added to mainLayout : " << mainLayout->rowCount() << std::endl;
-        std::cout << "lastRow Height : " << mainLayout->rowMinimumHeight(mainLayout->rowCount()) << std::endl;
     }
  }

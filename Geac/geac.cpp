@@ -13,6 +13,8 @@ void Geac::setupFileDisplayer()
 {
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->verticalHeader()->hide();
+    ui.fileDisplayer->setAlternatingRowColors(true);
+    ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
     ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-2*ui.fileDisplayer->horizontalHeader()->height()-2);
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height());
     ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
@@ -20,21 +22,24 @@ void Geac::setupFileDisplayer()
 
 void Geac::display(QString string)
 {
-    ui.textDisplay->setText(string);;
+    ui.textDisplay->setPlainText(string);
 }
 
 void Geac::on_actionOpen_File_triggered()
 {
     // Open File Dialog to select File --> With filters (or without)
-    // QString fileToConvertName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath());
+    // Create CheckFileDialog to retrieve files wanted, with checkboxes to get options
+    //      -> recursive
+    //      ->
     CheckFileDialog *dialog = new CheckFileDialog();
-    dialog->setOption(QFileDialog::DontUseNativeDialog);
+    dialog->setDirectory(QDir::homePath());
     dialog->exec();
     QString fileToConvertName = dialog->selectedFiles().first();
     CheckableFile *file = new CheckableFile(this);
     file->setFileName(fileToConvertName);
     fileDisplayerModel.addFile(file);
     display(fileToConvertName);
+    delete dialog;
 }
 
 void Geac::on_actionOpen_Folder_triggered()
