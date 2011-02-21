@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QDialogButtonBox>
 #include <iostream>
+#include <assert.h>
 
 // http://www.qtforum.org/article/20841/how-to-add-a-qwidget-in-qfiledialog.html
 
