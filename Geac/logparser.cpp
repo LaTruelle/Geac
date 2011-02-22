@@ -2,7 +2,6 @@
 
 LogParser::LogParser()
 {
-
 }
 
 LogParser::LogParser(QFile &file)
@@ -23,7 +22,7 @@ void LogParser::parse()
             nAtoms = nAtoms.left(spacePos+1);
         }
         if (line.contains("Standard Coordinates")){
-            // Retrieve Standard Coordinaes thanks to NAtoms (treat case where NAtoms still undefined --> with ---- ?)
+            // Retrieve Standard Coordinates thanks to NAtoms (treat case where NAtoms still undefined --> with ---- ?)
         }
         if (line.contains("Gibbs")){
             // Zou, Four next lines in thermochemistry

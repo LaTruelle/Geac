@@ -19,11 +19,21 @@ class EsiExtractor
 public:
     EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
+    void setInputFile(QFile &inputFile);
+    void setOutputFile(QFile &outputFile);
+    void setRequiredFields(bool &thermochemistry,
+                           bool &harmonicFrequencies,
+                           bool &standardCoordinates,
+                           bool &hartreeFockEnergy);
 
 private:
     void createParser();
     void createEsi();
 
+    bool reqThermochemistry;
+    bool reqHarmonicFrequencies;
+    bool reqStandardCoordinates;
+    bool reqHartreeFock;
     LogParser parser;
     QFile *inputFile;
     QFile *outputFile;

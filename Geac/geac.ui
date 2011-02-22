@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>667</width>
+    <width>698</width>
     <height>543</height>
    </rect>
   </property>
@@ -32,16 +32,19 @@
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
-           <widget class="QRadioButton" name="radioButton">
+           <widget class="QRadioButton" name="Button_SameFolder">
             <property name="text">
              <string>In Same Folder</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QRadioButton" name="radioButton_2">
+           <widget class="QRadioButton" name="Button_DedicatedFolder">
             <property name="text">
              <string>In Dedicated Folder</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -53,7 +56,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="folderToSave">
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -71,14 +74,14 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="esiExtension">
             <property name="text">
              <string>_ESI.txt</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="label_4">
+           <widget class="QLabel" name="fileExtensionlabel">
             <property name="text">
              <string>ESI File Extension</string>
             </property>
@@ -102,14 +105,14 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="harmonicFrequencies">
             <property name="text">
              <string>Harmonic Frequencies</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QCheckBox" name="checkBox_3">
+           <widget class="QCheckBox" name="hartreeFock">
             <property name="text">
              <string>Hartree Fock Energy</string>
             </property>
@@ -123,14 +126,14 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="thermochemistry">
             <property name="text">
              <string>Thermochemistry</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QCheckBox" name="checkBox_4">
+           <widget class="QCheckBox" name="standardCoordinates">
             <property name="text">
              <string>Standard Coordinates</string>
             </property>
@@ -141,7 +144,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="clearFiles">
             <property name="text">
              <string>Clear Files</string>
             </property>
@@ -161,7 +164,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="createEsi">
             <property name="text">
              <string>Create ESI</string>
             </property>
@@ -183,7 +186,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>667</width>
+     <width>698</width>
      <height>22</height>
     </rect>
    </property>

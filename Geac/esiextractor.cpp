@@ -22,6 +22,26 @@ void EsiExtractor::createParser()
 
 void EsiExtractor::createEsi()
 {
-
+    parser.parse();
 }
 
+void EsiExtractor::setInputFile(QFile &inputFile)
+{
+    EsiExtractor::inputFile = &inputFile;
+}
+
+void EsiExtractor::setOutputFile(QFile &outputFile)
+{
+    EsiExtractor::outputFile = &outputFile;
+}
+
+void EsiExtractor::setRequiredFields(bool &thermochemistry,
+                                     bool &harmonicFrequencies,
+                                     bool &standardCoordinates,
+                                     bool &hartreeFockEnergy)
+{
+    reqThermochemistry = thermochemistry;
+    reqHarmonicFrequencies = harmonicFrequencies;
+    reqStandardCoordinates = standardCoordinates;
+    reqHartreeFock = hartreeFockEnergy;
+}
