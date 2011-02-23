@@ -207,7 +207,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen_File">
    <property name="text">
     <string>&amp;Open File...</string>

@@ -4,7 +4,7 @@
 FileManager::FileManager(QObject *parent) :
     QAbstractTableModel(parent)
 {
-    header << "File Names" << "a" << "h";
+    header << "File Names" << "a" << "b" << "c";
 }
 
 void FileManager::addFile(CheckableFile *file)
@@ -12,6 +12,13 @@ void FileManager::addFile(CheckableFile *file)
     beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
     listOfFiles.append(file);
     endInsertRows();
+}
+
+void FileManager::clearFiles()
+{
+    beginRemoveRows(index(listOfFiles.count(),0),0,listOfFiles.count()-1);
+    listOfFiles.clear();
+    endRemoveRows();
 }
 
 int FileManager::rowCount(const QModelIndex & /* parent */ ) const
@@ -41,6 +48,8 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
             return listOfFiles.at(index.row())->getConversionRequired();
         case 2:
             return listOfFiles.at(index.row())->getConversionState();
+        case 3:
+            return "X";
         }
     }
     return QVariant();

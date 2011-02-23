@@ -6,6 +6,8 @@
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
+    ui.fileDisplayer->setModel(&fileDisplayerModel);
+    ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
     reqHarmonicFrequencies = false;     // Default for the moment. To be updated, according to stored preferences.
     reqHartreeFock = false;
@@ -15,13 +17,13 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
 
 void Geac::setupFileDisplayer()
 {
-    ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
-    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-2*ui.fileDisplayer->horizontalHeader()->height()-2);
+    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-3*ui.fileDisplayer->horizontalHeader()->height()-3);
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height());
     ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
 }
 
 void Geac::display(QString string)
@@ -94,4 +96,9 @@ void Geac::on_toolButton_clicked()
                                                         QDir::homePath(), QFileDialog::ShowDirsOnly)
                       );
     ui.folderToSave->setText(esiFolder.dirName());
+}
+
+void Geac::on_clearFiles_clicked()
+{
+    this->fileDisplayerModel.clearFiles();
 }

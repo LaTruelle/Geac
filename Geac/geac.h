@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include "filemanager.h"
+#include "filemanagerdelegate.h"
 
 class Geac : public QMainWindow
 {
@@ -23,6 +24,7 @@ private:
     bool reqHartreeFock;
 
     FileManager fileDisplayerModel;
+    FileManagerDelegate fileDisplayerDelegate;
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;
@@ -30,6 +32,7 @@ private:
     QFile convertedFile;
 
 private slots:
+    void on_clearFiles_clicked();
     void on_toolButton_clicked();
     void on_standardCoordinates_stateChanged(int );
     void on_hartreeFock_stateChanged(int );
