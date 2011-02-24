@@ -112,7 +112,7 @@
            </widget>
           </item>
           <item row="0" column="0" colspan="2">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="dataToIncludeTitle">
             <property name="text">
              <string>Data to Include</string>
             </property>
@@ -180,7 +180,7 @@
      <x>0</x>
      <y>0</y>
      <width>711</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
@@ -191,14 +191,6 @@
     <addaction name="actionOpen_Folder"/>
    </widget>
    <addaction name="FileMenu"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <action name="actionOpen_File">
    <property name="text">

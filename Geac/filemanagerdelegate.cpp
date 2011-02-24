@@ -1,4 +1,5 @@
 #include "filemanagerdelegate.h"
+#include <iostream>
 
 FileManagerDelegate::FileManagerDelegate(QObject *parent) :
     QStyledItemDelegate(parent)
@@ -24,20 +25,3 @@ void FileManagerDelegate::updateEditorGeometry(QWidget *editor,
     editor->setGeometry(option.rect); // Switch case on index ? To test...
 }
 
-QSize FileManagerDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    // Gives sizeHint according to columns.
-    switch(index.column())
-    {
-    case 0:
-        return QSize(150,30);
-    case 1:
-        return QSize(30,30);
-    case 2:
-        return QSize(30,30);
-    case 3:
-        return QSize(30,30);
-    default:
-        return QSize();
-    }
-}
