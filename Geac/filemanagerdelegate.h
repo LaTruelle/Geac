@@ -2,6 +2,7 @@
 #define FILEMANAGERDELEGATE_H
 
 #include <QStyledItemDelegate>
+#include <QSize>
 
 class FileManagerDelegate : public QStyledItemDelegate
 {
@@ -11,6 +12,7 @@ public:
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 signals:
 

@@ -8,7 +8,7 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.setupUi(this);
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
-    setupFileDisplayer();
+    ui.fileDisplayer->horizontalHeader()->resizeSections(QHeaderView::Custom);
     reqHarmonicFrequencies = false;     // Default for the moment. To be updated, according to stored preferences.
     reqHartreeFock = false;
     reqStandardCoordinates = false;
@@ -20,10 +20,10 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
-    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-3*ui.fileDisplayer->horizontalHeader()->height()-3);
-    ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
+//    ui.fileDisplayer->setColumnWidth(0,ui.fileDisplayer->width()-3*ui.fileDisplayer->horizontalHeader()->height()-3);
+//    ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height());
+//    ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
+//    ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
 }
 
 void Geac::display(QString string)

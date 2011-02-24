@@ -16,9 +16,12 @@ void FileManager::addFile(CheckableFile *file)
 
 void FileManager::clearFiles()
 {
-    beginRemoveRows(index(listOfFiles.count(),0),0,listOfFiles.count()-1);
-    listOfFiles.clear();
-    endRemoveRows();
+    if(!listOfFiles.isEmpty())
+    {
+        beginRemoveRows(index(listOfFiles.count(),0),0,listOfFiles.count()-1);
+        listOfFiles.clear();
+        endRemoveRows();
+    }
 }
 
 int FileManager::rowCount(const QModelIndex & /* parent */ ) const
