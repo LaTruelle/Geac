@@ -22,9 +22,13 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
     ui.fileDisplayer->horizontalHeader()->setResizeMode(0,QHeaderView::Stretch);        // As big as possible
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height()); // Squares at the end of the table
+    ui.fileDisplayer->horizontalHeader()->setResizeMode(1,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->horizontalHeader()->setResizeMode(2,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->horizontalHeader()->setResizeMode(3,QHeaderView::Fixed);
 
+    ui.fileDisplayer->horizontalHeader()->setClickable(false);
     ui.fileDisplayer->setShowGrid(false);
 }
 

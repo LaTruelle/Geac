@@ -166,7 +166,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="textDisplay"/>
+         <widget class="QTextEdit" name="textDisplay"/>
         </item>
        </layout>
       </item>
