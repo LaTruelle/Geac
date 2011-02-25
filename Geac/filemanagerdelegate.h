@@ -9,9 +9,7 @@ class FileManagerDelegate : public QStyledItemDelegate
     Q_OBJECT
 public:
     explicit FileManagerDelegate(QObject *parent = 0);
-    void setEditorData(QWidget *editor, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 signals:
 
