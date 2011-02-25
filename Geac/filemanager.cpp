@@ -4,7 +4,7 @@
 FileManager::FileManager(QObject *parent) :
     QAbstractTableModel(parent)
 {
-    header << "File Names" << "a" << "b" << "c";
+    header << "File Names" << " " << " " << " ";
 }
 
 void FileManager::addFile(CheckableFile *file)
