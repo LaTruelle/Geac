@@ -31,3 +31,6 @@ FORMS    += geac.ui
 
 TRANSLATIONS += geac_fr.ts \
                 geac_en.ts
+
+RESOURCES += \
+    images.qrc
