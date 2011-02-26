@@ -21,8 +21,12 @@ void LogParser::parse()
             int spacePos = nAtoms.indexOf(" ");
             nAtoms = nAtoms.left(spacePos+1);
         }
-        if (line.contains("Standard Coordinates")){
-            // Retrieve Standard Coordinates thanks to NAtoms (treat case where NAtoms still undefined --> with ---- ?)
+        if (line.contains("Standard orientation")){
+            standardCoordinates.clear(); // We empty the list from previous coordinates
+            for(int ctr = 1; ctr<= nAtoms.toInt()+6; ctr++)
+            {
+                standardCoordinates.append(fileToParse->readLine());
+            }
         }
         if (line.contains("Gibbs")){
             // Zou, Four next lines in thermochemistry
