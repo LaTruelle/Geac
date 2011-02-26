@@ -59,8 +59,29 @@ void Geac::on_actionOpen_Folder_triggered()
     // Open File Dialog to select Folder
     //    --> With tick for subfolders and recursively fetching all files or no
     //    --> Ticks for files to convert --> out / log / out&log
-    baseFolder = QFileDialog::getExistingDirectory(this, tr("Open Folder"),
-                                                   QDir::homePath(), QFileDialog::ShowDirsOnly);
+    CheckFileDialog *dialog = new CheckFileDialog();
+    dialog->setDirectory(QDir::homePath());
+    dialog->setOption(QFileDialog::ShowDirsOnly, true);
+    dialog->setFileMode(QFileDialog::Directory);
+    dialog->exec();
+    baseFolder = dialog->selectedFiles().first();
+    if (dialog->getRecursivity())
+    {
+        // add All files in all subfolders of baseFolder
+    }
+    else
+    {
+        QStringList *filesNames = new QStringList(baseFolder.entryList(QDir::Files,QDir::Name));
+        int limit = filesNames->count();
+        for (int i=0; i<limit; i++)
+        {
+            CheckableFile *file = new CheckableFile(this);
+            file->setFileName(filesNames->takeFirst());
+            fileDisplayerModel.addFile(file);
+            display(file->fileName());
+        }
+    }
+    delete dialog;
 }
 
 void Geac::on_harmonicFrequencies_stateChanged(int state)

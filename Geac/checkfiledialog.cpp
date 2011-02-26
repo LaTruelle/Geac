@@ -16,11 +16,16 @@ CheckFileDialog::CheckFileDialog() : QFileDialog()
         // Create custom QGridLayout to add our own widgets
         QGridLayout *hbl = new QGridLayout();
         // Create checkbox
-        recursive = new QCheckBox("Checkbox",this);
+        recursive = new QCheckBox(tr("Search Subfolders"),this);
         // Add checkbox to the layout
         hbl->addWidget(recursive);
         // Add QGridLayout at the bottom of the main layout
         int numRow = mainLayout->rowCount();
         mainLayout->addLayout(hbl,numRow, 0);
     }
- }
+}
+
+bool CheckFileDialog::getRecursivity()
+{
+    return recursive->isChecked();
+}

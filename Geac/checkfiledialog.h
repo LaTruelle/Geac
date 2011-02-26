@@ -8,6 +8,7 @@ class CheckFileDialog : public QFileDialog
 {
 public:
     CheckFileDialog();
+    bool getRecursivity();
 
 private:
     QCheckBox *recursive;

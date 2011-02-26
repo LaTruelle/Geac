@@ -1,5 +1,10 @@
 #include "esiextractor.h"
 
+EsiExtractor::EsiExtractor()
+{
+    this->createParser();
+}
+
 EsiExtractor::EsiExtractor(QFile &inputFile)
 {
     EsiExtractor::inputFile = &inputFile;

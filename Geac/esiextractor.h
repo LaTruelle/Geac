@@ -17,6 +17,7 @@ This class extracts all necessary elements from a given file to build an ESI.
 class EsiExtractor
 {
 public:
+    EsiExtractor();
     EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
     void setInputFile(QFile &inputFile);
