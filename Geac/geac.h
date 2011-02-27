@@ -4,6 +4,7 @@
 #include "ui_geac.h"
 #include <QDir>
 #include <QFile>
+#include <QStringList>
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
 
@@ -17,6 +18,7 @@ public:
 private:
     void setupFileDisplayer();
     void display(QString string);
+    void addFilesFromList(QStringList fileNames);
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
@@ -30,6 +32,8 @@ private:
     QDir esiFolder;
     QFile fileToConvert;
     QFile convertedFile;
+
+    QStringList dirList;
 
 private slots:
     void on_clearFiles_clicked();

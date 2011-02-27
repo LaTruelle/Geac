@@ -1,5 +1,6 @@
 #include "geac.h"
 #include <QFileDialog>
+#include <QList>
 #include <iostream>
 #include "checkfiledialog.h"
 
@@ -44,13 +45,10 @@ void Geac::on_actionOpen_File_triggered()
     //      -> recursive
     //      ->
     CheckFileDialog *dialog = new CheckFileDialog();
+    dialog->setMultipleFilesMode();
     dialog->setDirectory(QDir::homePath());
     dialog->exec();
-    QString fileToConvertName = dialog->selectedFiles().first();
-    CheckableFile *file = new CheckableFile(this);
-    file->setFileName(fileToConvertName);
-    fileDisplayerModel.addFile(file);
-    display(fileToConvertName);
+    addFilesFromList(dialog->selectedFiles());
     delete dialog;
 }
 
@@ -60,28 +58,42 @@ void Geac::on_actionOpen_Folder_triggered()
     //    --> With tick for subfolders and recursively fetching all files or no
     //    --> Ticks for files to convert --> out / log / out&log
     CheckFileDialog *dialog = new CheckFileDialog();
+    dialog->setDirectoryMode();
     dialog->setDirectory(QDir::homePath());
-    dialog->setOption(QFileDialog::ShowDirsOnly, true);
-    dialog->setFileMode(QFileDialog::Directory);
     dialog->exec();
     baseFolder = dialog->selectedFiles().first();
+    QDir curDir = dialog->directory();
+    std::cout << curDir.absolutePath().toStdString() << std::endl;
     if (dialog->getRecursivity())
     {
-        // add All files in all subfolders of baseFolder
-    }
+        addFilesFromList(baseFolder.entryList(QDir::Files,QDir::Name));
+        dirList.append(baseFolder.entryList(QDir::AllDirs | QDir::NoDotAndDotDot));
+/*      USE QFILEINFO --> ENTRYINFOLIST
+        while (!dirList.isEmpty())
+        {
+            std::cout << curDir.absolutePath().toStdString() << std::endl;
+            addFilesFromList(curDir.entryList(QDir::Files,QDir::Name));
+            dirList.append(baseFolder.entryList(QDir::AllDirs | QDir::NoDotAndDotDot));
+        }
+  */  }
     else
     {
-        QStringList *filesNames = new QStringList(baseFolder.entryList(QDir::Files,QDir::Name));
-        int limit = filesNames->count();
-        for (int i=0; i<limit; i++)
-        {
-            CheckableFile *file = new CheckableFile(this);
-            file->setFileName(filesNames->takeFirst());
-            fileDisplayerModel.addFile(file);
-            display(file->fileName());
-        }
+        addFilesFromList(baseFolder.entryList(QDir::Files,QDir::Name));
     }
     delete dialog;
+}
+
+void::Geac::addFilesFromList(QStringList fileNames)
+{
+    // Retrieve files in the list and add them to model
+    int limit = fileNames.count();
+    for (int i=0; i<limit; i++)
+    {
+        CheckableFile *file = new CheckableFile(this);
+        file->setFileName(fileNames.takeFirst());
+        fileDisplayerModel.addFile(file);
+        display(file->fileName());
+    }
 }
 
 void Geac::on_harmonicFrequencies_stateChanged(int state)
