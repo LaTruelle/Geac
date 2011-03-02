@@ -1,6 +1,5 @@
 #include "geac.h"
 #include <QFileDialog>
-#include <QList>
 #include <iostream>
 #include "checkfiledialog.h"
 
@@ -48,7 +47,12 @@ void Geac::on_actionOpen_File_triggered()
     dialog->setMultipleFilesMode();
     dialog->setDirectory(QDir::homePath());
     dialog->exec();
-    addFilesFromList(dialog->selectedFiles());
+    QFileInfoList fileList;
+    for(int i=0; i<dialog->selectedFiles().count(); i++)
+    {
+        fileList.append(QFileInfo(dialog->selectedFiles().at(i)));
+    }
+    addFilesFromList(fileList);
     delete dialog;
 }
 
@@ -62,35 +66,53 @@ void Geac::on_actionOpen_Folder_triggered()
     dialog->setDirectory(QDir::homePath());
     dialog->exec();
     baseFolder = dialog->selectedFiles().first();
-    QDir curDir = dialog->directory();
-    std::cout << curDir.absolutePath().toStdString() << std::endl;
     if (dialog->getRecursivity())
     {
-        addFilesFromList(baseFolder.entryList(QDir::Files,QDir::Name));
-        dirList.append(baseFolder.entryList(QDir::AllDirs | QDir::NoDotAndDotDot));
-/*      USE QFILEINFO --> ENTRYINFOLIST
+        addFilesFromList(baseFolder.entryInfoList(QDir::Files,QDir::Name));
+        std::cout
+                << "first file added : "
+                << baseFolder.entryInfoList(QDir::Files,QDir::Name).first().absoluteFilePath().toStdString()
+                << std::endl;
+        QFileInfoList list(baseFolder.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
+        for(int i=0; i<list.count(); i++)
+        {
+            std::cout << dirList.join(" // ").toStdString() << std::endl;
+            dirList.append(list.at(i).absolutePath()); // Problem : adds n times the current folder, not its subfolders
+        }
+        std::cout << dirList.join(" | ").toStdString() << std::endl;
+        list.clear();
+        /*
         while (!dirList.isEmpty())
         {
-            std::cout << curDir.absolutePath().toStdString() << std::endl;
-            addFilesFromList(curDir.entryList(QDir::Files,QDir::Name));
-            dirList.append(baseFolder.entryList(QDir::AllDirs | QDir::NoDotAndDotDot));
+            std::cout << dirList.join(" | ").toStdString() << std::endl;
+            QDir *dir = new QDir(dirList.takeFirst());
+            std::cout << "directory used : " << dir->absolutePath().toStdString() << std::endl;
+            addFilesFromList(dir->entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
+            list.append(dir->entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
+            for(int i=0; i<list.count(); i++)
+            {
+                std::cout << "directory added : " << list.at(i).absolutePath().toStdString() << std::endl;
+                dirList.append(list.at(i).absolutePath()); // To change here as well
+            }
+            list.clear();
         }
-  */  }
+        */
+    }
     else
     {
-        addFilesFromList(baseFolder.entryList(QDir::Files,QDir::Name));
+        addFilesFromList(baseFolder.entryInfoList(QDir::Files,QDir::Name));
     }
     delete dialog;
 }
 
-void::Geac::addFilesFromList(QStringList fileNames)
+void::Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
     int limit = fileNames.count();
     for (int i=0; i<limit; i++)
     {
         CheckableFile *file = new CheckableFile(this);
-        file->setFileName(fileNames.takeFirst());
+        file->setFileName(fileNames.takeFirst().absoluteFilePath());
         fileDisplayerModel.addFile(file);
         display(file->fileName());
     }
@@ -111,7 +133,6 @@ void Geac::on_thermochemistry_stateChanged(int state)
     else
         reqThermochemistry = true;
 }
-
 
 void Geac::on_hartreeFock_stateChanged(int state)
 {

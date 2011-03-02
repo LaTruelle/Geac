@@ -4,7 +4,7 @@
 #include "ui_geac.h"
 #include <QDir>
 #include <QFile>
-#include <QStringList>
+#include <QFileInfoList>
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
 
@@ -18,7 +18,7 @@ public:
 private:
     void setupFileDisplayer();
     void display(QString string);
-    void addFilesFromList(QStringList fileNames);
+    void addFilesFromList(QFileInfoList fileNames);
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
