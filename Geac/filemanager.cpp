@@ -29,6 +29,11 @@ int FileManager::rowCount(const QModelIndex & /* parent */ ) const
     return listOfFiles.count();
 }
 
+int FileManager::rowCount()
+{
+    return listOfFiles.count();
+}
+
 int FileManager::columnCount(const QModelIndex & /* parent */ ) const
 {
     return header.count();

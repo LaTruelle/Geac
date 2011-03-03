@@ -77,11 +77,10 @@ void Geac::on_actionOpen_Folder_triggered()
         for(int i=0; i<list.count(); i++)
         {
             std::cout << dirList.join(" // ").toStdString() << std::endl;
-            dirList.append(list.at(i).absolutePath()); // Problem : adds n times the current folder, not its subfolders
+            dirList.append(list.at(i).absoluteFilePath());
         }
         std::cout << dirList.join(" | ").toStdString() << std::endl;
         list.clear();
-        /*
         while (!dirList.isEmpty())
         {
             std::cout << dirList.join(" | ").toStdString() << std::endl;
@@ -92,11 +91,10 @@ void Geac::on_actionOpen_Folder_triggered()
             for(int i=0; i<list.count(); i++)
             {
                 std::cout << "directory added : " << list.at(i).absolutePath().toStdString() << std::endl;
-                dirList.append(list.at(i).absolutePath()); // To change here as well
+                dirList.append(list.at(i).absoluteFilePath());
             }
             list.clear();
         }
-        */
     }
     else
     {
@@ -161,4 +159,16 @@ void Geac::on_toolButton_clicked()
 void Geac::on_clearFiles_clicked()
 {
     this->fileDisplayerModel.clearFiles();
+}
+
+void Geac::on_createEsi_clicked()
+{
+    esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
+    for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+    {
+        QFile file("test");
+        esiExtractor.setInputFile(file);
+        esiExtractor.setOutputFile(file);
+        esiExtractor.createEsi();
+    }
 }

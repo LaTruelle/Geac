@@ -7,6 +7,7 @@
 #include <QFileInfoList>
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
+#include "esiextractor.h"
 
 class Geac : public QMainWindow
 {
@@ -25,6 +26,7 @@ private:
     bool reqStandardCoordinates;
     bool reqHartreeFock;
 
+    EsiExtractor esiExtractor;
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
     Ui::Geac ui;
@@ -36,6 +38,7 @@ private:
     QStringList dirList;
 
 private slots:
+    void on_createEsi_clicked();
     void on_clearFiles_clicked();
     void on_toolButton_clicked();
     void on_standardCoordinates_stateChanged(int );

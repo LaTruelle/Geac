@@ -26,10 +26,10 @@ public:
                            bool &harmonicFrequencies,
                            bool &standardCoordinates,
                            bool &hartreeFockEnergy);
+    void createEsi();
 
 private:
     void createParser();
-    void createEsi();
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
