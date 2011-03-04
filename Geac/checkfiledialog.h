@@ -14,6 +14,9 @@ public:
 
 private:
     QCheckBox *recursive;
+    QCheckBox *out;
+    QCheckBox *log;
+    QCheckBox *outAndLog;
     QStringList filters;
 };
 

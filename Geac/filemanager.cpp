@@ -1,5 +1,6 @@
 #include "filemanager.h"
 #include <iostream>
+#include <QDir>
 
 FileManager::FileManager(QObject *parent) :
     QAbstractTableModel(parent)
@@ -49,7 +50,11 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
     {
         switch (index.column()){
         case 0:
-            return listOfFiles.at(index.row())->fileName();
+            {
+                QString name = listOfFiles.at(index.row())->fileName();
+                name.remove(0,name.lastIndexOf(QDir::separator())+1); // Returns name of file, without its path
+                return name;
+            }
             // to modify according to http://www.qtcentre.org/threads/29550-How-do-I-display-a-picture-on-a-QTableView-cell
             // in order to display ticks or colors instead of "true" or "false"
         case 1:

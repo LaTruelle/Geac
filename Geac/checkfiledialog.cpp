@@ -37,10 +37,16 @@ void CheckFileDialog::setDirectoryMode()
     else{
         // Create custom QGridLayout to add our own widgets
         QGridLayout *hbl = new QGridLayout();
-        // Create checkbox
+        // Create checkboxes
         recursive = new QCheckBox(tr("Search Subfolders"),this);
-        // Add checkbox to the layout
+        out = new QCheckBox(tr("Out Files Only"), this);
+        log = new QCheckBox(tr("Log Files Only"), this);
+        outAndLog = new QCheckBox(tr("Out and Log Files Only"), this);
+        // Add checkboxes to the layout
         hbl->addWidget(recursive);
+        hbl->addWidget(out);
+        hbl->addWidget(log);
+        hbl->addWidget(outAndLog);
         // Add QGridLayout at the bottom of the main layout
         int numRow = mainLayout->rowCount();
         mainLayout->addLayout(hbl,numRow, 0);
