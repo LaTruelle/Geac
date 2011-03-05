@@ -10,11 +10,11 @@ CheckFileDialog::CheckFileDialog() : QFileDialog()
             << tr("All Gaussian Output Files (*.out *.log)")
             << tr("Gaussian out files (*.out)")
             << tr("Gaussian log files (*.log)");
-    this->setNameFilters(filters);
 }
 
 void CheckFileDialog::setMultipleFilesMode()
 {
+    this->setNameFilters(filters);
     // Set Possibility of selecting multiple files
     this->setFileMode(QFileDialog::ExistingFiles);
 }
@@ -22,11 +22,10 @@ void CheckFileDialog::setMultipleFilesMode()
 void CheckFileDialog::setDirectoryMode()
 {
     // Set directory mode
-    this->setOption(QFileDialog::ShowDirsOnly, true);
     this->setFileMode(QFileDialog::Directory);
-
+    this->setOption(QFileDialog::ShowDirsOnly, true);
     //             ---------------------
-    // Add Checkbox at the bottom to select recursivity
+    // Add Checkbox at the bottom to select recursivity and filter files
     //             ---------------------
     this->setOptions(QFileDialog::DontUseNativeDialog);
     // Retrieve Layout of QFileDialog
@@ -45,8 +44,8 @@ void CheckFileDialog::setDirectoryMode()
         fileFilterBox->addItem(tr("Out and Log Files"));
         fileFilterBox->addItem(tr("All Files"));
         // Add checkboxes to the layout
-        hbl->addWidget(recursive);
         hbl->addWidget(fileFilterBox);
+        hbl->addWidget(recursive);
         // Add QGridLayout at the bottom of the main layout
         int numRow = mainLayout->rowCount();
         mainLayout->addLayout(hbl,numRow, 0);
