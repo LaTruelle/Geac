@@ -67,37 +67,49 @@ void Geac::on_actionOpen_Folder_triggered()
     if (dialog->exec())
     {
         baseFolder = dialog->selectedFiles().first();
+        // Set filters
+        QStringList filters;
+        switch (dialog->getFileFilter())
+        {
+        case CheckFileDialog::out:
+            filters << "*.out";
+            break;
+        case CheckFileDialog::log:
+            filters << "*.log";
+            break;
+        case CheckFileDialog::outAndLog:
+            filters << "*.out" << "*.log";
+            break;
+        default:
+            filters << "*.*";
+            break;
+        }
+        // If recursive Checked
         if (dialog->getRecursivity())
         {
+            // Add contents of baseFolder
             if (!baseFolder.entryList(QDir::Files).isEmpty())
             {
-                addFilesFromList(baseFolder.entryInfoList(QDir::Files,QDir::Name));
-                // std::cout
-                //         << "first file added : "
-                //         << baseFolder.entryInfoList(QDir::Files,QDir::Name).first().absoluteFilePath().toStdString()
-                //         << std::endl;
+                addFilesFromList(baseFolder.entryInfoList(filters, QDir::Files,QDir::Name));
             }
+            // Add all directories in baseFolder, initiating a list of folder to search
             QFileInfoList list(baseFolder.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
             for(int i=0; i<list.count(); i++)
             {
-                // std::cout << dirList.join(" // ").toStdString() << std::endl;
                 dirList.append(list.at(i).absoluteFilePath());
             }
-            // std::cout << dirList.join(" | ").toStdString() << std::endl;
             list.clear();
+            // Iterate on the list, adding files in first folder, and appending included folders to the list
             while (!dirList.isEmpty())
             {
-                // std::cout << dirList.join(" | ").toStdString() << std::endl;
                 QDir *dir = new QDir(dirList.takeFirst());
-                // std::cout << "directory used : " << dir->absolutePath().toStdString() << std::endl;
                 if (!dir->entryList(QDir::Files).isEmpty())
                 {
-                    addFilesFromList(dir->entryInfoList(QDir::Files | QDir::NoDotAndDotDot));
+                    addFilesFromList(dir->entryInfoList(filters, QDir::Files | QDir::NoDotAndDotDot));
                 }
                 list.append(dir->entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
                 for(int i=0; i<list.count(); i++)
                 {
-                    // std::cout << "directory added : " << list.at(i).absolutePath().toStdString() << std::endl;
                     dirList.append(list.at(i).absoluteFilePath());
                 }
                 list.clear();
@@ -105,7 +117,7 @@ void Geac::on_actionOpen_Folder_triggered()
         }
         else
         {
-            addFilesFromList(baseFolder.entryInfoList(QDir::Files,QDir::Name));
+            addFilesFromList(baseFolder.entryInfoList(filters, QDir::Files,QDir::Name));
         }
     }
     delete dialog;

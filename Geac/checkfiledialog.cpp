@@ -39,10 +39,10 @@ void CheckFileDialog::setDirectoryMode()
         // Create checkboxes
         recursive = new QCheckBox(tr("Search Subfolders"),this);
         fileFilterBox = new QComboBox(this);
+        fileFilterBox->addItem(tr("All Files"));
+        fileFilterBox->addItem(tr("Out and Log Files"));
         fileFilterBox->addItem(tr("Out Files Only"));
         fileFilterBox->addItem(tr("Log Files Only"));
-        fileFilterBox->addItem(tr("Out and Log Files"));
-        fileFilterBox->addItem(tr("All Files"));
         // Add checkboxes to the layout
         hbl->addWidget(fileFilterBox);
         hbl->addWidget(recursive);

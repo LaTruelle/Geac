@@ -9,9 +9,10 @@ class CheckFileDialog : public QFileDialog
 {
 public:
     enum fileFilter{
+        all,
+        outAndLog,
         out,
-        log,
-        outAndLog
+        log
     };
     CheckFileDialog();
     void setMultipleFilesMode();
