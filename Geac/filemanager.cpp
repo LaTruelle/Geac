@@ -10,9 +10,12 @@ FileManager::FileManager(QObject *parent) :
 
 void FileManager::addFile(CheckableFile *file)
 {
-    beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
-    listOfFiles.append(file);
-    endInsertRows();
+    if (!listOfFiles.contains(file))
+    {
+        beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
+        listOfFiles.append(file);
+        endInsertRows();
+    }
 }
 
 void FileManager::clearFiles()

@@ -29,10 +29,14 @@ void LogParser::parse()
             }
         }
         if (line.contains("Gibbs")){
-            // Zou, Four next lines in thermochemistry
+            for(int ctr = 0; ctr<4; ctr++)
+            {
+                thermochemistry.append(QString(fileToParse->readLine()));
+            }
         }
-        if (line.contains("HF")){
-            //Hartree Fock
+        if (line.contains("HF=")){
+            // Retrieve HF energy. Careful, it can be split over 2 lines : \HF=xxxxxx//xx\
+            // Need to use \ to split.
         }
     }
 }
