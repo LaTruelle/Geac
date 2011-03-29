@@ -71,6 +71,11 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+QString FileManager::getFilePath(int row)
+{
+    return listOfFiles.at(row)->fileName();
+}
+
 QVariant FileManager::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role==Qt::DisplayRole && orientation==Qt::Horizontal)

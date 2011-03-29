@@ -19,6 +19,7 @@ public:
 private:
     void setupFileDisplayer();
     void display(QString string);
+    void clearLog();
     void addFilesFromList(QFileInfoList fileNames);
 
     bool reqThermochemistry;

@@ -16,6 +16,7 @@ public:
     int rowCount();
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
+    QString getFilePath(int row);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     void addFile(CheckableFile *file);
     void clearFiles();

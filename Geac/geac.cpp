@@ -27,14 +27,18 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setResizeMode(2,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
     ui.fileDisplayer->horizontalHeader()->setResizeMode(3,QHeaderView::Fixed);
-
     ui.fileDisplayer->horizontalHeader()->setClickable(false);
     ui.fileDisplayer->setShowGrid(false);
 }
 
 void Geac::display(QString string)
 {
-    ui.textDisplay->setPlainText(string);
+    ui.textDisplay->setPlainText(string + "\n" + ui.textDisplay->toPlainText());
+}
+
+void Geac::clearLog()
+{
+    ui.textDisplay->clear();
 }
 
 void Geac::on_actionOpen_File_triggered()
@@ -132,7 +136,7 @@ void::Geac::addFilesFromList(QFileInfoList fileNames)
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
         fileDisplayerModel.addFile(file);
-        display(file->fileName());
+        display(file->fileName() + tr(" Added"));
     }
 }
 
@@ -179,6 +183,8 @@ void Geac::on_toolButton_clicked()
 void Geac::on_clearFiles_clicked()
 {
     this->fileDisplayerModel.clearFiles();
+    this->clearLog();
+    this->display(tr("Files Cleared"));
 }
 
 void Geac::on_createEsi_clicked()
@@ -186,7 +192,8 @@ void Geac::on_createEsi_clicked()
     esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
-        QFile file("test");
+        QString filePath = fileDisplayerModel.getFilePath(i);
+        QFile file(filePath);
         esiExtractor.setInputFile(file);
         esiExtractor.setOutputFile(file);
         esiExtractor.createEsi();
