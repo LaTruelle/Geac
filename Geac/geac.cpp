@@ -19,6 +19,7 @@ void Geac::setupFileDisplayer()
 {
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
+    ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
     ui.fileDisplayer->horizontalHeader()->setResizeMode(0,QHeaderView::Stretch);        // As big as possible
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height()); // Squares at the end of the table
@@ -198,4 +199,10 @@ void Geac::on_createEsi_clicked()
         esiExtractor.setOutputFile(file);
         esiExtractor.createEsi();
     }
+}
+
+void Geac::on_fileDisplayer_clicked(QModelIndex index)
+{
+    if (fileDisplayerModel.setData(index, true, Qt::EditRole))
+        display("data changed");
 }

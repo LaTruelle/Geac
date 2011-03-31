@@ -4,7 +4,7 @@
 #include <QColor>
 
 FileManagerDelegate::FileManagerDelegate(QObject *parent) :
-    QStyledItemDelegate(parent)
+        QStyledItemDelegate(parent)
 {
 }
 
@@ -16,16 +16,20 @@ void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
         QStyledItemDelegate::paint(painter, option, index);
         break;
     case 1: // Conversion required
-        painter->fillRect(option.rect,QColor("green"));
+        painter->fillRect(option.rect,QColor("red"));
         break;
     case 2: // Conversion done
         QStyledItemDelegate::paint(painter, option, index);
         break;
-    case 3:
+    case 3: // Cross to delete file
         QStyledItemDelegate::paint(painter, option, index);
         break;
     default:
         QStyledItemDelegate::paint(painter, option, index);
         break;
+    }
+    if (option.state & QStyle::State_HasFocus)
+    {
+        painter->fillRect(option.rect, QColor(0,205,0,25));
     }
 }

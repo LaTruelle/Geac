@@ -39,6 +39,7 @@ private:
     QStringList dirList;
 
 private slots:
+    void on_fileDisplayer_clicked(QModelIndex index);
     void on_createEsi_clicked();
     void on_clearFiles_clicked();
     void on_toolButton_clicked();

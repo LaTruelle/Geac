@@ -83,3 +83,8 @@ QVariant FileManager::headerData(int section, Qt::Orientation orientation, int r
     else
         return QVariant();
 }
+
+bool FileManager::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+
+}
