@@ -16,7 +16,10 @@ void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
         QStyledItemDelegate::paint(painter, option, index);
         break;
     case 1: // Conversion required
-        painter->fillRect(option.rect,QColor("red"));
+        if (index.data().value<bool>())
+            painter->fillRect(option.rect,QColor("green"));
+        else
+            painter->fillRect(option.rect,QColor("red"));
         break;
     case 2: // Conversion done
         QStyledItemDelegate::paint(painter, option, index);
