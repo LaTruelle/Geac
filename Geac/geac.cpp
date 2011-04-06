@@ -30,6 +30,9 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setResizeMode(3,QHeaderView::Fixed);
     ui.fileDisplayer->horizontalHeader()->setClickable(false);
     ui.fileDisplayer->setShowGrid(false);
+    ui.fileDisplayer->setStyleSheet("selection-background-color : rgba(255, 0, 0, 50%)");
+    ui.fileDisplayer->horizontalHeader()->setStyleSheet("QHeaderView::section { color: red }");
+    ui.fileDisplayer->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
 void Geac::display(QString string)
@@ -203,6 +206,8 @@ void Geac::on_createEsi_clicked()
 
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
 {
-    if (fileDisplayerModel.setData(index, true, Qt::EditRole))
-        display("data changed");
+    if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
+//        ui.fileDisplayer->repaint();
+        ui.fileDisplayer->viewport()->update();
+    }
 }

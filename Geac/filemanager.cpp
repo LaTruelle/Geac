@@ -84,7 +84,17 @@ QVariant FileManager::headerData(int section, Qt::Orientation orientation, int r
         return QVariant();
 }
 
-bool FileManager::setData(const QModelIndex &index, const QVariant &value, int role)
+bool FileManager::setData(const QModelIndex &index, const QVariant & /* value */, int /* role */)
 {
-
+    switch(index.column())
+    {
+    case 1:
+        listOfFiles.at(index.row())->setConversionRequired(!listOfFiles.at(index.row())->getConversionRequired());
+        break;
+    case 3:
+        beginRemoveRows(index, index.row(), index.row()+1);
+        listOfFiles.removeAt(index.row());
+        endRemoveRows();
+    }
+    return true;
 }
