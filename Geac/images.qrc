@@ -1,3 +1,14 @@
 <RCC>
-    <qresource prefix="/icons"/>
+    <qresource prefix="/icons">
+        <file>images/icons/Check-Green.svg</file>
+        <file>images/icons/Delete-File.svg</file>
+        <file>images/icons/Delete-File2.svg</file>
+        <file>images/icons/Forbidden.svg</file>
+        <file>images/icons/Minus.svg</file>
+        <file>images/icons/Open-Document.svg</file>
+        <file>images/icons/Open-Folder.svg</file>
+        <file>images/icons/Plus.svg</file>
+        <file>images/icons/Process-Start.svg</file>
+        <file>images/icons/Process-Stop.svg</file>
+    </qresource>
 </RCC>
