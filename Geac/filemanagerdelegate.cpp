@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QTextOption>
 #include <QColor>
-#include <QtSvg/QSvgRenderer>
+#include <QImageReader>
 
 FileManagerDelegate::FileManagerDelegate(QObject *parent) :
         QStyledItemDelegate(parent)
@@ -12,7 +12,7 @@ FileManagerDelegate::FileManagerDelegate(QObject *parent) :
 
 void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QSvgRenderer *svg;
+    QImageReader *reader;
     switch (index.column())
     {
     case 0: // File name
@@ -31,8 +31,8 @@ void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
             painter->fillRect(option.rect,QColor("red"));
         break;
     case 3: // Cross to delete file
-        svg = new QSvgRenderer(QString("images/icons/Delete-File.svg"));
-        svg->render(painter, QRectF(option.rect));
+        reader = new QImageReader(QString(":/images/icons/Delete-File.svg"));
+        painter->drawImage(option.rect, reader->read());
         break;
     default:
         QStyledItemDelegate::paint(painter, option, index);

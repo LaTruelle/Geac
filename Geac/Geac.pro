@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg
+QT       += core gui
 
 TARGET = Geac
 TEMPLATE = app
