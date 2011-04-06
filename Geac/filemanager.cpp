@@ -92,7 +92,7 @@ bool FileManager::setData(const QModelIndex &index, const QVariant & /* value */
         listOfFiles.at(index.row())->setConversionRequired(!listOfFiles.at(index.row())->getConversionRequired());
         break;
     case 3:
-        beginRemoveRows(index, index.row(), index.row()+1);
+        beginRemoveRows(index, index.row(), listOfFiles.count()-1);
         listOfFiles.removeAt(index.row());
         endRemoveRows();
     }
