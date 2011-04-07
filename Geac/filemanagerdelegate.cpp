@@ -12,6 +12,9 @@ FileManagerDelegate::FileManagerDelegate(QObject *parent) :
 
 void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    if (!index.isValid())
+        return;
+
     QSvgRenderer *renderer;
     switch (index.column())
     {

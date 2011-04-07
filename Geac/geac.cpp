@@ -17,10 +17,18 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
 
 void Geac::setupFileDisplayer()
 {
+    // Set Header Style
+    ui.fileDisplayer->horizontalHeader()->setClickable(false);
+    ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
+    ui.fileDisplayer->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui.fileDisplayer->horizontalHeader()->setStyleSheet("QHeaderView::section{padding-left: 10px; font: 15px; color: black;}");
+    // Set File Displayer Style
+    ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
-    ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
+    ui.fileDisplayer->setShowGrid(false);
+    ui.fileDisplayer->setStyleSheet("selection-background-color : rgba(0, 0, 255, 25%)");
+    // Set Sizes of columns
     ui.fileDisplayer->horizontalHeader()->setResizeMode(0,QHeaderView::Stretch);        // As big as possible
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height()); // Squares at the end of the table
     ui.fileDisplayer->horizontalHeader()->setResizeMode(1,QHeaderView::Fixed);
@@ -28,11 +36,6 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setResizeMode(2,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
     ui.fileDisplayer->horizontalHeader()->setResizeMode(3,QHeaderView::Fixed);
-    ui.fileDisplayer->horizontalHeader()->setClickable(false);
-    ui.fileDisplayer->setShowGrid(false);
-    ui.fileDisplayer->setStyleSheet("selection-background-color : rgba(255, 0, 0, 50%)");
-    ui.fileDisplayer->horizontalHeader()->setStyleSheet("QHeaderView::section { color: red }");
-    ui.fileDisplayer->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
 void Geac::display(QString string)
@@ -207,7 +210,6 @@ void Geac::on_createEsi_clicked()
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
 {
     if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
-//        ui.fileDisplayer->repaint();
         ui.fileDisplayer->viewport()->update();
     }
 }

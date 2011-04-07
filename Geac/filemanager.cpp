@@ -33,7 +33,7 @@ int FileManager::rowCount(const QModelIndex & /* parent */ ) const
     return listOfFiles.count();
 }
 
-int FileManager::rowCount()
+int FileManager::rowCount() const
 {
     return listOfFiles.count();
 }
@@ -86,15 +86,19 @@ QVariant FileManager::headerData(int section, Qt::Orientation orientation, int r
 
 bool FileManager::setData(const QModelIndex &index, const QVariant & /* value */, int /* role */)
 {
+    if (!index.isValid())
+        return false;
+
     switch(index.column())
     {
     case 1:
         listOfFiles.at(index.row())->setConversionRequired(!listOfFiles.at(index.row())->getConversionRequired());
         break;
     case 3:
-        beginRemoveRows(index, index.row(), listOfFiles.count()-1);
+        beginRemoveRows(index.parent(),index.row(), index.row());
         listOfFiles.removeAt(index.row());
         endRemoveRows();
     }
+    emit dataChanged(index,index);
     return true;
 }
