@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QTextOption>
 #include <QColor>
-#include <QImageReader>
+#include <QSvgRenderer>
 
 FileManagerDelegate::FileManagerDelegate(QObject *parent) :
         QStyledItemDelegate(parent)
@@ -12,7 +12,7 @@ FileManagerDelegate::FileManagerDelegate(QObject *parent) :
 
 void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QImageReader *reader;
+    QSvgRenderer *renderer;
     switch (index.column())
     {
     case 0: // File name
@@ -20,19 +20,21 @@ void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
         break;
     case 1: // Conversion required
         if (index.data().value<bool>())
-            painter->fillRect(option.rect,QColor("green"));
+            renderer = new QSvgRenderer(QString(":/icons/images/icons/Check-Green.svg"));
         else
-            painter->fillRect(option.rect,QColor("red"));
+            renderer = new QSvgRenderer(QString(":/icons/images/icons/Process-Stop.svg"));
+        renderer->render(painter,QRectF(option.rect));
         break;
     case 2: // Conversion done
         if (index.data().value<bool>())
-            painter->fillRect(option.rect,QColor("green"));
+            renderer = new QSvgRenderer(QString(":/icons/images/icons/Check-Green.svg"));
         else
-            painter->fillRect(option.rect,QColor("red"));
+            renderer = new QSvgRenderer(QString(":/icons/images/icons/Process-Stop.svg"));
+        renderer->render(painter,QRectF(option.rect));
         break;
     case 3: // Cross to delete file
-        reader = new QImageReader(QString(":/images/icons/Delete-File.svg"));
-        painter->drawImage(option.rect, reader->read());
+        renderer = new QSvgRenderer(QString(":/icons/images/icons/Delete-File.svg"));
+        renderer->render(painter,QRectF(option.rect));
         break;
     default:
         QStyledItemDelegate::paint(painter, option, index);
