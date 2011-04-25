@@ -179,7 +179,7 @@ void Geac::on_standardCoordinates_stateChanged(int state)
         reqStandardCoordinates = true;
 }
 
-void Geac::on_toolButton_clicked()
+void Geac::on_SaveFolderSelection_clicked()
 {
     esiFolder.setPath(QFileDialog::getExistingDirectory(this, tr("Store ESI in this directory"),
                                                         QDir::homePath(), QFileDialog::ShowDirsOnly)
@@ -196,20 +196,48 @@ void Geac::on_clearFiles_clicked()
 
 void Geac::on_createEsi_clicked()
 {
+    // Transmit the requirements to the extractor
     esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
+    // Iterate over the files and convert them
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
-        QString filePath = fileDisplayerModel.getFilePath(i);
-        QFile file(filePath);
+        QFile file(fileDisplayerModel.getFilePath(i));
+        // Retrieve the name of the current file and transmit it to the extractor
         esiExtractor.setInputFile(file);
-        esiExtractor.setOutputFile(file);
-        esiExtractor.createEsi();
+        // Depending on the state of the destination switch
+        if (ui.Button_DedicatedFolder->isChecked())
+        {
+            // Set a dedicated folder
+            esiExtractor.setOutputFolder(esiFolder);
+        }
+        else if(ui.Button_SameFolder->isChecked())
+        {
+            // Set the folder of the current file to be the output path
+            QDir dir(file.fileName());
+            esiExtractor.setOutputFolder(dir);
+        }
+        // Launch the extractor, and transmit him the extension to give to the output file
+        esiExtractor.createEsi(ui.esiExtension->text());
     }
 }
 
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
 {
+    // Use the Model to change the data upon clicking
     if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
+        // Update the view
         ui.fileDisplayer->viewport()->update();
+    }
+}
+
+void Geac::on_Button_DedicatedFolder_clicked()
+{
+    // If clicked, this forces the user to enter a valid directory.
+    if(ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()){
+        ui.SaveFolderSelection->click();
+    }
+    // Checks if the user has entered a valid directory, if not, we get back to the "same folder" setting
+    if(ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()){
+        ui.Button_SameFolder->click();
     }
 }

@@ -35,14 +35,14 @@ private:
     QDir esiFolder;
     QFile fileToConvert;
     QFile convertedFile;
-
     QStringList dirList;
 
 private slots:
+    void on_Button_DedicatedFolder_clicked();
     void on_fileDisplayer_clicked(QModelIndex index);
     void on_createEsi_clicked();
     void on_clearFiles_clicked();
-    void on_toolButton_clicked();
+    void on_SaveFolderSelection_clicked();
     void on_standardCoordinates_stateChanged(int );
     void on_hartreeFock_stateChanged(int );
     void on_thermochemistry_stateChanged(int );

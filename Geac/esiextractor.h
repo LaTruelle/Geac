@@ -1,6 +1,7 @@
 #ifndef ESIEXTRACTOR_H
 #define ESIEXTRACTOR_H
 
+#include <QDir>
 #include <QFile>
 #include <QString>
 #include <QStringList>
@@ -21,23 +22,22 @@ public:
     EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
     void setInputFile(QFile &inputFile);
-    void setOutputFile(QFile &outputFile);
+    void setOutputFolder(QDir &outputFolder);
     void setRequiredFields(bool &thermochemistry,
                            bool &harmonicFrequencies,
                            bool &standardCoordinates,
                            bool &hartreeFockEnergy);
-    void createEsi();
+    void createEsi(QString fileExtension);
 
 private:
-    void createParser();
-
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
     bool reqStandardCoordinates;
     bool reqHartreeFock;
     LogParser parser;
-    QFile *inputFile;
-    QFile *outputFile;
+    QDir outputFolder;
+    QFile inputFile;
+    QFile outputFile;
 };
 
 #endif // ESIEXTRACTOR_H
