@@ -51,18 +51,17 @@ void Geac::clearLog()
 void Geac::on_actionOpen_File_triggered()
 {
     // Open File Dialog to select File --> With filters (or without)
-    // Create CheckFileDialog to retrieve files wanted, with checkboxes to get options
-    //      -> recursive
-    //      ->
     CheckFileDialog *dialog = new CheckFileDialog();
     dialog->setMultipleFilesMode();
     dialog->setDirectory(QDir::homePath());
     dialog->exec();
     QFileInfoList fileList;
+    // Iterate over the selected files to retrieve them
     for(int i=0; i<dialog->selectedFiles().count(); i++)
     {
         fileList.append(QFileInfo(dialog->selectedFiles().at(i)));
     }
+    // Add the files in the model
     addFilesFromList(fileList);
     delete dialog;
 }
@@ -181,14 +180,17 @@ void Geac::on_standardCoordinates_stateChanged(int state)
 
 void Geac::on_SaveFolderSelection_clicked()
 {
+    // Sets the dedicated folder in which all files will be stored
     esiFolder.setPath(QFileDialog::getExistingDirectory(this, tr("Store ESI in this directory"),
                                                         QDir::homePath(), QFileDialog::ShowDirsOnly)
                       );
+    // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
 }
 
 void Geac::on_clearFiles_clicked()
 {
+    // Clear the log
     this->fileDisplayerModel.clearFiles();
     this->clearLog();
     this->display(tr("Files Cleared"));
