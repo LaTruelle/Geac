@@ -19,7 +19,6 @@ class EsiExtractor
 {
 public:
     EsiExtractor();
-    EsiExtractor(QFile &inputFile, QFile &outputFile);
     EsiExtractor(QFile &inputFile);
     void setInputFile(QFile &inputFile);
     void setOutputFolder(QDir &outputFolder);
@@ -30,6 +29,8 @@ public:
     void createEsi(QString fileExtension);
 
 private:
+    void writeData();
+
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
     bool reqStandardCoordinates;

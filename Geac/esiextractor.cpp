@@ -1,4 +1,5 @@
 #include "esiextractor.h"
+#include <QMessageBox>
 
 EsiExtractor::EsiExtractor()
 {
@@ -10,24 +11,42 @@ EsiExtractor::EsiExtractor(QFile &inputFile)
     QString fileName = inputFile.fileName();
 }
 
-EsiExtractor::EsiExtractor(QFile &inputFile, QFile &outputFile)
-{
-    EsiExtractor::inputFile.setFileName(inputFile.fileName());
-    EsiExtractor::outputFile.setFileName(outputFile.fileName());
-}
-
 void EsiExtractor::createEsi(QString fileExtension)
 {
-    parser.setFileToParse(inputFile);
-    if(outputFile.fileName()!=inputFile.fileName() && !outputFile.exists())
+    QMessageBox msg;
+    // We check the existence of the input File
+    if(!inputFile.exists())
     {
-        // The output file does not exist, and does not have the same file name than the input, and is not empty
-        // We can use it.
-        //parser.
+        msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" does not exist !"));
+        msg.exec();
     }
-    //    EsiExtractor::outputFile.fileName() = fileName.insert(fileName.length()-4, "_esi"); --> Transfer in parse()
-    //    this->createParser(); --> idem
-    parser.parse();
+    else{
+        // We check if the file can be read
+        if (!inputFile.isReadable())
+        {
+            msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" cannot be opened !"));
+            msg.exec();
+        }
+        else
+        {
+            // The file is a priori valid: exists and readable
+            parser.setFileToParse(inputFile);
+            parser.parse();
+            // The input file is parsed, we set up the output File
+            QString outFile = inputFile.fileName().remove(0,inputFile.fileName().lastIndexOf(QDir::separator())+1);
+            // --> inputName.log
+            outFile.remove(outFile.lastIndexOf("."), outFile.length()-1);
+            // --> inputName
+            outFile.append(fileExtension);
+            // --> inputName_fileExtension
+            // We have a proper file Name, we check its existence, and if we can write in the directory
+            // TODO !!!
+        }
+    }
+}
+
+void EsiExtractor::writeData(){
+    // We write data according to the preferences set in the output File, which will be in the output Folder
 }
 
 void EsiExtractor::setInputFile(QFile &inputFile)
@@ -37,7 +56,7 @@ void EsiExtractor::setInputFile(QFile &inputFile)
 
 void EsiExtractor::setOutputFolder(QDir &outputFolder)
 {
-    EsiExtractor::outputFolder = outputFolder;
+    EsiExtractor::outputFolder.setPath(outputFolder.absolutePath());
 }
 
 void EsiExtractor::setRequiredFields(bool &thermochemistry,
