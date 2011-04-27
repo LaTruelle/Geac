@@ -25,8 +25,8 @@ void EsiExtractor::createEsi(QString fileExtension)
         // We check if the file can be read
         if (!inputFile.isReadable())
         {
-            std::cout << inputFile.fileName().toStdString() << std::endl;
-            std::cout << inputFile.exists() << std::endl;
+//            std::cout << inputFile.fileName().toStdString() << std::endl;
+//            std::cout << inputFile.exists() << std::endl;
             msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" cannot be opened !"));
             msg.exec();
         }
