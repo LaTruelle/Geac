@@ -102,3 +102,12 @@ bool FileManager::setData(const QModelIndex &index, const QVariant & /* value */
     emit dataChanged(index,index);
     return true;
 }
+
+bool FileManager::getRequiredConversion(QModelIndex &index)
+{
+    // Returns true if, according to the model, the file needs to be converted.
+    if (!index.isValid())
+        return false;
+
+    return listOfFiles.at(index.row())->getConversionRequired();
+}
