@@ -35,7 +35,8 @@ void LogParser::parse()
             }
         }
         if (line.contains("HF=")){
-            // Retrieve HF energy. Careful, it can be split over 2 lines : \HF=xxxxxx \n xx\
+            // Retrieve HF energy. Careful, it can be split over 2 lines : \HF=xxxxxx
+            //                                                             xx\
             // Need to use \ to split.
         }
     }
