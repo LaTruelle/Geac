@@ -29,7 +29,7 @@ public:
     void createEsi(QString fileExtension);
 
 private:
-    void writeData();
+    void writeData(QString &outFile);
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;

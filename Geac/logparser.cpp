@@ -39,6 +39,7 @@ void LogParser::parse()
             // Need to use \ to split.
         }
     }
+    fileToParse->close();
 }
 
 void LogParser::setFileToParse(QFile &file)

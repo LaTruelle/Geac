@@ -1,6 +1,7 @@
 #include "esiextractor.h"
 #include <QMessageBox>
 #include <iostream>
+#include <QTextStream>
 
 EsiExtractor::EsiExtractor()
 {
@@ -23,10 +24,8 @@ void EsiExtractor::createEsi(QString fileExtension)
     }
     else{
         // We check if the file can be read
-        if (!inputFile.isReadable())
+        if (!QFileInfo(inputFile).isReadable())
         {
-//            std::cout << inputFile.fileName().toStdString() << std::endl;
-//            std::cout << inputFile.exists() << std::endl;
             msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" cannot be opened !"));
             msg.exec();
         }
@@ -43,13 +42,25 @@ void EsiExtractor::createEsi(QString fileExtension)
             outFile.append(fileExtension);
             // --> inputName_fileExtension
             // We have a proper file Name, we check its existence, and if we can write in the directory
-            // TODO !!!
+            if(QFile(outFile).exists())
+            {
+               // We have a problem : delete and overwrite ?
+            }
+            else
+            {
+                writeData(outFile);
+            }
         }
     }
 }
 
-void EsiExtractor::writeData(){
-    // We write data according to the preferences set in the output File, which will be in the output Folder
+void EsiExtractor::writeData(QString &outFile)
+{
+    outputFile.setFileName(outputFolder.absolutePath() + "/" + outFile);
+    outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&outputFile);
+    out << "toto";
+    outputFile.close();
 }
 
 void EsiExtractor::setInputFile(QFile &inputFile)
