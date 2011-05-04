@@ -56,10 +56,23 @@ void EsiExtractor::createEsi(QString fileExtension)
 
 void EsiExtractor::writeData(QString &outFile)
 {
+    // Set the name with correct path
     outputFile.setFileName(outputFolder.absolutePath() + "/" + outFile);
+    // Open the file
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    // Setup a QTextStream
     QTextStream out(&outputFile);
-    out << "toto";
+    // Add data according to requirements
+    // TODO: insert headers
+    if (reqStandardCoordinates)
+        out << parser.getStandardCoordinates().join("") << endl ;
+    if (reqHarmonicFrequencies)
+        out << parser.getHarmonicFrequencies().join("") << endl ;
+    if (reqThermochemistry)
+        out << parser.getThermochemistry().join("") << endl;
+    if (reqHartreeFock)
+        out << parser.getHartreeFockEnergy() << endl;
+    // We close the file
     outputFile.close();
 }
 
