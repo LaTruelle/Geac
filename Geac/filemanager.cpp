@@ -111,3 +111,9 @@ bool FileManager::getRequiredConversion(QModelIndex &index)
 
     return listOfFiles.at(index.row())->getConversionRequired();
 }
+
+bool FileManager::getRequiredConversion(int i)
+{
+    // Returns true if the file on line i needs to be converted
+    return listOfFiles.at(i)->getConversionRequired();
+}

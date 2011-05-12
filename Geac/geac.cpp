@@ -203,23 +203,28 @@ void Geac::on_createEsi_clicked()
     // Iterate over the files and convert them
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
-        QFile file(fileDisplayerModel.getFilePath(i));
-        // Retrieve the name of the current file and transmit it to the extractor
-        esiExtractor.setInputFile(file);
-        // Depending on the state of the destination switch
-        if (ui.Button_DedicatedFolder->isChecked())
+        if (fileDisplayerModel.getRequiredConversion(i))
         {
-            // Set a dedicated folder
-            esiExtractor.setOutputFolder(esiFolder);
+            QFile file(fileDisplayerModel.getFilePath(i));
+            // Retrieve the name of the current file and transmit it to the extractor
+            esiExtractor.setInputFile(file);
+            // Depending on the state of the destination switch
+            if (ui.Button_DedicatedFolder->isChecked())
+            {
+                // Set a dedicated folder
+                esiExtractor.setOutputFolder(esiFolder);
+            }
+            else if(ui.Button_SameFolder->isChecked())
+            {
+                // Set the folder of the current file to be the output path
+                QString fileDir = file.fileName();
+                fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
+                QDir dir(fileDir);
+                esiExtractor.setOutputFolder(dir);
+            }
+            // Launch the extractor, and transmit him the extension to give to the output file
+            esiExtractor.createEsi(ui.esiExtension->text());
         }
-        else if(ui.Button_SameFolder->isChecked())
-        {
-            // Set the folder of the current file to be the output path
-            QDir dir(file.fileName());
-            esiExtractor.setOutputFolder(dir);
-        }
-        // Launch the extractor, and transmit him the extension to give to the output file
-        esiExtractor.createEsi(ui.esiExtension->text());
     }
 }
 

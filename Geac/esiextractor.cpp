@@ -65,9 +65,9 @@ void EsiExtractor::writeData(QString &outFile)
     // Add data according to requirements
     // TODO: insert headers
     if (reqStandardCoordinates)
-        out << parser.getStandardCoordinates().join("") << endl ;
+        out << parser.getStandardCoordinates().join("") << endl;
     if (reqHarmonicFrequencies)
-        out << parser.getHarmonicFrequencies().join("") << endl ;
+        out << parser.getHarmonicFrequencies().join("") << endl;
     if (reqThermochemistry)
         out << parser.getThermochemistry().join("") << endl;
     if (reqHartreeFock)
