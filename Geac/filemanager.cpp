@@ -117,3 +117,9 @@ bool FileManager::getRequiredConversion(int i)
     // Returns true if the file on line i needs to be converted
     return listOfFiles.at(i)->getConversionRequired();
 }
+
+void FileManager::setConverted(int i)
+{
+    // set Conversion state of File
+    listOfFiles.at(i)->setConversionState(true);
+}

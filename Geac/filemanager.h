@@ -23,6 +23,7 @@ public:
     void clearFiles();
     bool getRequiredConversion(QModelIndex &index);
     bool getRequiredConversion(int i);
+    void setConverted(int i);
 
 private:
     QList<CheckableFile *> listOfFiles;
