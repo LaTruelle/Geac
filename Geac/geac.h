@@ -38,6 +38,8 @@ private:
     QStringList dirList;
 
 private slots:
+    void on_actionFran_ais_triggered();
+    void on_actionEnglish_triggered();
     void on_Button_DedicatedFolder_clicked();
     void on_fileDisplayer_clicked(QModelIndex index);
     void on_createEsi_clicked();

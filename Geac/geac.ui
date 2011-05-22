@@ -169,6 +169,24 @@
          </layout>
         </item>
         <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="progressLabel">
+            <property name="text">
+             <string>Progress</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="progressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QTextBrowser" name="textDisplay"/>
         </item>
        </layout>
@@ -193,7 +211,23 @@
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
    </widget>
+   <widget class="QMenu" name="menuESI">
+    <property name="title">
+     <string>ESI</string>
+    </property>
+    <addaction name="actionClear_Files"/>
+    <addaction name="actionCreate_ESI"/>
+   </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Language</string>
+    </property>
+    <addaction name="actionEnglish"/>
+    <addaction name="actionFran_ais"/>
+   </widget>
    <addaction name="FileMenu"/>
+   <addaction name="menuESI"/>
+   <addaction name="menuLanguage"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -213,6 +247,8 @@
    </attribute>
    <addaction name="actionOpen_File"/>
    <addaction name="actionOpen_Folder"/>
+   <addaction name="actionCreate_ESI"/>
+   <addaction name="actionClear_Files"/>
   </widget>
   <action name="actionOpen_File">
    <property name="icon">
@@ -241,10 +277,71 @@
     <string>Ctrl+F</string>
    </property>
   </action>
+  <action name="actionClear_Files">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/icons/images/icons/Delete-File2.svg</normaloff>:/icons/images/icons/Delete-File2.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear Files</string>
+   </property>
+  </action>
+  <action name="actionCreate_ESI">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/icons/images/icons/Process-Start.svg</normaloff>:/icons/images/icons/Process-Start.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Create ESI</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionFran_ais">
+   <property name="text">
+    <string>Français</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="images.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionClear_Files</sender>
+   <signal>triggered()</signal>
+   <receiver>clearFiles</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>415</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCreate_ESI</sender>
+   <signal>triggered()</signal>
+   <receiver>createEsi</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

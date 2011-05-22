@@ -228,6 +228,7 @@ void Geac::on_createEsi_clicked()
             display(tr("File ") + file.fileName() + tr(" Converted successfully."));
             // set converted state in manager
             fileDisplayerModel.setConverted(i);
+            ui.fileDisplayer->viewport()->update();
         }
     }
 }
@@ -251,4 +252,14 @@ void Geac::on_Button_DedicatedFolder_clicked()
     if(ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()){
         ui.Button_SameFolder->click();
     }
+}
+
+void Geac::on_actionEnglish_triggered()
+{
+    // Translate UI to English
+}
+
+void Geac::on_actionFran_ais_triggered()
+{
+    // Translate UI to French
 }
