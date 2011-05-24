@@ -228,6 +228,7 @@ void Geac::on_createEsi_clicked()
             display(tr("File ") + file.fileName() + tr(" Converted successfully."));
             // set converted state in manager
             fileDisplayerModel.setConverted(i);
+            // Update view
             ui.fileDisplayer->viewport()->update();
         }
     }
