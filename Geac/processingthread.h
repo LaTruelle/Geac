@@ -16,7 +16,7 @@ protected:
     void run();
 
 private:
-
+    volatile bool finished;
 };
 
 #endif // PROCESSINGTHREAD_H

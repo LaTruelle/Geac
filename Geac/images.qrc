@@ -11,4 +11,8 @@
         <file>images/icons/Process-Start.svg</file>
         <file>images/icons/Process-Stop.svg</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file>geac_en.qm</file>
+        <file>geac_fr.qm</file>
+    </qresource>
 </RCC>
