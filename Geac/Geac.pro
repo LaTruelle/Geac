@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     logparser.cpp \
     filemanager.cpp \
     checkablefile.cpp \
-    filemanagerdelegate.cpp
+    filemanagerdelegate.cpp \
+    processingthread.cpp
 
 HEADERS  += geac.h \
     esiextractor.h \
@@ -25,7 +26,8 @@ HEADERS  += geac.h \
     logparser.h \
     filemanager.h \
     checkablefile.h \
-    filemanagerdelegate.h
+    filemanagerdelegate.h \
+    processingthread.h
 
 FORMS    += geac.ui
 

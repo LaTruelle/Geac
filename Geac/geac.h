@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfoList>
+#include <QCloseEvent>
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
 #include "esiextractor.h"
@@ -21,6 +22,9 @@ private:
     void display(QString string);
     void clearLog();
     void addFilesFromList(QFileInfoList fileNames);
+    void readSettings();
+    void writeSettings();
+    void closeEvent(QCloseEvent *);
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;

@@ -264,3 +264,19 @@ void Geac::on_actionFran_ais_triggered()
 {
     // Translate UI to French
 }
+
+void Geac::closeEvent(QCloseEvent *event)
+{
+    writeSettings();
+    event->accept();
+}
+
+void Geac::readSettings()
+{
+    // Read Settings
+}
+
+void Geac::writeSettings()
+{
+    // Write Settings
+}
