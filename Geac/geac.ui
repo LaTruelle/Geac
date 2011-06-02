@@ -169,7 +169,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="progressLayout">
           <item>
            <widget class="QLabel" name="progressLabel">
             <property name="text">
@@ -179,8 +179,11 @@
           </item>
           <item>
            <widget class="QProgressBar" name="progressBar">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="value">
-             <number>24</number>
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -247,13 +250,13 @@
    </attribute>
    <addaction name="actionOpen_File"/>
    <addaction name="actionOpen_Folder"/>
-   <addaction name="actionCreate_ESI"/>
    <addaction name="actionClear_Files"/>
+   <addaction name="actionCreate_ESI"/>
   </widget>
   <action name="actionOpen_File">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/icons/images/icons/Open-Document.svg</normaloff>:/icons/images/icons/Open-Document.svg</iconset>
+     <normaloff>:/icons/Open-Document.svg</normaloff>:/icons/Open-Document.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Open File...</string>
@@ -268,7 +271,7 @@
   <action name="actionOpen_Folder">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/icons/images/icons/Open-Folder.svg</normaloff>:/icons/images/icons/Open-Folder.svg</iconset>
+     <normaloff>:/icons/Open-Folder.svg</normaloff>:/icons/Open-Folder.svg</iconset>
    </property>
    <property name="text">
     <string>Open &amp;Folder...</string>
@@ -280,7 +283,7 @@
   <action name="actionClear_Files">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/icons/images/icons/Delete-File2.svg</normaloff>:/icons/images/icons/Delete-File2.svg</iconset>
+     <normaloff>:/icons/Process-Stop.svg</normaloff>:/icons/Process-Stop.svg</iconset>
    </property>
    <property name="text">
     <string>Clear Files</string>
@@ -289,7 +292,7 @@
   <action name="actionCreate_ESI">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/icons/images/icons/Process-Start.svg</normaloff>:/icons/images/icons/Process-Start.svg</iconset>
+     <normaloff>:/icons/Process-Start.svg</normaloff>:/icons/Process-Start.svg</iconset>
    </property>
    <property name="text">
     <string>Create ESI</string>

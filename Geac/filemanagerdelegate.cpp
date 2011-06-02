@@ -23,20 +23,20 @@ void FileManagerDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
         break;
     case 1: // Conversion required
         if (index.data().value<bool>())
-            renderer = new QSvgRenderer(QString(":/icons/images/icons/Check-Green.svg"));
+            renderer = new QSvgRenderer(QString(":/icons/Check-Green.svg"));
         else
-            renderer = new QSvgRenderer(QString(":/icons/images/icons/Process-Stop.svg"));
+            renderer = new QSvgRenderer(QString(":/icons/Process-Stop.svg"));
         renderer->render(painter,QRectF(option.rect));
         break;
     case 2: // Conversion done
         if (index.data().value<bool>())
-            renderer = new QSvgRenderer(QString(":/icons/images/icons/Check-Green.svg"));
+            renderer = new QSvgRenderer(QString(":/icons/Check-Green.svg"));
         else
-            renderer = new QSvgRenderer(QString(":/icons/images/icons/Process-Stop.svg"));
+            renderer = new QSvgRenderer(QString(":/icons/Process-Stop.svg"));
         renderer->render(painter,QRectF(option.rect));
         break;
     case 3: // Cross to delete file
-        renderer = new QSvgRenderer(QString(":/icons/images/icons/Delete-File.svg"));
+        renderer = new QSvgRenderer(QString(":/icons/Delete-File.svg"));
         renderer->render(painter,QRectF(option.rect));
         break;
     default:
