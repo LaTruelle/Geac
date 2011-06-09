@@ -9,6 +9,10 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
+    // Hide Progress Bar
+    ui.progressBar->hide();
+    ui.progressLabel->hide();
+    // Call to readSettings necessary here
     reqHarmonicFrequencies = false;     // Default for the moment. To be updated, according to stored preferences.
     reqHartreeFock = false;
     reqStandardCoordinates = false;
@@ -198,6 +202,9 @@ void Geac::on_clearFiles_clicked()
 
 void Geac::on_createEsi_clicked()
 {
+    // Show the progress Bar
+    ui.progressBar->show();
+    ui.progressLabel->show();
     // Transmit the requirements to the extractor
     esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
     // Iterate over the files and convert them
@@ -232,6 +239,9 @@ void Geac::on_createEsi_clicked()
             ui.fileDisplayer->viewport()->update();
         }
     }
+    // Hide Progress Bar
+    ui.progressBar->hide();
+    ui.progressLabel->hide();
 }
 
 void Geac::on_fileDisplayer_clicked(QModelIndex index)

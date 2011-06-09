@@ -297,6 +297,9 @@
    <property name="text">
     <string>Create ESI</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionEnglish">
    <property name="text">
