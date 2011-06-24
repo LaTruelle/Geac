@@ -9,7 +9,6 @@ QT       += core gui svg
 TARGET = Geac
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         geac.cpp \
     esiextractor.cpp \
