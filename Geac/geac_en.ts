@@ -56,14 +56,24 @@
         <translation type="obsolete">Open Folder</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="184"/>
+        <location filename="geac.cpp" line="188"/>
         <source>Store ESI in this directory</source>
         <translation>Store ESI in this directory</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="196"/>
+        <location filename="geac.cpp" line="200"/>
         <source>Files Cleared</source>
         <translation>Files Cleared</translation>
+    </message>
+    <message>
+        <location filename="geac.cpp" line="235"/>
+        <source>File </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geac.cpp" line="235"/>
+        <source> Converted successfully.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="geac.ui" line="14"/>
@@ -123,43 +133,75 @@
     </message>
     <message>
         <location filename="geac.ui" line="145"/>
+        <location filename="geac.ui" line="289"/>
         <source>Clear Files</source>
         <translation>Clear Files</translation>
     </message>
     <message>
         <location filename="geac.ui" line="165"/>
+        <location filename="geac.ui" line="298"/>
         <source>Create ESI</source>
         <translation>Create ESI</translation>
     </message>
     <message>
-        <location filename="geac.ui" line="191"/>
+        <location filename="geac.ui" line="176"/>
+        <source>Progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geac.ui" line="212"/>
         <source>File&amp;</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="geac.ui" line="200"/>
+        <location filename="geac.ui" line="219"/>
+        <source>ESI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geac.ui" line="226"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geac.ui" line="237"/>
         <source>toolBar</source>
         <translation>ToolBar</translation>
     </message>
     <message>
-        <location filename="geac.ui" line="223"/>
+        <location filename="geac.ui" line="262"/>
         <source>&amp;Open File...</source>
         <translation>&amp;Open File...</translation>
     </message>
     <message>
-        <location filename="geac.ui" line="226"/>
+        <location filename="geac.ui" line="265"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="geac.ui" line="238"/>
+        <location filename="geac.ui" line="277"/>
         <source>Open &amp;Folder...</source>
         <translation>Open &amp;Folder...</translation>
     </message>
     <message>
-        <location filename="geac.ui" line="241"/>
+        <location filename="geac.ui" line="280"/>
         <source>Ctrl+F</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="geac.ui" line="301"/>
+        <source>Ctrl+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geac.ui" line="306"/>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="geac.ui" line="311"/>
+        <source>Français</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -184,7 +226,7 @@
 <context>
     <name>void::Geac</name>
     <message>
-        <location filename="geac.cpp" line="145"/>
+        <location filename="geac.cpp" line="149"/>
         <source> Added</source>
         <translation> Added</translation>
     </message>

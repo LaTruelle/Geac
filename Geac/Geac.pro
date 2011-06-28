@@ -6,8 +6,6 @@
 
 QT       += core gui svg
 
-QTPLUGIN += qsvg
-
 TARGET = Geac
 TEMPLATE = app
 
