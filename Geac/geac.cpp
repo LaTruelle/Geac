@@ -145,8 +145,11 @@ void::Geac::addFilesFromList(QFileInfoList fileNames)
     {
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
-        fileDisplayerModel.addFile(file);
-        display(file->fileName() + tr(" Added"));
+        int i = fileDisplayerModel.addFile(file);
+        if (i==0)
+            display(file->fileName() + tr(" added"));
+        else
+            display(file->fileName() + tr(" already included"));
     }
 }
 

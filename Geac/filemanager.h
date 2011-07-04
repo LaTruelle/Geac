@@ -19,7 +19,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QString getFilePath(int row);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    void addFile(CheckableFile *file);
+    int addFile(CheckableFile *file);
     void clearFiles();
     bool getRequiredConversion(QModelIndex &index);
     bool getRequiredConversion(int i);

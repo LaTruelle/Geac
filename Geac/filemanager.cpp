@@ -8,14 +8,19 @@ FileManager::FileManager(QObject *parent) :
     header << "File Names" << " " << " " << " ";
 }
 
-void FileManager::addFile(CheckableFile *file)
+int FileManager::addFile(CheckableFile *file)
 {
-    if (!listOfFiles.contains(file))
+    // We iterate over the fileList. If the file exists we return
+    for(int i = 0; i < listOfFiles.count(); i++)
     {
-        beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
-        listOfFiles.append(file);
-        endInsertRows();
+        if(file->fileName() == listOfFiles.at(i)->fileName()) // meaning the file exists already in the list
+            return 1;
     }
+    // If we reached the end then the file is new, we save it.
+    beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
+    listOfFiles.append(file);
+    endInsertRows();
+    return 0;
 }
 
 void FileManager::clearFiles()
