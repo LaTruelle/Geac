@@ -9,6 +9,7 @@
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
 #include "esiextractor.h"
+#include "processingthread.h"
 
 class Geac : public QMainWindow
 {
@@ -34,6 +35,7 @@ private:
     EsiExtractor esiExtractor;
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
+    ProcessingThread thread;
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;
