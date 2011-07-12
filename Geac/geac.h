@@ -43,6 +43,9 @@ private:
     QFile convertedFile;
     QStringList dirList;
 
+public slots:
+    void displayLog(QString string);
+
 private slots:
     void on_actionFran_ais_triggered();
     void on_actionEnglish_triggered();

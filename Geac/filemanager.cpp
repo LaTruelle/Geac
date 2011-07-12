@@ -8,19 +8,20 @@ FileManager::FileManager(QObject *parent) :
     header << "File Names" << " " << " " << " ";
 }
 
-int FileManager::addFile(CheckableFile *file)
+void FileManager::addFile(CheckableFile *file)
 {
     // We iterate over the fileList. If the file exists we return
     for(int i = 0; i < listOfFiles.count(); i++)
     {
         if(file->fileName() == listOfFiles.at(i)->fileName()) // meaning the file exists already in the list
-            return 1;
+            // emit eventToDisplay(tr("File %1 already exists").arg(file->displayName()));
+            return;
     }
     // If we reached the end then the file is new, we save it.
     beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
     listOfFiles.append(file);
     endInsertRows();
-    return 0;
+    emit eventToDisplay(tr("File %1 added").arg(file->displayName()));
 }
 
 void FileManager::clearFiles()
@@ -30,6 +31,7 @@ void FileManager::clearFiles()
         beginRemoveRows(index(listOfFiles.count(),0),0,listOfFiles.count()-1);
         listOfFiles.clear();
         endRemoveRows();
+        emit eventToDisplay(tr("List of files cleared"));
     }
 }
 
@@ -63,8 +65,6 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
                 name.remove(0,name.lastIndexOf(QDir::separator())+1); // Returns name of file, without its path
                 return name;
             }
-            // to modify according to http://www.qtcentre.org/threads/29550-How-do-I-display-a-picture-on-a-QTableView-cell
-            // in order to display ticks or colors instead of "true" or "false"
         case 1:
             return listOfFiles.at(index.row())->getConversionRequired();
         case 2:

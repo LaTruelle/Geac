@@ -12,6 +12,7 @@ public:
     void setConversionRequired(bool boolean);
     bool getConversionState();
     bool getConversionRequired();
+    QString displayName();
 
 private:
     bool converted;

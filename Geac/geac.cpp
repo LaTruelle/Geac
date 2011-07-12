@@ -11,6 +11,8 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
+    // Connect Log signals to the log displayer
+    connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
     // Hide Progress Bar
     ui.progressBar->hide();
     ui.progressLabel->hide();
@@ -44,6 +46,11 @@ void Geac::setupFileDisplayer()
 void Geac::display(QString string)
 {
     ui.textDisplay->setPlainText(string + "\n" + ui.textDisplay->toPlainText());
+}
+
+void Geac::displayLog(QString string)
+{
+    display(string);
 }
 
 void Geac::clearLog()
@@ -136,7 +143,7 @@ void Geac::on_actionOpen_Folder_triggered()
     delete dialog;
 }
 
-void::Geac::addFilesFromList(QFileInfoList fileNames)
+void Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
     int limit = fileNames.count();
@@ -144,11 +151,7 @@ void::Geac::addFilesFromList(QFileInfoList fileNames)
     {
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
-        int i = fileDisplayerModel.addFile(file);
-        if (i==0)
-            display(file->fileName() + tr(" added"));
-        else
-            display(file->fileName() + tr(" already included"));
+        fileDisplayerModel.addFile(file);
     }
 }
 

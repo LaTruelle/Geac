@@ -1,4 +1,5 @@
 #include "checkablefile.h"
+#include <QDir>
 
 CheckableFile::CheckableFile(QObject *parent) :
     QFile(parent)
@@ -25,4 +26,9 @@ void CheckableFile::setConversionState(bool boolean)
 void CheckableFile::setConversionRequired(bool boolean)
 {
     toConvert = boolean;
+}
+
+QString CheckableFile::displayName()
+{
+    return this->fileName().remove(0,this->fileName().lastIndexOf(QDir::separator())+1);
 }
