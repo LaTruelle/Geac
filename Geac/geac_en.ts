@@ -56,24 +56,19 @@
         <translation type="obsolete">Open Folder</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="188"/>
+        <location filename="geac.cpp" line="191"/>
         <source>Store ESI in this directory</source>
         <translation>Store ESI in this directory</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="200"/>
+        <location filename="geac.cpp" line="203"/>
         <source>Files Cleared</source>
         <translation>Files Cleared</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="235"/>
-        <source>File </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="geac.cpp" line="235"/>
-        <source> Converted successfully.</source>
-        <translation type="unfinished"></translation>
+        <location filename="geac.cpp" line="238"/>
+        <source>File %1 converted successfully.</source>
+        <translation>File %1 converted successfully.</translation>
     </message>
     <message>
         <location filename="geac.ui" line="14"/>
@@ -146,7 +141,7 @@
     <message>
         <location filename="geac.ui" line="176"/>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Progress</translation>
     </message>
     <message>
         <location filename="geac.ui" line="212"/>
@@ -156,12 +151,12 @@
     <message>
         <location filename="geac.ui" line="219"/>
         <source>ESI</source>
-        <translation type="unfinished"></translation>
+        <translation>ESI</translation>
     </message>
     <message>
         <location filename="geac.ui" line="226"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location filename="geac.ui" line="237"/>
@@ -191,17 +186,17 @@
     <message>
         <location filename="geac.ui" line="301"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="geac.ui" line="306"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>English</translation>
     </message>
     <message utf8="true">
         <location filename="geac.ui" line="311"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation>Français</translation>
     </message>
 </context>
 <context>
@@ -226,9 +221,18 @@
 <context>
     <name>void::Geac</name>
     <message>
-        <location filename="geac.cpp" line="149"/>
         <source> Added</source>
-        <translation> Added</translation>
+        <translation type="obsolete"> Added</translation>
+    </message>
+    <message>
+        <location filename="geac.cpp" line="150"/>
+        <source> added</source>
+        <translation>added</translation>
+    </message>
+    <message>
+        <location filename="geac.cpp" line="152"/>
+        <source> already included</source>
+        <translation>already added</translation>
     </message>
 </context>
 </TS>

@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&qtTranslator);
-    QTranslator myappTranslator;
-    myappTranslator.load("geac_" + QLocale::system().name());
-    app.installTranslator(&myappTranslator);
+    QTranslator geacTranslator;
+    geacTranslator.load("geac_" + QLocale::system().name());
+    app.installTranslator(&geacTranslator);
 
     Geac w;
     w.showMaximized();
