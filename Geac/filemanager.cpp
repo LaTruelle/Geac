@@ -14,8 +14,10 @@ void FileManager::addFile(CheckableFile *file)
     for(int i = 0; i < listOfFiles.count(); i++)
     {
         if(file->fileName() == listOfFiles.at(i)->fileName()) // meaning the file exists already in the list
-            // emit eventToDisplay(tr("File %1 already exists").arg(file->displayName()));
+        {
+            emit eventToDisplay(tr("File %1 already exists").arg(file->displayName()));
             return;
+        }
     }
     // If we reached the end then the file is new, we save it.
     beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
