@@ -2,9 +2,11 @@
 #include <QFileDialog>
 #include <iostream>
 #include "checkfiledialog.h"
+#include <QSettings>
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
+    // Setup Model / View / Delegate system
     ui.setupUi(this);
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
@@ -12,11 +14,8 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     // Hide Progress Bar
     ui.progressBar->hide();
     ui.progressLabel->hide();
-    // Call to readSettings necessary here
-    reqHarmonicFrequencies = false;     // Default for the moment. To be updated, according to stored preferences.
-    reqHartreeFock = false;
-    reqStandardCoordinates = false;
-    reqThermochemistry = false;
+    // Read Preferences (previously used folders, state of buttons, etc.)
+    readSettings();
 }
 
 void Geac::setupFileDisplayer()
@@ -286,10 +285,23 @@ void Geac::closeEvent(QCloseEvent *event)
 
 void Geac::readSettings()
 {
-    // Read Settings
+    QSettings settings;
+    reqHarmonicFrequencies = settings.value("reqHarmonicFrequencies",false).toBool();
+    ui.harmonicFrequencies->setChecked(reqHarmonicFrequencies);
+    reqHartreeFock = settings.value("reqHartreeFock",false).toBool();
+    ui.hartreeFock->setChecked(reqHartreeFock);
+    reqStandardCoordinates = settings.value("reqStandardCoordinates",false).toBool();
+    ui.standardCoordinates->setChecked(reqStandardCoordinates);
+    reqThermochemistry = settings.value("reqThermochemistry",false).toBool();
+    ui.thermochemistry->setChecked(reqThermochemistry);
 }
 
 void Geac::writeSettings()
 {
-    // Write Settings
+    QSettings settings;
+    settings.setValue("reqHarmonicFrequencies", reqHarmonicFrequencies);
+    settings.setValue("reqHartreeFock",reqHartreeFock);
+    settings.setValue("reqStandardCoordinates",reqStandardCoordinates);
+    settings.setValue("reqThermochemistry",reqThermochemistry);
+
 }

@@ -15,6 +15,12 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    // Setup general app parameters
+    QCoreApplication::setApplicationName("Geac");
+    QCoreApplication::setOrganizationDomain("sourceforge.net");
+    QCoreApplication::setOrganizationName("E Nicolas");
+
+    // Enable translation
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&qtTranslator);
@@ -22,6 +28,7 @@ int main(int argc, char *argv[])
     geacTranslator.load("geac_" + QLocale::system().name());
     app.installTranslator(&geacTranslator);
 
+    // Launch Main Window
     Geac w;
     w.showMaximized();
     return app.exec();
