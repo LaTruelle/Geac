@@ -308,3 +308,8 @@ void Geac::writeSettings()
     settings.setValue("reqThermochemistry",reqThermochemistry);
 
 }
+
+void Geac::setProgressBarValue(int i)
+{
+    ui.progressBar->setValue(i);
+}

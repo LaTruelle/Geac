@@ -45,6 +45,7 @@ private:
 
 public slots:
     void displayLog(QString string);
+    void setProgressBarValue(int i);
 
 private slots:
     void on_actionFran_ais_triggered();
