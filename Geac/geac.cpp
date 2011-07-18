@@ -13,9 +13,11 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     setupFileDisplayer();
     // Connect Log signals to the log displayer
     connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
-    // Hide Progress Bar
-    ui.progressBar->hide();
-    ui.progressLabel->hide();
+    // Connect Thread signals to Progress Bar
+    connect(&thread, SIGNAL(started()), this, SLOT(showProgressBar()));
+    connect(&thread, SIGNAL(finished()), this, SLOT(hideProgressBar()));
+    connect(&thread, SIGNAL(fileProcessed(int)), this, SLOT(setProgressBarValue(int)));
+    hideProgressBar();
     // Read Preferences (previously used folders, state of buttons, etc.)
     readSettings();
 }
@@ -207,9 +209,6 @@ void Geac::on_clearFiles_clicked()
 
 void Geac::on_createEsi_clicked()
 {
-    // Show the progress Bar
-    ui.progressBar->show();
-    ui.progressLabel->show();
     // Transmit the requirements to the extractor
     esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
     // Iterate over the files and convert them
@@ -244,9 +243,6 @@ void Geac::on_createEsi_clicked()
             ui.fileDisplayer->viewport()->update();
         }
     }
-    // Hide Progress Bar
-    ui.progressBar->hide();
-    ui.progressLabel->hide();
 }
 
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
@@ -313,3 +309,18 @@ void Geac::setProgressBarValue(int i)
 {
     ui.progressBar->setValue(i);
 }
+
+void Geac::showProgressBar()
+{
+    // Show the progress Bar
+    ui.progressBar->show();
+    ui.progressLabel->show();
+}
+
+void Geac::hideProgressBar()
+{
+    // Hide Progress Bar
+    ui.progressBar->hide();
+    ui.progressLabel->hide();
+}
+
