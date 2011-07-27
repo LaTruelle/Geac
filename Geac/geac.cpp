@@ -234,7 +234,8 @@ void Geac::on_createEsi_clicked()
                 esiExtractor.setOutputFolder(dir);
             }
             // Launch the extractor, and transmit him the extension to give to the output file
-            esiExtractor.createEsi(ui.esiExtension->text());
+            esiExtractor.setExtension(ui.esiExtension->text());
+            esiExtractor.createEsi();
             // Display in log
             display(tr("File %1 converted successfully.").arg(file.fileName()));
             // set converted state in manager

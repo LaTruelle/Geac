@@ -26,7 +26,8 @@ public:
                            bool &harmonicFrequencies,
                            bool &standardCoordinates,
                            bool &hartreeFockEnergy);
-    void createEsi(QString fileExtension);
+    void createEsi();
+    void setExtension(QString extension);
 
 private:
     void writeData(QString &outFile);
@@ -39,6 +40,7 @@ private:
     QDir outputFolder;
     QFile inputFile;
     QFile outputFile;
+    QString fileExtension;
 };
 
 #endif // ESIEXTRACTOR_H

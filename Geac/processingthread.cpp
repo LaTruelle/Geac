@@ -60,8 +60,16 @@ void ProcessingThread::run()
 {
     while (!fileList.isEmpty())
     {
-        // Perform conversion of file currentFile
-
+        // Perform conversion of first file in List
+        // - 1 - Setup ESI Extractor
+        QFile file(fileList.takeFirst());
+        esiExtractor.setInputFile(file);
+        //  - 2 - Set Parameters in Esi Extractor
+//        esiExtractor.setOutputFolder(folder); // depends on sameFolder//dedicatedFolder
+//        esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
+//        esiExtractor.setExtension(extension);
+        // - 3 - Create ESI
+        esiExtractor.createEsi();
         // Emit Signals to update display
         emit logEvent(tr("File successfully converted")); // To move to Esi Extractor
         emit fileProcessed(100 * progress/totalNumberOfFiles);

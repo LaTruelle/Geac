@@ -13,7 +13,12 @@ EsiExtractor::EsiExtractor(QFile &inputFile)
     QString fileName = inputFile.fileName();
 }
 
-void EsiExtractor::createEsi(QString fileExtension)
+void EsiExtractor::setExtension(QString extension)
+{
+    fileExtension.fromAscii(extension.toAscii());
+}
+
+void EsiExtractor::createEsi()
 {
     QMessageBox msg;
     // We check the existence of the input File
