@@ -40,6 +40,7 @@ void LogParser::parse()
         }
         if (line.contains("Harmonic frequencies"))
         {
+            harmonicFrequencies.clear();
             // Retrieve Three Lowest Harmonic Frequencies.
             // Start by reading the header but not save it
             for (int ctr = 1; ctr<=3; ctr++)
