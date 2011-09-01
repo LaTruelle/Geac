@@ -71,11 +71,15 @@ void ProcessingThread::run()
         // - 3 - Create ESI
         esiExtractor.createEsi();
         // Emit Signals to update display
-        emit logEvent(tr("File successfully converted")); // To move to Esi Extractor
+        emit logEvent(tr("File %1 successfully converted").arg(file.fileName())); // To move to Esi Extractor
         emit fileProcessed(100 * progress/totalNumberOfFiles);
+//        emit fileNumber processed --> to update the view
         // Test if the thread has been aborted
         if (finished)
+        {
             return;
+//            emit processing done (triggers hiding of progrees bar and release of button)
+        }
         msleep(10);
     }
 }

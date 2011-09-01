@@ -11,7 +11,8 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
-    // Connect Log signals to the log displayer
+    // Connect Log signals to the log displayer and thread
+    connect(&thread, SIGNAL(logEvent(QString)), this, SLOT(displayLog(QString)));
     connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
     // Connect Thread signals to Progress Bar
     connect(&thread, SIGNAL(started()), this, SLOT(showProgressBar()));
@@ -209,6 +210,16 @@ void Geac::on_clearFiles_clicked()
 
 void Geac::on_createEsi_clicked()
 {
+    showProgressBar();
+    for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+    {
+        QFile file(fileDisplayerModel.getFilePath(i));
+        thread.addToThread(file);
+    }
+    // TODO --> ADD Connection between end of thread and hiding of progress bar
+
+/*
+    // ------------ Previous Function (no threading) ------------------
     // Transmit the requirements to the extractor
     esiExtractor.setRequiredFields(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock);
     // Iterate over the files and convert them
@@ -233,7 +244,7 @@ void Geac::on_createEsi_clicked()
                 QDir dir(fileDir);
                 esiExtractor.setOutputFolder(dir);
             }
-            // Launch the extractor, and transmit him the extension to give to the output file
+            // Launch the extractor, and transmit it the extension to give to the output file
             esiExtractor.setExtension(ui.esiExtension->text());
             esiExtractor.createEsi();
             // Display in log
@@ -244,6 +255,9 @@ void Geac::on_createEsi_clicked()
             ui.fileDisplayer->viewport()->update();
         }
     }
+
+    // ------------------ End of No threading -----------------
+*/
 }
 
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
