@@ -211,9 +211,10 @@ void Geac::on_clearFiles_clicked()
 void Geac::on_createEsi_clicked()
 {
     showProgressBar();
+    CheckableFile *file;
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
-        QFile file(fileDisplayerModel.getFilePath(i));
+        file = &fileDisplayerModel.getFile(i);
         thread.addToThread(file);
     }
     // TODO --> ADD Connection between end of thread and hiding of progress bar

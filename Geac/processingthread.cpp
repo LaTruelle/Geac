@@ -14,7 +14,7 @@ ProcessingThread::~ProcessingThread()
     wait();
 }
 
-void ProcessingThread::setupThread(QList<QFile *> &list)
+void ProcessingThread::setupThread(QList<CheckableFile *> &list)
 {
     // setup Thread
     totalNumberOfFiles = fileList.count();
@@ -24,7 +24,7 @@ void ProcessingThread::setupThread(QList<QFile *> &list)
     start();
 }
 
-void ProcessingThread::addToThread(QList<QFile *> &list)
+void ProcessingThread::addToThread(QList<CheckableFile *> &list)
 {
     mutex.lock();
     totalNumberOfFiles += list.count();
@@ -33,12 +33,12 @@ void ProcessingThread::addToThread(QList<QFile *> &list)
     // Check if run or start is required
 }
 
-void ProcessingThread::addToThread(QFile &file)
+void ProcessingThread::addToThread(CheckableFile *file)
 {
     mutex.lock();
     totalNumberOfFiles += 1;
     mutex.unlock();
-    fileList.append(new QFile(&file));
+    fileList.append(file);
     // Check if run or start is required
 }
 
@@ -62,7 +62,7 @@ void ProcessingThread::run()
     {
         // Perform conversion of first file in List
         // - 1 - Setup ESI Extractor
-        QFile file(fileList.takeFirst());
+        CheckableFile file(fileList.takeFirst());
         esiExtractor.setInputFile(file);
         //  - 2 - Set Parameters in Esi Extractor
 //        esiExtractor.setOutputFolder(folder); // depends on sameFolder//dedicatedFolder

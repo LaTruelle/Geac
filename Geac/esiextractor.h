@@ -6,6 +6,7 @@
 #include <QString>
 #include <QStringList>
 #include "logparser.h"
+#include "checkablefile.h"
 
 /*
 This class extracts all necessary elements from a given file to build an ESI.
@@ -19,8 +20,8 @@ class EsiExtractor
 {
 public:
     EsiExtractor();
-    EsiExtractor(QFile &inputFile);
-    void setInputFile(QFile &inputFile);
+    EsiExtractor(CheckableFile &inputFile);
+    void setInputFile(CheckableFile &inputFile);
     void setOutputFolder(QDir &outputFolder);
     void setRequiredFields(bool &thermochemistry,
                            bool &harmonicFrequencies,

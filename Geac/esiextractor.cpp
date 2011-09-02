@@ -7,7 +7,7 @@ EsiExtractor::EsiExtractor()
 {
 }
 
-EsiExtractor::EsiExtractor(QFile &inputFile)
+EsiExtractor::EsiExtractor(CheckableFile &inputFile)
 {
     EsiExtractor::inputFile.setFileName(inputFile.fileName());
     QString fileName = inputFile.fileName();
@@ -81,7 +81,7 @@ void EsiExtractor::writeData(QString &outFile)
     outputFile.close();
 }
 
-void EsiExtractor::setInputFile(QFile &inputFile)
+void EsiExtractor::setInputFile(CheckableFile &inputFile)
 {
     EsiExtractor::inputFile.setFileName(inputFile.fileName());
 }

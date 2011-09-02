@@ -130,3 +130,8 @@ void FileManager::setConverted(int i)
     // set Conversion state of File
     listOfFiles.at(i)->setConversionState(true);
 }
+
+CheckableFile& FileManager::getFile(int i)
+{
+    return *listOfFiles.at(i);
+}

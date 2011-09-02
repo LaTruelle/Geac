@@ -6,6 +6,7 @@
 #include <QList>
 #include <QMutex>
 #include <esiextractor.h>
+#include "checkablefile.h"
 
 class ProcessingThread : public QThread
 {
@@ -15,9 +16,9 @@ public:
     ProcessingThread(QObject *parent = 0);
     ~ProcessingThread();
 
-    void setupThread(QList<QFile *> &list);
-    void addToThread(QList<QFile *> &list);
-    void addToThread(QFile &file);
+    void setupThread(QList<CheckableFile *> &list);
+    void addToThread(QList<CheckableFile *> &list);
+    void addToThread(CheckableFile *file);
     void clearThread();
     void stop();
 
@@ -39,7 +40,7 @@ private:
     int totalNumberOfFiles;
     int progress;
     EsiExtractor esiExtractor;
-    QList<QFile *> fileList;
+    QList<CheckableFile *> fileList;
 };
 
 #endif // PROCESSINGTHREAD_H
