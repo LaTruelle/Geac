@@ -24,14 +24,14 @@ void EsiExtractor::createEsi()
     // We check the existence of the input File
     if(!inputFile.exists())
     {
-        msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" does not exist !"));
+        msg.setText(QObject::tr("The file %1 does not exist !").arg(inputFile.fileName()));
         msg.exec();
     }
     else{
         // We check if the file can be read
         if (!QFileInfo(inputFile).isReadable())
         {
-            msg.setText(QObject::tr("The file ")+inputFile.fileName()+QObject::tr(" cannot be opened !"));
+            msg.setText(QObject::tr("The file %1 cannot be opened !").arg(inputFile.fileName()));
             msg.exec();
         }
         else
@@ -47,9 +47,34 @@ void EsiExtractor::createEsi()
             outFile.append(fileExtension);
             // --> inputName_fileExtension
             // We have a proper file Name, we check its existence, and if we can write in the directory
-            if(QFile(outFile).exists())
+            if(QFile(outFile).exists() && !alwaysOverwrite && !neverOverwrite)
             {
-               // We have a problem : delete and overwrite ?
+                // We have a problem : Ask for the user to decide
+                msg.setText(QObject::tr("the file %1 already exists").arg(inputFile.fileName()));
+                msg.setInformativeText(QObject::tr("Do you want to overwrite it ?"));
+                msg.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::NoToAll);
+                msg.setDefaultButton(QMessageBox::YesToAll);
+                switch (msg.exec())
+                {
+                case QMessageBox::Yes:
+                    // Delete and Overwrite
+                    QFile(outFile).remove();
+                    writeData(outFile);
+                    break;
+                case QMessageBox::YesToAll:
+                    // Delete and Overwrite and save it for next time
+                    QFile(outFile).remove();
+                    writeData(outFile);
+                    alwaysOverwrite = true;
+                    break;
+                case QMessageBox::No:
+                    // Do Nothing
+                    break;
+                case QMessageBox::NoToAll:
+                    // Do Nothing But Save it !
+                    neverOverwrite = true;
+                    break;
+                }
             }
             else
             {

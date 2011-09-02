@@ -37,6 +37,8 @@ private:
     bool reqHarmonicFrequencies;
     bool reqStandardCoordinates;
     bool reqHartreeFock;
+    bool alwaysOverwrite;
+    bool neverOverwrite;
     LogParser parser;
     QDir outputFolder;
     QFile inputFile;
