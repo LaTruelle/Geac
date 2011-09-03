@@ -50,25 +50,42 @@
     </message>
 </context>
 <context>
+    <name>FileManager</name>
+    <message>
+        <location filename="filemanager.cpp" line="18"/>
+        <source>File %1 already exists</source>
+        <translation>File %1 already exists</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="26"/>
+        <source>File %1 added</source>
+        <translation>File %1 added</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="36"/>
+        <source>List of files cleared</source>
+        <translation>List of files cleared</translation>
+    </message>
+</context>
+<context>
     <name>Geac</name>
     <message>
         <source>Open Folder</source>
         <translation type="obsolete">Open Folder</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="191"/>
+        <location filename="geac.cpp" line="196"/>
         <source>Store ESI in this directory</source>
         <translation>Store ESI in this directory</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="203"/>
+        <location filename="geac.cpp" line="208"/>
         <source>Files Cleared</source>
         <translation>Files Cleared</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="238"/>
         <source>File %1 converted successfully.</source>
-        <translation>File %1 converted successfully.</translation>
+        <translation type="obsolete">File %1 converted successfully.</translation>
     </message>
     <message>
         <location filename="geac.ui" line="14"/>
@@ -200,22 +217,46 @@
     </message>
 </context>
 <context>
+    <name>ProcessingThread</name>
+    <message>
+        <location filename="processingthread.cpp" line="74"/>
+        <source>File %1 successfully converted</source>
+        <translation>File %1 successfully converted</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="esiextractor.cpp" line="22"/>
-        <location filename="esiextractor.cpp" line="29"/>
         <source>The file </source>
-        <translation>The file </translation>
+        <translation type="obsolete">The file </translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="22"/>
         <source> does not exist !</source>
-        <translation> does not exist!</translation>
+        <translation type="obsolete"> does not exist!</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="29"/>
         <source> cannot be opened !</source>
-        <translation> cannot be opened !</translation>
+        <translation type="obsolete"> cannot be opened !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="27"/>
+        <source>The file %1 does not exist !</source>
+        <translation>The file %1 does not exist !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="34"/>
+        <source>The file %1 cannot be opened !</source>
+        <translation>The file %1 cannot be opened !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="53"/>
+        <source>the file %1 already exists</source>
+        <translation>The file %1 already exists</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="54"/>
+        <source>Do you want to overwrite it ?</source>
+        <translation>So you want to overwrite it ?</translation>
     </message>
 </context>
 <context>
@@ -225,14 +266,12 @@
         <translation type="obsolete"> Added</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="150"/>
         <source> added</source>
-        <translation>added</translation>
+        <translation type="obsolete">added</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="152"/>
         <source> already included</source>
-        <translation>already added</translation>
+        <translation type="obsolete">already added</translation>
     </message>
 </context>
 </TS>

@@ -50,6 +50,24 @@
     </message>
 </context>
 <context>
+    <name>FileManager</name>
+    <message>
+        <location filename="filemanager.cpp" line="18"/>
+        <source>File %1 already exists</source>
+        <translation>Le Fichier %1 existe déjà</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="26"/>
+        <source>File %1 added</source>
+        <translation>Fichier %1 ajouté</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="36"/>
+        <source>List of files cleared</source>
+        <translation>Liste de fichiers vidée</translation>
+    </message>
+</context>
+<context>
     <name>Geac</name>
     <message>
         <source>Open File</source>
@@ -60,19 +78,18 @@
         <translation type="obsolete">Ouvir un Dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="191"/>
+        <location filename="geac.cpp" line="196"/>
         <source>Store ESI in this directory</source>
         <translation>Enregistrer l&apos;ESI dans ce dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="203"/>
+        <location filename="geac.cpp" line="208"/>
         <source>Files Cleared</source>
         <translation>Fichiers Supprimés</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="238"/>
         <source>File %1 converted successfully.</source>
-        <translation>Fichier %1 converti avec succès.</translation>
+        <translation type="obsolete">Fichier %1 converti avec succès.</translation>
     </message>
     <message>
         <location filename="geac.ui" line="14"/>
@@ -204,22 +221,46 @@
     </message>
 </context>
 <context>
+    <name>ProcessingThread</name>
+    <message>
+        <location filename="processingthread.cpp" line="74"/>
+        <source>File %1 successfully converted</source>
+        <translation>Fichier %1 converti avec succès</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="esiextractor.cpp" line="22"/>
-        <location filename="esiextractor.cpp" line="29"/>
         <source>The file </source>
-        <translation>Le fichier </translation>
+        <translation type="obsolete">Le fichier </translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="22"/>
         <source> does not exist !</source>
-        <translation> n&apos;existe pas !</translation>
+        <translation type="obsolete"> n&apos;existe pas !</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="29"/>
         <source> cannot be opened !</source>
-        <translation> ne peut pas être ouvert !</translation>
+        <translation type="obsolete"> ne peut pas être ouvert !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="27"/>
+        <source>The file %1 does not exist !</source>
+        <translation>Le fichier %1 n&apos;existe pas !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="34"/>
+        <source>The file %1 cannot be opened !</source>
+        <translation>Le fichier %1 ne peut pas être ouvert !</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="53"/>
+        <source>the file %1 already exists</source>
+        <translation>Le fichier %1 existe déjà</translation>
+    </message>
+    <message>
+        <location filename="esiextractor.cpp" line="54"/>
+        <source>Do you want to overwrite it ?</source>
+        <translation>Voulez-vous le remplacer ?</translation>
     </message>
 </context>
 <context>
@@ -229,14 +270,12 @@
         <translation type="obsolete"> ajouté</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="150"/>
         <source> added</source>
-        <translation>ajouté</translation>
+        <translation type="obsolete">ajouté</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="152"/>
         <source> already included</source>
-        <translation>déjà ajouté</translation>
+        <translation type="obsolete">déjà ajouté</translation>
     </message>
 </context>
 </TS>
