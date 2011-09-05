@@ -217,6 +217,7 @@ void Geac::on_createEsi_clicked()
         file = &fileDisplayerModel.getFile(i);
         thread.addToThread(file);
     }
+    thread.start();
     // TODO --> ADD Connection between end of thread and hiding of progress bar
 
 /*
