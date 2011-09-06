@@ -10,7 +10,7 @@ FileProcessor::~FileProcessor()
     // Implement destructor ?
 }
 
-FileProcessor::convertFile()
+void FileProcessor::convertFile()
 {
     // convert File
 }

@@ -12,7 +12,7 @@ class FileProcessor
 public:
     FileProcessor(CheckableFile &file);
     ~FileProcessor();
-    convertFile();
+    void convertFile();
 
 signals:
     void fileProcessed();
