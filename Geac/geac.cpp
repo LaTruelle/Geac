@@ -222,6 +222,8 @@ void Geac::on_createEsi_clicked()
         // Plus propre: on transforme la classe Processing Thread en un
         // Worker à qui on passe toute les infos et une méthode "convert()"
         // fait le boulot après avoir été passé dans la thread qvb.
+        // Permet de connecter facilement les slots sans pourrir Esiextractor
+        // qui est une classe "technique" et pas user friendly
     }
 
 /*
