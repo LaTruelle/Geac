@@ -10,7 +10,7 @@ class FileProcessor
 {
 
 public:
-    FileProcessor(CheckableFile &file);
+    FileProcessor(CheckableFile *f);
     ~FileProcessor();
     void convertFile();
 
@@ -21,7 +21,7 @@ signals:
 private:
     // ESI Extraction related declarations
     CheckableFile *file;
-    EsiExtractor *esiExtractor;
+    EsiExtractor esiExtractor;
 };
 
 #endif // FILEPROCESSOR_H

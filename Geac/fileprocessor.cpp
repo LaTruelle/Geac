@@ -1,8 +1,9 @@
 #include "fileprocessor.h"
 #include <iostream>
 
-FileProcessor::FileProcessor(CheckableFile &file)
+FileProcessor::FileProcessor(CheckableFile *f)   // That's great !!!!!!!!!!!!!!!!
 {
+    file = f;
 }
 
 FileProcessor::~FileProcessor()
