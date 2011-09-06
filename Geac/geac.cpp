@@ -11,13 +11,9 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setModel(&fileDisplayerModel);
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
-    // Connect Log signals to the log displayer and thread
-    connect(&thread, SIGNAL(logEvent(QString)), this, SLOT(displayLog(QString)));
+    // Connect Log signals to the log displayer
     connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
-    // Connect Thread signals to Progress Bar
-    connect(&thread, SIGNAL(started()), this, SLOT(showProgressBar()));
-    connect(&thread, SIGNAL(finished()), this, SLOT(hideProgressBar()));
-    connect(&thread, SIGNAL(fileProcessed(int)), this, SLOT(setProgressBarValue(int)));
+    // Hide Progress Bar
     hideProgressBar();
     // Read Preferences (previously used folders, state of buttons, etc.)
     readSettings();
@@ -210,6 +206,27 @@ void Geac::on_clearFiles_clicked()
 
 void Geac::on_createEsi_clicked()
 {
+    // ----------Implementation without subclassing QThread -----------
+    showProgressBar();
+    // Start Thread
+    processingThread->start();
+
+    // Add files to thread, and launch their conversion
+    CheckableFile *file;
+
+    for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+    {
+        // Assez primaire pour l'instant
+        file = &fileDisplayerModel.getFile(i);
+        file->moveToThread(processingThread);
+        // Plus propre: on transforme la classe Processing Thread en un
+        // Worker à qui on passe toute les infos et une méthode "convert()"
+        // fait le boulot après avoir été passé dans la thread qvb.
+    }
+
+/*
+    // ----------------Old threaded implementation --------------------
+    // ------------ kept until everything works nicely ----------------
     showProgressBar();
     CheckableFile *file;
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
@@ -219,6 +236,7 @@ void Geac::on_createEsi_clicked()
     }
     thread.start();
     // TODO --> ADD Connection between end of thread and hiding of progress bar
+*/
 
 /*
     // ------------ Previous Function (no threading) ------------------
