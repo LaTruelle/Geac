@@ -8,8 +8,6 @@ class CheckableFile : public QFile
     Q_OBJECT
 public:
     explicit CheckableFile(QObject *parent);
-    void setConversionState(bool boolean);
-    void setConversionRequired(bool boolean);
     bool getConversionState();
     bool getConversionRequired();
     QString displayName();
@@ -21,7 +19,8 @@ private:
 signals:
 
 public slots:
-
+    void setConversionState(bool boolean);
+    void setConversionRequired(bool boolean);
 };
 
 #endif // CHECKABLEFILE_H

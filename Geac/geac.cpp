@@ -1,8 +1,12 @@
 #include "geac.h"
 #include <QFileDialog>
-#include <iostream>
-#include "checkfiledialog.h"
 #include <QSettings>
+#include "checkfiledialog.h"
+#include "fileprocessor.h"
+
+// To delete in the end
+#include <iostream>
+
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -208,23 +212,25 @@ void Geac::on_createEsi_clicked()
 {
     // ----------Implementation without subclassing QThread -----------
     showProgressBar();
-    // Start Thread
-    processingThread->start();
 
     // Add files to thread, and launch their conversion
-    CheckableFile *file;
 
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
+        FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i).fileName());
         // Assez primaire pour l'instant
-        file = &fileDisplayerModel.getFile(i);
-        file->moveToThread(processingThread);
+        processor->moveToThread(&processingThread);
+        // processor->setupProcessor();
+        processor->convertFile();
         // Plus propre: on transforme la classe Processing Thread en un
         // Worker à qui on passe toute les infos et une méthode "convert()"
         // fait le boulot après avoir été passé dans la thread qvb.
         // Permet de connecter facilement les slots sans pourrir Esiextractor
         // qui est une classe "technique" et pas user friendly
     }
+
+    // Start Thread
+    processingThread.start();
 
 /*
     // ----------------Old threaded implementation --------------------

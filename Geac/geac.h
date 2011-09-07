@@ -36,7 +36,7 @@ private:
     EsiExtractor esiExtractor;
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
-    QThread * processingThread;
+    QThread processingThread;
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;
