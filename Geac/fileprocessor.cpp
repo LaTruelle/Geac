@@ -1,9 +1,9 @@
 #include "fileprocessor.h"
 #include <iostream>
 
-FileProcessor::FileProcessor(QString fileName)   // That's great !!!!!!!!!!!!!!!!
+FileProcessor::FileProcessor(QString fileName)
 {
-    file->setFileName(fileName);
+    file.setFileName(fileName);
 }
 
 FileProcessor::~FileProcessor()
@@ -19,9 +19,9 @@ void FileProcessor::setupProcessor(bool &thermoChem,
                                    )
 {
     // transmit necessary data directly to the extractor
-    esiExtractor->setRequiredFields(thermoChem, harmFreq, stdCoord, hfEnergy);
-    esiExtractor->setOutputFolder(outFolder);
-    esiExtractor->setExtension(fileExt);
+    esiExtractor.setRequiredFields(thermoChem, harmFreq, stdCoord, hfEnergy);
+    esiExtractor.setOutputFolder(outFolder);
+    esiExtractor.setExtension(fileExt);
 }
 
 void FileProcessor::convertFile()

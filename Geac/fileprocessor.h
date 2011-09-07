@@ -16,6 +16,7 @@ public:
     FileProcessor(QString fileName);
     ~FileProcessor();
     void convertFile();
+    void setFileName(QString &string);
     void setupProcessor(bool &thermoChem,
                         bool &harmFreq,
                         bool &stdCoord,
@@ -30,8 +31,8 @@ signals:
 
 private:
     // ESI Extraction related declarations
-    QFile *file;
-    EsiExtractor *esiExtractor;
+    QFile file;
+    EsiExtractor esiExtractor;
     int id;
 };
 
