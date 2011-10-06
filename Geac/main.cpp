@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     // Setup general app parameters
     QCoreApplication::setApplicationName("Geac");
     QCoreApplication::setOrganizationDomain("sourceforge.net");
-    QCoreApplication::setOrganizationName("E Nicolas");
+    QCoreApplication::setOrganizationName("Emmanuel Nicolas");
 
     // Enable translation
     QTranslator qtTranslator;

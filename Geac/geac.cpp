@@ -244,6 +244,7 @@ void Geac::on_createEsi_clicked()
     }
     thread.start();
     // TODO --> ADD Connection between end of thread and hiding of progress bar
+    // ------------------End of Implementation -----------------------
 */
 
 /*
@@ -319,12 +320,6 @@ void Geac::on_actionFran_ais_triggered()
     // Translate UI to French
 }
 
-void Geac::closeEvent(QCloseEvent *event)
-{
-    writeSettings();
-    event->accept();
-}
-
 void Geac::readSettings()
 {
     QSettings settings;
@@ -345,7 +340,6 @@ void Geac::writeSettings()
     settings.setValue("reqHartreeFock",reqHartreeFock);
     settings.setValue("reqStandardCoordinates",reqStandardCoordinates);
     settings.setValue("reqThermochemistry",reqThermochemistry);
-
 }
 
 void Geac::setProgressBarValue(int i)
@@ -367,3 +361,12 @@ void Geac::hideProgressBar()
     ui.progressLabel->hide();
 }
 
+void Geac::closeEvent(QCloseEvent *event)
+ {
+    processingThread.quit();
+    while (processingThread.isRunning()) {
+        // Do Nothing but wait
+    }
+    writeSettings();
+    event->accept();
+ }
