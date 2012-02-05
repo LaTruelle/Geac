@@ -1,7 +1,33 @@
+/*
+This file is part of GEAC (Gaussian ESI Automated Creator)
+
+  GEAC - Copyright (C) 2012 - Emmanuel Nicolas
+
+  GEAC is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  ---
+
+  Emmanuel Nicolas - Main.cpp
+
+    The main class that is launched, defining a QApplication, translators,
+    and setting up the main Geac window.
+
+*/
+
 #include <QtGui/QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
-// #include <QtPlugin>
 #include "geac.h"
 
 // http://www.qtcentre.org/threads/11532-How-to-add-qsvg/page2

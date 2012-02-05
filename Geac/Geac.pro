@@ -10,7 +10,7 @@ TARGET = Geac
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        geac.cpp \
+    geac.cpp \
     esiextractor.cpp \
     checkfiledialog.cpp \
     logparser.cpp \

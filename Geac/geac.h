@@ -1,3 +1,31 @@
+/*
+This file is part of GEAC (Gaussian ESI Automated Creator)
+
+  GEAC - Copyright (C) 2012 - Emmanuel Nicolas
+
+  GEAC is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  ---
+
+  Emmanuel Nicolas - Geac.h
+
+    The class Geac defines the main window of the software, putting
+    together the file manager, the file processor, a log display, and
+    functions to add files or folders of files.
+
+*/
+
 #ifndef GEAC_H
 #define GEAC_H
 
