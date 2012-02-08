@@ -36,6 +36,20 @@ CheckableFile::CheckableFile(QObject *parent) :
     toConvert = true;
 }
 
+CheckableFile::CheckableFile() :
+    QFile()
+{
+    // Nothing to do
+}
+
+CheckableFile::CheckableFile(CheckableFile & file) :
+    QFile(file.fileName())
+{
+    converted = file.getConversionState();
+    toConvert = file.getConversionRequired();
+    id = file.getId();
+}
+
 bool CheckableFile::getConversionRequired()
 {
     return toConvert;
@@ -54,6 +68,16 @@ void CheckableFile::setConversionState(bool boolean)
 void CheckableFile::setConversionRequired(bool boolean)
 {
     toConvert = boolean;
+}
+
+void CheckableFile::setId(int i)
+{
+    id = i;
+}
+
+int CheckableFile::getId()
+{
+    return id;
 }
 
 QString CheckableFile::displayName()

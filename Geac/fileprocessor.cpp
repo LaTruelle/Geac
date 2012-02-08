@@ -30,9 +30,10 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "fileprocessor.h"
 #include <iostream>
 
-FileProcessor::FileProcessor(QString fileName)
+FileProcessor::FileProcessor(CheckableFile &inputFile)
 {
-    file.setFileName(fileName);
+    file.setFileName(inputFile.fileName());
+    id = inputFile.getId();
 }
 
 FileProcessor::~FileProcessor()
@@ -47,7 +48,7 @@ void FileProcessor::setupProcessor(bool &thermoChem,
                                    QString &fileExt
                                    )
 {
-    // transmit necessary data directly to the extractor
+    // Transmit necessary data directly to the extractor
     esiExtractor.setRequiredFields(thermoChem, harmFreq, stdCoord, hfEnergy);
     esiExtractor.setOutputFolder(outFolder);
     esiExtractor.setExtension(fileExt);
@@ -55,5 +56,7 @@ void FileProcessor::setupProcessor(bool &thermoChem,
 
 void FileProcessor::convertFile()
 {
-    // convert File
+    // Tell the extractor to build the ESI
+    esiExtractor.createEsi();
+    emit fileProcessed(id);
 }

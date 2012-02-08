@@ -47,6 +47,8 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     hideProgressBar();
     // Read Preferences (previously used folders, state of buttons, etc.)
     readSettings();
+    // Start Processing thread
+    processingThread.start();
 }
 
 void Geac::setupFileDisplayer()
@@ -243,7 +245,7 @@ void Geac::on_createEsi_clicked()
 
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
-        FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i).fileName());
+        FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
         // Assez primaire pour l'instant
         processor->moveToThread(&processingThread);
         // processor->setupProcessor();
@@ -255,11 +257,8 @@ void Geac::on_createEsi_clicked()
         // qui est une classe "technique" et pas user friendly
     }
 
-    // Start Thread
-    processingThread.start();
-
 /*
-    // ----------------Old threaded implementation --------------------
+    // --------------- Old threaded implementation --------------------
     // ------------ kept until everything works nicely ----------------
     showProgressBar();
     CheckableFile *file;
@@ -270,7 +269,7 @@ void Geac::on_createEsi_clicked()
     }
     thread.start();
     // TODO --> ADD Connection between end of thread and hiding of progress bar
-    // ------------------End of Implementation -----------------------
+    // -------------- End of old Implementation -----------------------
 */
 
 /*

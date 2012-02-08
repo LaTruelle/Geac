@@ -36,13 +36,18 @@ class CheckableFile : public QFile
     Q_OBJECT
 public:
     explicit CheckableFile(QObject *parent);
+    CheckableFile(CheckableFile & file);
+    CheckableFile();
     bool getConversionState();
     bool getConversionRequired();
+    void setId(int i);
+    int getId();
     QString displayName();
 
 private:
     bool converted;
     bool toConvert;
+    int id;
 
 signals:
 

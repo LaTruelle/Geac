@@ -47,6 +47,8 @@ void FileManager::addFile(CheckableFile *file)
             return;
         }
     }
+    // We attribute an Id to the current file
+    file->setId(listOfFiles.count()+1); // Ugly, because if we replace the file, it gets the same id. --> Add proper counter
     // If we reached the end then the file is new, we save it.
     beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
     listOfFiles.append(file);

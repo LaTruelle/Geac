@@ -34,7 +34,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QFile>
 #include <QList>
 #include <QDir>
-#include <esiextractor.h>
+
+#include "esiextractor.h"
 #include "checkablefile.h"
 
 class FileProcessor : public QObject
@@ -42,7 +43,7 @@ class FileProcessor : public QObject
     Q_OBJECT
 
 public:
-    FileProcessor(QString fileName);
+    FileProcessor(CheckableFile &inputFile);
     ~FileProcessor();
     void convertFile();
     void setFileName(QString &string);
@@ -59,7 +60,7 @@ signals:
     void logEvent(QString string);
 
 private:
-    QFile file;
+    CheckableFile file;
     EsiExtractor esiExtractor;
     int id;
 };
