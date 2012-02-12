@@ -30,15 +30,14 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #define GEAC_H
 
 #include "ui_geac.h"
+
 #include <QDir>
-#include <QFile>
 #include <QFileInfoList>
 #include <QCloseEvent>
 #include <QThread>
+
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
-#include "esiextractor.h"
-
 
 class Geac : public QMainWindow
 {
@@ -61,20 +60,18 @@ private:
     bool reqStandardCoordinates;
     bool reqHartreeFock;
 
-    EsiExtractor esiExtractor;
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
     QThread processingThread;
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;
-    QFile fileToConvert;
-    QFile convertedFile;
     QStringList dirList;
 
 public slots:
     void displayLog(QString string);
     void setProgressBarValue(int i);
+    void showFileFinished(int id);
 
 private slots:
     void showProgressBar();

@@ -31,8 +31,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #define FILEPROCESSOR_H
 
 #include <QObject>
-#include <QFile>
-#include <QList>
 #include <QDir>
 
 #include "esiextractor.h"
@@ -52,7 +50,7 @@ public:
                         bool &stdCoord,
                         bool &hfEnergy,
                         QDir &outFolder,
-                        QString &fileExt
+                        QString fileExt
                         );
 
 signals:

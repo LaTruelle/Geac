@@ -245,16 +245,28 @@ void Geac::on_createEsi_clicked()
 
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
+        // Define a File Processor for the file i
         FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
-        // Assez primaire pour l'instant
+        if (ui.Button_DedicatedFolder->isChecked())
+        {
+            // Set a dedicated folder
+            qDebug("ESI in Geac:"+esiFolder.absolutePath().toAscii());
+            processor->setupProcessor(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock, esiFolder, ui.esiExtension->text());
+        }
+        /* --- Case ESI in Same Folder to treat
+        else if(ui.Button_SameFolder->isChecked())
+        {
+            // Set the folder of the current file to be the output path
+            QString fileDir = file.fileName();
+            fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
+            QDir dir(fileDir);
+            processor->setupProcessor(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock, dir, ui.esiExtension->text());
+        }
+        */
+        // Move the file processor to the processing thread
         processor->moveToThread(&processingThread);
-        // processor->setupProcessor();
+        // Start the conversion
         processor->convertFile();
-        // Plus propre: on transforme la classe Processing Thread en un
-        // Worker à qui on passe toute les infos et une méthode "convert()"
-        // fait le boulot après avoir été passé dans la thread qvb.
-        // Permet de connecter facilement les slots sans pourrir Esiextractor
-        // qui est une classe "technique" et pas user friendly
     }
 
 /*
@@ -370,6 +382,16 @@ void Geac::writeSettings()
 void Geac::setProgressBarValue(int i)
 {
     ui.progressBar->setValue(i);
+}
+
+void Geac::showFileFinished(int id)
+{
+    // Retrieve the name of the Finished file according to the id
+    CheckableFile *file = fileDisplayerModel.getFileById(id);
+    // Set its conversion state
+    file->setConversionState(true);
+    // Display the right thing in the log
+    display(tr("File %1 converted").arg(file->displayName()));
 }
 
 void Geac::showProgressBar()

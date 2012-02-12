@@ -31,7 +31,7 @@ LogParser::LogParser()
 {
 }
 
-LogParser::LogParser(QFile &file)
+LogParser::LogParser(CheckableFile &file)
 {
     fileToParse->setFileName(file.fileName());
 }
@@ -104,7 +104,7 @@ void LogParser::parse()
     fileToParse->close();
 }
 
-void LogParser::setFileToParse(QFile &file)
+void LogParser::setFileToParse(CheckableFile &file)
 {
     fileToParse = &file;
 }

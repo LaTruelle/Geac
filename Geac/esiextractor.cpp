@@ -35,12 +35,15 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 EsiExtractor::EsiExtractor()
 {
+    alwaysOverwrite = false;
+    neverOverwrite = false;
 }
 
 EsiExtractor::EsiExtractor(CheckableFile &inputFile)
 {
     EsiExtractor::inputFile.setFileName(inputFile.fileName());
-    QString fileName = inputFile.fileName();
+    alwaysOverwrite = false;
+    neverOverwrite = false;
 }
 
 void EsiExtractor::setExtension(QString extension)
@@ -143,7 +146,8 @@ void EsiExtractor::setInputFile(CheckableFile &inputFile)
 
 void EsiExtractor::setOutputFolder(QDir &outputFolder)
 {
-    EsiExtractor::outputFolder.setPath(outputFolder.absolutePath());
+    this->outputFolder.setPath(outputFolder.absolutePath());
+    qDebug("ESIin EE.cpp :"+this->outputFolder.absolutePath().toAscii());
 }
 
 void EsiExtractor::setRequiredFields(bool &thermochemistry,

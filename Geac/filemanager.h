@@ -47,6 +47,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QString getFilePath(int row);
     CheckableFile& getFile(int i);
+    CheckableFile* getFileById(int id);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     void addFile(CheckableFile *file);
     void clearFiles();

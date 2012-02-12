@@ -28,16 +28,17 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef LOGPARSER_H
 #define LOGPARSER_H
 
-#include <QFile>
 #include <QString>
 #include <QStringList>
+
+#include <checkablefile.h>
 
 class LogParser
 {
 public:
     LogParser();
-    LogParser(QFile &file);
-    void setFileToParse(QFile &file);
+    LogParser(CheckableFile &file);
+    void setFileToParse(CheckableFile &file);
     void parse();
 
     QStringList getThermochemistry();

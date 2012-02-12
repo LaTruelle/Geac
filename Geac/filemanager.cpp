@@ -165,3 +165,16 @@ CheckableFile& FileManager::getFile(int i)
 {
     return *listOfFiles.at(i);
 }
+
+CheckableFile* FileManager::getFileById(int id)
+{
+    // Iterate over listOfFiles, return file matching id
+    for (int var = 0; var < listOfFiles.count(); ++var)
+    {
+        if(listOfFiles.at(var)->getId() == id)
+        {
+            return listOfFiles.at(var);
+        }
+    }
+    return NULL;
+}

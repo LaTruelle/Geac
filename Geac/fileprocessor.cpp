@@ -34,6 +34,7 @@ FileProcessor::FileProcessor(CheckableFile &inputFile)
 {
     file.setFileName(inputFile.fileName());
     id = inputFile.getId();
+    esiExtractor.setInputFile(file);
 }
 
 FileProcessor::~FileProcessor()
@@ -45,11 +46,12 @@ void FileProcessor::setupProcessor(bool &thermoChem,
                                    bool &stdCoord,
                                    bool &hfEnergy,
                                    QDir &outFolder,
-                                   QString &fileExt
+                                   QString fileExt
                                    )
 {
     // Transmit necessary data directly to the extractor
     esiExtractor.setRequiredFields(thermoChem, harmFreq, stdCoord, hfEnergy);
+    qDebug("ESI in FP.cpp :"+outFolder.absolutePath().toAscii());
     esiExtractor.setOutputFolder(outFolder);
     esiExtractor.setExtension(fileExt);
 }
