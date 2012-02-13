@@ -51,21 +51,30 @@ public:
                            bool &hartreeFockEnergy);
     void createEsi();
     void setExtension(QString extension);
+    void setupExtractor(bool &thermochemistry,
+                        bool &harmonicFrequencies,
+                        bool &standardCoordinates,
+                        bool &hartreeFockEnergy,
+                        QDir &outputFolder,
+                        QString extension);
 
 private:
-    void writeData(QString &outFile);
-
+    void writeData();
+    void checkInputFile();
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
     bool reqStandardCoordinates;
     bool reqHartreeFock;
-    bool alwaysOverwrite;
-    bool neverOverwrite;
+    bool canWriteFile;
     LogParser parser;
     QDir outputFolder;
     CheckableFile inputFile;
     QFile outputFile;
     QString fileExtension;
+
+    static bool alwaysOverwrite;
+    static bool neverOverwrite;
+
 };
 
 #endif // ESIEXTRACTOR_H

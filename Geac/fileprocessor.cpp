@@ -50,10 +50,12 @@ void FileProcessor::setupProcessor(bool &thermoChem,
                                    )
 {
     // Transmit necessary data directly to the extractor
-    esiExtractor.setRequiredFields(thermoChem, harmFreq, stdCoord, hfEnergy);
-    qDebug("ESI in FP.cpp :"+outFolder.absolutePath().toAscii());
-    esiExtractor.setOutputFolder(outFolder);
-    esiExtractor.setExtension(fileExt);
+    esiExtractor.setupExtractor(thermoChem,
+                                harmFreq,
+                                stdCoord,
+                                hfEnergy,
+                                outFolder,
+                                fileExt);
 }
 
 void FileProcessor::convertFile()

@@ -250,8 +250,12 @@ void Geac::on_createEsi_clicked()
         if (ui.Button_DedicatedFolder->isChecked())
         {
             // Set a dedicated folder
-            qDebug("ESI in Geac:"+esiFolder.absolutePath().toAscii());
-            processor->setupProcessor(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock, esiFolder, ui.esiExtension->text());
+            processor->setupProcessor(reqThermochemistry,
+                                      reqHarmonicFrequencies,
+                                      reqStandardCoordinates,
+                                      reqHartreeFock,
+                                      esiFolder,
+                                      ui.esiExtension->text());
         }
         /* --- Case ESI in Same Folder to treat
         else if(ui.Button_SameFolder->isChecked())
