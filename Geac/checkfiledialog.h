@@ -34,6 +34,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 class CheckFileDialog : public QFileDialog
 {
+    Q_OBJECT
 public:
     enum fileFilter{
         all,

@@ -4,47 +4,47 @@
 <context>
     <name>CheckFileDialog</name>
     <message>
-        <location filename="checkfiledialog.cpp" line="9"/>
+        <location filename="checkfiledialog.cpp" line="36"/>
         <source>All Files (*.*)</source>
         <translation>Tous les Fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="10"/>
+        <location filename="checkfiledialog.cpp" line="37"/>
         <source>All Gaussian Output Files (*.out *.log)</source>
         <translation>Tous les fichiers de Sorties Gaussian (*.out, *.log)</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="11"/>
+        <location filename="checkfiledialog.cpp" line="38"/>
         <source>Gaussian out files (*.out)</source>
         <translation>Fichiers out Gaussian (*.out)</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="12"/>
+        <location filename="checkfiledialog.cpp" line="39"/>
         <source>Gaussian log files (*.log)</source>
         <translation>Fichiers de Sortie Gausian (*.log)</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="40"/>
+        <location filename="checkfiledialog.cpp" line="67"/>
         <source>Search Subfolders</source>
         <translation>Explorer les sous-dossiers</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="42"/>
+        <location filename="checkfiledialog.cpp" line="69"/>
         <source>All Files</source>
         <translation>Tous les Fichiers</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="43"/>
+        <location filename="checkfiledialog.cpp" line="70"/>
         <source>Out and Log Files</source>
         <translation>Fichiers Out et Log</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="44"/>
+        <location filename="checkfiledialog.cpp" line="71"/>
         <source>Out Files Only</source>
         <translation>Fichiers Out seulement</translation>
     </message>
     <message>
-        <location filename="checkfiledialog.cpp" line="45"/>
+        <location filename="checkfiledialog.cpp" line="72"/>
         <source>Log Files Only</source>
         <translation>Fichiers Log seulement</translation>
     </message>
@@ -52,17 +52,17 @@
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="filemanager.cpp" line="18"/>
+        <location filename="filemanager.cpp" line="46"/>
         <source>File %1 already exists</source>
         <translation>Le Fichier %1 existe déjà</translation>
     </message>
     <message>
-        <location filename="filemanager.cpp" line="26"/>
+        <location filename="filemanager.cpp" line="56"/>
         <source>File %1 added</source>
         <translation>Fichier %1 ajouté</translation>
     </message>
     <message>
-        <location filename="filemanager.cpp" line="36"/>
+        <location filename="filemanager.cpp" line="66"/>
         <source>List of files cleared</source>
         <translation>Liste de fichiers vidée</translation>
     </message>
@@ -78,12 +78,12 @@
         <translation type="obsolete">Ouvir un Dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="196"/>
+        <location filename="geac.cpp" line="224"/>
         <source>Store ESI in this directory</source>
         <translation>Enregistrer l&apos;ESI dans ce dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="208"/>
+        <location filename="geac.cpp" line="236"/>
         <source>Files Cleared</source>
         <translation>Fichiers Supprimés</translation>
     </message>
@@ -223,9 +223,8 @@
 <context>
     <name>ProcessingThread</name>
     <message>
-        <location filename="processingthread.cpp" line="74"/>
         <source>File %1 successfully converted</source>
-        <translation>Fichier %1 converti avec succès</translation>
+        <translation type="obsolete">Fichier %1 converti avec succès</translation>
     </message>
 </context>
 <context>
@@ -243,22 +242,22 @@
         <translation type="obsolete"> ne peut pas être ouvert !</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="27"/>
+        <location filename="esiextractor.cpp" line="57"/>
         <source>The file %1 does not exist !</source>
         <translation>Le fichier %1 n&apos;existe pas !</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="34"/>
+        <location filename="esiextractor.cpp" line="64"/>
         <source>The file %1 cannot be opened !</source>
         <translation>Le fichier %1 ne peut pas être ouvert !</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="53"/>
+        <location filename="esiextractor.cpp" line="83"/>
         <source>the file %1 already exists</source>
         <translation>Le fichier %1 existe déjà</translation>
     </message>
     <message>
-        <location filename="esiextractor.cpp" line="54"/>
+        <location filename="esiextractor.cpp" line="84"/>
         <source>Do you want to overwrite it ?</source>
         <translation>Voulez-vous le remplacer ?</translation>
     </message>
