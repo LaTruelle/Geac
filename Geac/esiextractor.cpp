@@ -50,11 +50,13 @@ EsiExtractor::EsiExtractor(CheckableFile &inputFile)
 
 void EsiExtractor::setExtension(QString extension)
 {
-    fileExtension.fromAscii(extension.toAscii());
+    qDebug("Extension Set "+ extension.toAscii());
+    fileExtension = extension;
 }
 
 void EsiExtractor::createEsi()
 {
+    checkInputFile();
     qDebug("create Esi");
     // Set up the parser
     parser.setFileToParse(inputFile);
@@ -115,15 +117,13 @@ void EsiExtractor::checkInputFile()
             // --> inputName
             outFile.append(fileExtension);
             // --> inputName_fileExtension
-            qDebug(outputFolder.absolutePath().toAscii());
             // We can setup the QFile outputFile
             outputFile.setFileName(outputFolder.absolutePath() + "/" + outFile);
-
             // We have a proper QFile, we check its existence, and if we can write in the directory
             if(outputFile.exists() && !alwaysOverwrite && !neverOverwrite)
             {
                 // We have a problem : Ask for the user to decide
-                msg.setText(QObject::tr("the file %1 already exists").arg(inputFile.fileName()));
+                msg.setText(QObject::tr("The file %1 already exists").arg(outputFile.fileName()));
                 msg.setInformativeText(QObject::tr("Do you want to overwrite it ?"));
                 msg.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::NoToAll);
                 msg.setDefaultButton(QMessageBox::YesToAll);
@@ -160,7 +160,6 @@ void EsiExtractor::checkInputFile()
 void EsiExtractor::setInputFile(CheckableFile &inputFile)
 {
     EsiExtractor::inputFile.setFileName(inputFile.fileName());
-    checkInputFile();
 }
 
 void EsiExtractor::setOutputFolder(QDir &outputFolder)
