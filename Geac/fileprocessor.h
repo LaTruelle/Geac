@@ -32,6 +32,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include <QObject>
 #include <QDir>
+#include <QString>
 
 #include "esiextractor.h"
 #include "checkablefile.h"
@@ -44,7 +45,6 @@ public:
     FileProcessor(CheckableFile &inputFile);
     ~FileProcessor();
     void convertFile();
-    void setFileName(QString &string);
     void setupProcessor(bool &thermoChem,
                         bool &harmFreq,
                         bool &stdCoord,
@@ -52,6 +52,7 @@ public:
                         QDir &outFolder,
                         QString fileExt
                         );
+    QString getFileName();
 
 signals:
     void fileProcessed(int id);

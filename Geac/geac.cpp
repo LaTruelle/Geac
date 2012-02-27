@@ -257,16 +257,19 @@ void Geac::on_createEsi_clicked()
                                       esiFolder,
                                       ui.esiExtension->text());
         }
-        /* --- Case ESI in Same Folder to treat
         else if(ui.Button_SameFolder->isChecked())
         {
             // Set the folder of the current file to be the output path
-            QString fileDir = file.fileName();
+            QString fileDir = processor->getFileName();
             fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
             QDir dir(fileDir);
-            processor->setupProcessor(reqThermochemistry, reqHarmonicFrequencies, reqStandardCoordinates, reqHartreeFock, dir, ui.esiExtension->text());
+            processor->setupProcessor(reqThermochemistry,
+                                      reqHarmonicFrequencies,
+                                      reqStandardCoordinates,
+                                      reqHartreeFock,
+                                      dir,
+                                      ui.esiExtension->text());
         }
-        */
         // Move the file processor to the processing thread
         processor->moveToThread(&processingThread);
         // Start the conversion

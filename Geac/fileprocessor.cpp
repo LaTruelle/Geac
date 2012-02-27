@@ -65,3 +65,7 @@ void FileProcessor::convertFile()
     esiExtractor.createEsi();
     emit fileProcessed(id);
 }
+
+QString FileProcessor::getFileName(){
+    return file.fileName();
+}
