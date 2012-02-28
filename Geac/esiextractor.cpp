@@ -50,14 +50,12 @@ EsiExtractor::EsiExtractor(CheckableFile &inputFile)
 
 void EsiExtractor::setExtension(QString extension)
 {
-    qDebug("Extension Set "+ extension.toAscii());
     fileExtension = extension;
 }
 
 void EsiExtractor::createEsi()
 {
     checkInputFile();
-    qDebug("create Esi");
     // Set up the parser
     parser.setFileToParse(inputFile);
     // Parse the data
@@ -70,7 +68,6 @@ void EsiExtractor::createEsi()
 
 void EsiExtractor::writeData()
 {
-    qDebug("Write Data entered");
     // Open the file
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
     // Setup a QTextStream
@@ -91,7 +88,6 @@ void EsiExtractor::writeData()
 
 void EsiExtractor::checkInputFile()
 {
-    qDebug("Checking "+inputFile.fileName().toAscii() + " to convert to " + fileExtension.toAscii());
     // Include all test about Include file here
     QMessageBox msg;
     // We check the existence of the input File

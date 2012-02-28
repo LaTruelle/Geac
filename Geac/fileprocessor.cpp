@@ -56,7 +56,6 @@ void FileProcessor::setupProcessor(bool &thermoChem,
                                 hfEnergy,
                                 outFolder,
                                 fileExt);
-    qDebug("Setup Processor : "+fileExt.toAscii());
 }
 
 void FileProcessor::convertFile()

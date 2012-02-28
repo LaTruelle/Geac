@@ -38,8 +38,10 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "logparser.h"
 #include "checkablefile.h"
 
-class EsiExtractor
+class EsiExtractor : public QObject
 {
+    Q_OBJECT
+
 public:
     EsiExtractor();
     EsiExtractor(CheckableFile &inputFile);
