@@ -54,14 +54,18 @@ public:
                         );
     QString getFileName();
 
-signals:
-    void fileProcessed(int id);
-    void logEvent(QString string);
-
 private:
     CheckableFile file;
     EsiExtractor esiExtractor;
     int id;
+
+signals:
+    void fileProcessed(int id);
+    void logEvent(QString string);
+
+private slots:
+    void transmitProgress();
+
 };
 
 #endif // FILEPROCESSOR_H

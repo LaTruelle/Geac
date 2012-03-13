@@ -84,6 +84,8 @@ void EsiExtractor::writeData()
         out << parser.getHartreeFockEnergy() << endl;
     // We close the file
     outputFile.close();
+    // Emit signal
+    emit fileProcessed();
 }
 
 void EsiExtractor::checkInputFile()

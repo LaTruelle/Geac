@@ -54,6 +54,8 @@ private:
     void readSettings();
     void writeSettings();
     void closeEvent(QCloseEvent *);
+    void increaseProgressBarMax();
+    void increaseProgressBarValue();
 
     bool reqThermochemistry;
     bool reqHarmonicFrequencies;
@@ -70,7 +72,6 @@ private:
 
 public slots:
     void displayLog(QString string);
-    void setProgressBarValue(int i);
     void showFileFinished(int id);
 
 private slots:

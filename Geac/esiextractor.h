@@ -60,6 +60,9 @@ public:
                         QDir &outputFolder,
                         QString extension);
 
+signals:
+    void fileProcessed();
+
 private:
     void writeData();
     void checkInputFile();

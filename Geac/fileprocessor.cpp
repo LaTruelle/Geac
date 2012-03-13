@@ -35,6 +35,7 @@ FileProcessor::FileProcessor(CheckableFile &inputFile)
     file.setFileName(inputFile.fileName());
     id = inputFile.getId();
     esiExtractor.setInputFile(file);
+    connect(&esiExtractor, SIGNAL(fileProcessed()), this, SLOT(transmitProgress()));
 }
 
 FileProcessor::~FileProcessor()
@@ -62,9 +63,12 @@ void FileProcessor::convertFile()
 {
     // Tell the extractor to build the ESI
     esiExtractor.createEsi();
-    emit fileProcessed(id);
 }
 
 QString FileProcessor::getFileName(){
     return file.fileName();
+}
+
+void FileProcessor::transmitProgress(){
+    emit fileProcessed(id);
 }
