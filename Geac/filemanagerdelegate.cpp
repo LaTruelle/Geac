@@ -26,7 +26,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "filemanagerdelegate.h"
-#include <iostream>
 #include <QPainter>
 #include <QTextOption>
 #include <QColor>

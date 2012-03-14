@@ -30,7 +30,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "esiextractor.h"
 #include <QMessageBox>
-#include <iostream>
 #include <QTextStream>
 
 // Define static variables
@@ -109,7 +108,7 @@ void EsiExtractor::checkInputFile()
         else
         {
             // We can setup the outputFile
-            QString outFile = inputFile.fileName().remove(0,inputFile.fileName().lastIndexOf(QDir::separator())+1);
+            QString outFile = inputFile.fileName().remove(0,inputFile.fileName().lastIndexOf("/")+1);
             // --> inputName.log
             outFile.remove(outFile.lastIndexOf("."), outFile.length()-1);
             // --> inputName

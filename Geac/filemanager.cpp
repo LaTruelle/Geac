@@ -27,7 +27,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "filemanager.h"
-#include <iostream>
 #include <QDir>
 
 FileManager::FileManager(QObject *parent) :

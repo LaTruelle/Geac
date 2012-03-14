@@ -28,7 +28,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "checkfiledialog.h"
 #include <QHBoxLayout>
 #include <QDialogButtonBox>
-#include <iostream>
 #include <assert.h>
 
 CheckFileDialog::CheckFileDialog() : QFileDialog()
