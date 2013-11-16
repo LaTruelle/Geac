@@ -21,11 +21,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("E Nicolas");
 
     // Enable translation
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
     QTranslator geacTranslator;
-    geacTranslator.load("geac_" + QLocale::system().name());
+    geacTranslator.load("geac_" + QLocale::system().name().section('_',0,0),":/translations/");
     app.installTranslator(&geacTranslator);
 
     // Launch Main Window

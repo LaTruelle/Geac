@@ -50,6 +50,24 @@
     </message>
 </context>
 <context>
+    <name>FileManager</name>
+    <message>
+        <location filename="filemanager.cpp" line="18"/>
+        <source>File %1 already exists</source>
+        <translation>Le fichier %1 existe déjà</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="26"/>
+        <source>File %1 added</source>
+        <translation>Fichier %1 ajouté</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="36"/>
+        <source>List of files cleared</source>
+        <translation>Liste des fichiers nettoyée</translation>
+    </message>
+</context>
+<context>
     <name>Geac</name>
     <message>
         <source>Open File</source>
@@ -60,17 +78,17 @@
         <translation type="obsolete">Ouvir un Dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="191"/>
+        <location filename="geac.cpp" line="193"/>
         <source>Store ESI in this directory</source>
         <translation>Enregistrer l&apos;ESI dans ce dossier</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="203"/>
+        <location filename="geac.cpp" line="205"/>
         <source>Files Cleared</source>
         <translation>Fichiers Supprimés</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="238"/>
+        <location filename="geac.cpp" line="240"/>
         <source>File %1 converted successfully.</source>
         <translation>Fichier %1 converti avec succès.</translation>
     </message>
@@ -229,14 +247,12 @@
         <translation type="obsolete"> ajouté</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="150"/>
         <source> added</source>
-        <translation>ajouté</translation>
+        <translation type="obsolete">ajouté</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="152"/>
         <source> already included</source>
-        <translation>déjà ajouté</translation>
+        <translation type="obsolete">déjà ajouté</translation>
     </message>
 </context>
 </TS>

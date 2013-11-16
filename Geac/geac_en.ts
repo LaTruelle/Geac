@@ -50,23 +50,41 @@
     </message>
 </context>
 <context>
+    <name>FileManager</name>
+    <message>
+        <location filename="filemanager.cpp" line="18"/>
+        <source>File %1 already exists</source>
+        <translation>File %1 already exists</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="26"/>
+        <source>File %1 added</source>
+        <translation>File %1 added</translation>
+    </message>
+    <message>
+        <location filename="filemanager.cpp" line="36"/>
+        <source>List of files cleared</source>
+        <translation>List of files cleared</translation>
+    </message>
+</context>
+<context>
     <name>Geac</name>
     <message>
         <source>Open Folder</source>
         <translation type="obsolete">Open Folder</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="191"/>
+        <location filename="geac.cpp" line="193"/>
         <source>Store ESI in this directory</source>
         <translation>Store ESI in this directory</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="203"/>
+        <location filename="geac.cpp" line="205"/>
         <source>Files Cleared</source>
         <translation>Files Cleared</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="238"/>
+        <location filename="geac.cpp" line="240"/>
         <source>File %1 converted successfully.</source>
         <translation>File %1 converted successfully.</translation>
     </message>
@@ -225,14 +243,12 @@
         <translation type="obsolete"> Added</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="150"/>
         <source> added</source>
-        <translation>added</translation>
+        <translation type="obsolete">added</translation>
     </message>
     <message>
-        <location filename="geac.cpp" line="152"/>
         <source> already included</source>
-        <translation>already added</translation>
+        <translation type="obsolete">already added</translation>
     </message>
 </context>
 </TS>
