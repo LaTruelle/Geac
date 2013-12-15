@@ -52,7 +52,7 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
 void Geac::setupFileDisplayer()
 {
     // Set Header Style
-    ui.fileDisplayer->horizontalHeader()->setClickable(false);
+    ui.fileDisplayer->horizontalHeader()->setSectionsClickable(false);
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
     ui.fileDisplayer->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui.fileDisplayer->horizontalHeader()->setStyleSheet("QHeaderView::section{padding-left: 10px; font: 15px; color: black;}");
@@ -63,13 +63,13 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->setShowGrid(false);
     ui.fileDisplayer->setStyleSheet("selection-background-color : rgba(0, 0, 255, 25%)");
     // Set Sizes of columns
-    ui.fileDisplayer->horizontalHeader()->setResizeMode(0,QHeaderView::Stretch);        // As big as possible
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);        // As big as possible
     ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height()); // Squares at the end of the table
-    ui.fileDisplayer->horizontalHeader()->setResizeMode(1,QHeaderView::Fixed);
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->horizontalHeader()->setResizeMode(2,QHeaderView::Fixed);
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
     ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->horizontalHeader()->setResizeMode(3,QHeaderView::Fixed);
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(3,QHeaderView::Fixed);
 }
 
 void Geac::display(QString string)
@@ -386,3 +386,7 @@ void Geac::on_actionOpen_File_triggered()
     delete dialog;
 }
 
+void Geac::on_actionQuit_triggered()
+{
+    emit this->close();
+}

@@ -210,7 +210,7 @@
      <x>0</x>
      <y>0</y>
      <width>711</width>
-     <height>29</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
@@ -219,6 +219,8 @@
     </property>
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuESI">
     <property name="title">
@@ -315,6 +317,14 @@
   <action name="actionFran_ais">
    <property name="text">
     <string>Français</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit&amp;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>

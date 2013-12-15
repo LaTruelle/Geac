@@ -26,6 +26,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "logparser.h"
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 
 LogParser::LogParser()
 {
@@ -49,7 +51,7 @@ void LogParser::parse()
             int spacePos = nAtoms.indexOf(" ");
             nAtoms = nAtoms.left(spacePos+1);
         }
-        if (line.contains("Standard orientation"))
+        if (line.contains("Standard orientation") or line.contains("Input orientation"))
         {
             standardCoordinates.clear(); // We empty the list from previous coordinates
             for(int ctr = 1; ctr<= nAtoms.toInt()+5; ctr++)
@@ -67,6 +69,7 @@ void LogParser::parse()
         }
         if (line.contains("Harmonic frequencies"))
         {
+            harmonicFrequencies.clear(); // Remove all previous matches (calcall computations for exemple)
             // Retrieve Three Lowest Harmonic Frequencies.
             // Start by reading the header but not save it
             for (int ctr = 1; ctr<=3; ctr++)
@@ -79,26 +82,15 @@ void LogParser::parse()
                 harmonicFrequencies.append(QString(fileToParse->readLine()));
             }
         }
-        if (line.contains("HF="))
+        if (line.contains("SCF Done"))
         {
             hartreeFockEnergy.clear(); // Removes previous definitions
+            // Line is of the form  " SCF Done: E(Functional) =   -123.456789    A.U. after n cycles  "
             // Retrieve HF energy.
-            line.remove(0,line.indexOf("HF")); // line begins with HF=
-            if (line.contains("\\")) // All the required data is on the same line
-            {
-                line.remove(line.indexOf("\\"), line.length());
-                hartreeFockEnergy.append(line);
-            }
-            else // the data is split over two lines
-            {
-                QString lineStr = QString(line);
-                lineStr.remove(" ");
-                lineStr.remove("\n");
-                hartreeFockEnergy.append(lineStr);
-                line = fileToParse->readLine();
-                line.remove(line.indexOf("\\"), line.length());
-                hartreeFockEnergy.append(line);
-            }
+            int equalPosition = line.indexOf("=");
+            hartreeFockEnergy = line.right(line.length() - equalPosition).trimmed();
+            int AUposition = hartreeFockEnergy.indexOf("A.U.");
+            hartreeFockEnergy = "HF " + hartreeFockEnergy.left(AUposition).trimmed();
         }
     }
     fileToParse->close();

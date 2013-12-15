@@ -90,6 +90,7 @@ private slots:
     void on_harmonicFrequencies_stateChanged(int );
     void on_actionOpen_Folder_triggered();
     void on_actionOpen_File_triggered();
+    void on_actionQuit_triggered();
 };
 
 #endif // GEAC_H
