@@ -1,10 +1,39 @@
+/*
+This file is part of GEAC (Gaussian ESI Automated Creator)
+
+  GEAC - Copyright (C) 2012 - Emmanuel Nicolas
+
+  GEAC is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  ---
+
+  Emmanuel Nicolas - LogParser.cpp
+
+    The class LogParser parses a Gaussian log file and extracts several
+    information from it such as Thermochemistry, HG Energy, etc.
+
+*/
+
 #include "logparser.h"
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 
 LogParser::LogParser()
 {
 }
 
-LogParser::LogParser(QFile &file)
+LogParser::LogParser(CheckableFile &file)
 {
     fileToParse->setFileName(file.fileName());
 }
@@ -22,7 +51,7 @@ void LogParser::parse()
             int spacePos = nAtoms.indexOf(" ");
             nAtoms = nAtoms.left(spacePos+1);
         }
-        if (line.contains("Standard orientation"))
+        if (line.contains("Standard orientation") or line.contains("Input orientation"))
         {
             standardCoordinates.clear(); // We empty the list from previous coordinates
             for(int ctr = 1; ctr<= nAtoms.toInt()+5; ctr++)
@@ -40,7 +69,7 @@ void LogParser::parse()
         }
         if (line.contains("Harmonic frequencies"))
         {
-            harmonicFrequencies.clear();
+            harmonicFrequencies.clear(); // Remove all previous matches (calcall computations for exemple)
             // Retrieve Three Lowest Harmonic Frequencies.
             // Start by reading the header but not save it
             for (int ctr = 1; ctr<=3; ctr++)
@@ -53,32 +82,21 @@ void LogParser::parse()
                 harmonicFrequencies.append(QString(fileToParse->readLine()));
             }
         }
-        if (line.contains("HF="))
+        if (line.contains("SCF Done"))
         {
             hartreeFockEnergy.clear(); // Removes previous definitions
+            // Line is of the form  " SCF Done: E(Functional) =   -123.456789    A.U. after n cycles  "
             // Retrieve HF energy.
-            line.remove(0,line.indexOf("HF")); // line begins with HF=
-            if (line.contains("\\")) // All the required data is on the same line
-            {
-                line.remove(line.indexOf("\\"), line.length());
-                hartreeFockEnergy.append(line);
-            }
-            else // the data is split over two lines
-            {
-                QString lineStr = QString(line);
-                lineStr.remove(" ");
-                lineStr.remove("\n");
-                hartreeFockEnergy.append(lineStr);
-                line = fileToParse->readLine();
-                line.remove(line.indexOf("\\"), line.length());
-                hartreeFockEnergy.append(line);
-            }
+            int equalPosition = line.indexOf("=");
+            hartreeFockEnergy = line.right(line.length() - equalPosition).trimmed();
+            int AUposition = hartreeFockEnergy.indexOf("A.U.");
+            hartreeFockEnergy = "HF " + hartreeFockEnergy.left(AUposition).trimmed();
         }
     }
     fileToParse->close();
 }
 
-void LogParser::setFileToParse(QFile &file)
+void LogParser::setFileToParse(CheckableFile &file)
 {
     fileToParse = &file;
 }

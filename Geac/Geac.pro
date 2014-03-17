@@ -10,14 +10,14 @@ TARGET = Geac
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        geac.cpp \
+    geac.cpp \
     esiextractor.cpp \
     checkfiledialog.cpp \
     logparser.cpp \
     filemanager.cpp \
     checkablefile.cpp \
     filemanagerdelegate.cpp \
-    processingthread.cpp
+    fileprocessor.cpp
 
 HEADERS  += geac.h \
     esiextractor.h \
@@ -26,7 +26,7 @@ HEADERS  += geac.h \
     filemanager.h \
     checkablefile.h \
     filemanagerdelegate.h \
-    processingthread.h
+    fileprocessor.h
 
 FORMS    += geac.ui
 
