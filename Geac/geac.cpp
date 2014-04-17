@@ -396,10 +396,3 @@ void Geac::on_actionQuit_triggered()
 {
     emit this->close();
 }
-
-void Geac::on_createACS_clicked()
-{
-    ACSOutput = true;
-    // Start Creation of ACS output
-
-}

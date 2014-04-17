@@ -160,13 +160,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="createACS">
-            <property name="text">
-             <string>Create ACS File</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="createEsi">
             <property name="text">
              <string>Create ESI</string>
