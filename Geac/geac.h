@@ -93,7 +93,6 @@ private slots:
     void on_actionOpen_Folder_triggered();
     void on_actionOpen_File_triggered();
     void on_actionQuit_triggered();
-    void on_createACS_clicked();
 };
 
 #endif // GEAC_H
