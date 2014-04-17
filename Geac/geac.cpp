@@ -105,6 +105,8 @@ void Geac::readSettings()
     ui.standardCoordinates->setChecked(reqStandardCoordinates);
     reqThermochemistry = settings.value("reqThermochemistry",false).toBool();
     ui.thermochemistry->setChecked(reqThermochemistry);
+    baseFolder.setPath(settings.value("logFilesFolder",QDir::homePath()).toString());
+    esiFolder.setPath(settings.value("ESI Folder", QDir::homePath()).toString());
 }
 
 void Geac::writeSettings()
@@ -114,6 +116,8 @@ void Geac::writeSettings()
     settings.setValue("reqHartreeFock",reqHartreeFock);
     settings.setValue("reqStandardCoordinates",reqStandardCoordinates);
     settings.setValue("reqThermochemistry",reqThermochemistry);
+    settings.setValue("logFilesFolder",baseFolder.absolutePath());
+    settings.setValue("ESI Folder", esiFolder.absolutePath());
 }
 
 void Geac::closeEvent(QCloseEvent *event)
@@ -263,7 +267,7 @@ void Geac::on_SaveFolderSelection_clicked()
 {
     // Sets the dedicated folder in which all files will be stored
     esiFolder.setPath(QFileDialog::getExistingDirectory(this, tr("Store ESI in this directory"),
-                                                        QDir::homePath(), QFileDialog::ShowDirsOnly)
+                                                        esiFolder.absolutePath(), QFileDialog::ShowDirsOnly)
                       );
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
@@ -308,7 +312,7 @@ void Geac::on_actionOpen_Folder_triggered()
     //    --> Ticks for files to convert --> out / log / out&log
     CheckFileDialog *dialog = new CheckFileDialog();
     dialog->setDirectoryMode();
-    dialog->setDirectory(QDir::homePath());
+    dialog->setDirectory(baseFolder);
     if (dialog->exec())
     {
         baseFolder = dialog->selectedFiles().first();
@@ -373,7 +377,7 @@ void Geac::on_actionOpen_File_triggered()
     // Open File Dialog to select File --> With filters (or without)
     CheckFileDialog *dialog = new CheckFileDialog();
     dialog->setMultipleFilesMode();
-    dialog->setDirectory(QDir::homePath());
+    dialog->setDirectory(baseFolder);
     dialog->exec();
     QFileInfoList fileList;
     // Iterate over the selected files to retrieve them
@@ -383,10 +387,19 @@ void Geac::on_actionOpen_File_triggered()
     }
     // Add the files in the model
     addFilesFromList(fileList);
+    // Save the Folder
+    baseFolder.setPath(dialog->directory().absolutePath());
     delete dialog;
 }
 
 void Geac::on_actionQuit_triggered()
 {
     emit this->close();
+}
+
+void Geac::on_createACS_clicked()
+{
+    ACSOutput = true;
+    // Start Creation of ACS output
+
 }

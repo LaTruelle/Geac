@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
+    <width>716</width>
     <height>553</height>
    </rect>
   </property>
@@ -160,6 +160,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="createACS">
+            <property name="text">
+             <string>Create ACS File</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="createEsi">
             <property name="text">
              <string>Create ESI</string>
@@ -209,7 +216,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>711</width>
+     <width>716</width>
      <height>27</height>
     </rect>
    </property>
