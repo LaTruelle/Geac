@@ -25,7 +25,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 */
 
-#include <QWidgets/QApplication>
+#include <QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
 #include "geac.h"
