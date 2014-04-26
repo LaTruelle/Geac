@@ -51,7 +51,7 @@ void LogParser::parse()
             int spacePos = nAtoms.indexOf(" ");
             nAtoms = nAtoms.left(spacePos+1);
         }
-        if (line.contains("Standard orientation") or line.contains("Input orientation"))
+        if (line.contains("Standard orientation") || line.contains("Input orientation"))
         {
             standardCoordinates.clear(); // We empty the list from previous coordinates
             for(int ctr = 1; ctr<= nAtoms.toInt()+5; ctr++)

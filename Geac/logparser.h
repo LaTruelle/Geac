@@ -31,7 +31,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QString>
 #include <QStringList>
 
-#include <checkablefile.h>
+#include "checkablefile.h"
 
 class LogParser
 {
