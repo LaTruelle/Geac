@@ -62,8 +62,6 @@ private:
     bool reqStandardCoordinates;
     bool reqHartreeFock;
 
-    bool ACSOutput;
-
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
     QThread processingThread;
