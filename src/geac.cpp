@@ -216,6 +216,13 @@ void Geac::on_createEsi_clicked()
         // Check if the file needs to be converted
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
+            /*
+             * TODO:
+             * Implement qtconcurrent, and remove processing thread
+             * Process is watched from QFutureWatcher signals, set around the QFuture returned by run() function.
+             * QFuture<int> future = QtConcurrent::run(...);
+             * watcher.setFuture(future);
+             */
             // Define a File Processor for the file i
             FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
             // Connect the processor signal to the adequate slot
