@@ -30,20 +30,13 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QLibraryInfo>
 #include "geac.h"
 
-// http://www.qtcentre.org/threads/11532-How-to-add-qsvg/page2
-// http://doc.trolltech.com/4.7/plugins-howto.html#static-plugins
-// http://www.qtcentre.org/threads/15752-Images-not-shown-in-static-release-exe-(QT4.4.0-commercial-windows)
-// http://doc.qt.nokia.com/4.7/qtglobal.html#Q_WS_MAC Preprocessor macros list
-
-// Q_IMPORT_PLUGIN(qsvg)
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
     // Setup general app parameters
     QCoreApplication::setApplicationName("Geac");
-    QCoreApplication::setOrganizationDomain("sourceforge.net");
+    QCoreApplication::setOrganizationDomain("github.com");
     QCoreApplication::setOrganizationName("Emmanuel Nicolas");
 
     // Enable translation

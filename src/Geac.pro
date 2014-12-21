@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg
+QT       += core gui svg concurrent
 
 TARGET = Geac
 TEMPLATE = app

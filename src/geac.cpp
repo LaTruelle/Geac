@@ -28,6 +28,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "geac.h"
 #include <QFileDialog>
 #include <QSettings>
+#include <QFuture>
+#include <QtConcurrent>
 #include "checkfiledialog.h"
 #include "fileprocessor.h"
 
@@ -216,6 +218,13 @@ void Geac::on_createEsi_clicked()
         // Check if the file needs to be converted
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
+            /*
+             * TODO:
+             * Implement qtconcurrent, and remove processing thread
+             * Process is watched from QFutureWatcher signals, set around the QFuture returned by run() function.
+             * QFuture<void> future = QtConcurrent::run(...);
+             * watcher.setFuture(future);
+             */
             // Define a File Processor for the file i
             FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
             // Connect the processor signal to the adequate slot
@@ -246,11 +255,11 @@ void Geac::on_createEsi_clicked()
                                           ui.esiExtension->text());
             }
             // Move the file processor to the processing thread
-            processor->moveToThread(&processingThread);
+            // processor->moveToThread(&processingThread);
             // Increase the progress bar value (and show it doing this)
             increaseProgressBarMax();
             // Start the conversion
-            processor->convertFile();
+            QFuture<void> future = QtConcurrent::run(processor, &FileProcessor::convertFile);
         }
     }
 }
