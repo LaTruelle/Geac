@@ -30,6 +30,16 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #define CHECKABLEFILE_H
 
 #include <QFile>
+#include <QString>
+#include <QStringList>
+#include <QList>
+
+struct Atom{
+    QString element;
+    int x;
+    int y;
+    int z;
+};
 
 class CheckableFile : public QFile
 {
@@ -44,10 +54,34 @@ public:
     int getId();
     QString displayName();
 
+    QString getNAtoms() const;
+    void setNAtoms(const QString &value);
+
+    QString getHartreeFockEnergy() const;
+    void setHartreeFockEnergy(const QString &value);
+
+    QStringList getThermochemistry() const;
+    void setThermochemistry(const QStringList &value);
+
+    QStringList getHarmonicFrequencies() const;
+    void setHarmonicFrequencies(const QStringList &value);
+
+    bool getDataExtracted() const;
+    void setDataExtracted(bool value);
+
+    QList<Atom> getCoordinates() const;
+    void setCoordinates(const QList<Atom> &value);
+
 private:
     bool converted;
     bool toConvert;
+    bool dataExtracted;
     int id;
+    QString nAtoms;
+    QString hartreeFockEnergy;
+    QStringList thermochemistry;
+    QStringList harmonicFrequencies;
+    QList<Atom> coordinates;
 
 signals:
 

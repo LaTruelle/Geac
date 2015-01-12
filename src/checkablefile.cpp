@@ -84,3 +84,65 @@ QString CheckableFile::displayName()
 {
     return this->fileName().remove(0,this->fileName().lastIndexOf(QDir::separator())+1);
 }
+
+QString CheckableFile::getNAtoms() const
+{
+    return nAtoms;
+}
+
+void CheckableFile::setNAtoms(const QString &value)
+{
+    nAtoms = value;
+}
+
+QString CheckableFile::getHartreeFockEnergy() const
+{
+    return hartreeFockEnergy;
+}
+
+void CheckableFile::setHartreeFockEnergy(const QString &value)
+{
+    hartreeFockEnergy = value;
+}
+
+QStringList CheckableFile::getThermochemistry() const
+{
+    return thermochemistry;
+}
+
+void CheckableFile::setThermochemistry(const QStringList &value)
+{
+    thermochemistry = value;
+}
+
+QStringList CheckableFile::getHarmonicFrequencies() const
+{
+    return harmonicFrequencies;
+}
+
+void CheckableFile::setHarmonicFrequencies(const QStringList &value)
+{
+    harmonicFrequencies = value;
+}
+
+bool CheckableFile::getDataExtracted() const
+{
+    return dataExtracted;
+}
+
+void CheckableFile::setDataExtracted(bool value)
+{
+    dataExtracted = value;
+}
+
+QList<Atom> CheckableFile::getCoordinates() const
+{
+    return coordinates;
+}
+
+void CheckableFile::setCoordinates(const QList<Atom> &value)
+{
+    coordinates = value;
+}
+
+

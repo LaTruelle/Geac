@@ -49,7 +49,7 @@ public:
     CheckableFile& getFile(int i);
     CheckableFile* getFileById(int id);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    void addFile(CheckableFile *file);
+    int addFile(CheckableFile *file);
     void clearFiles();
     bool getRequiredConversion(QModelIndex &index);
     bool getRequiredConversion(int i);

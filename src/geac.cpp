@@ -31,7 +31,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QFuture>
 #include <QtConcurrent>
 #include "checkfiledialog.h"
-#include "fileprocessor.h"
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -87,12 +86,11 @@ void Geac::clearLog()
 void Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
-    int limit = fileNames.count();
-    for (int i=0; i<limit; i++)
+    for (int i=0; i<fileNames.count(); i++)
     {
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
-        fileDisplayerModel.addFile(file);
+        int id = fileDisplayerModel.addFile(file);
     }
 }
 
@@ -225,7 +223,7 @@ void Geac::on_createEsi_clicked()
              * QFuture<void> future = QtConcurrent::run(...);
              * watcher.setFuture(future);
              */
-            // Define a File Processor for the file i
+  /*          // Define a File Processor for the file i
             FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
             // Connect the processor signal to the adequate slot
             connect(processor, SIGNAL(fileProcessed(int)), SLOT(showFileFinished(int)));
@@ -259,7 +257,8 @@ void Geac::on_createEsi_clicked()
             // Increase the progress bar value (and show it doing this)
             increaseProgressBarMax();
             // Start the conversion
-            QFuture<void> future = QtConcurrent::run(processor, &FileProcessor::convertFile);
+            QtConcurrent::run(processor, &FileProcessor::convertFile);
+            */
         }
     }
 }
