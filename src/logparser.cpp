@@ -28,14 +28,15 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "logparser.h"
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QDebug>
 
 LogParser::LogParser()
 {
 }
 
-LogParser::LogParser(CheckableFile &file)
+LogParser::LogParser(CheckableFile *file)
 {
-    fileToParse->setFileName(file.fileName());
+    fileToParse = file;
 }
 
 void LogParser::parse()
@@ -94,6 +95,12 @@ void LogParser::parse()
         }
     }
     fileToParse->close();
+    // Save everything in CheckableFile
+    fileToParse->setHarmonicFrequencies(this->getHarmonicFrequencies());
+    fileToParse->setThermochemistry(this->getThermochemistry());
+    // currentFile->setCoordinates(this->getStandardCoordinates()); // Needs conversion to QList<Atom>
+    fileToParse->setHartreeFockEnergy(this->getHartreeFockEnergy());
+    fileToParse->setNAtoms(this->getNAtoms());
 }
 
 void LogParser::setFileToParse(CheckableFile &file)

@@ -37,7 +37,7 @@ class LogParser
 {
 public:
     LogParser();
-    LogParser(CheckableFile &file);
+    LogParser(CheckableFile *file);
     void setFileToParse(CheckableFile &file);
     void parse();
 
@@ -48,7 +48,8 @@ public:
     QString getNAtoms();
 
 private:
-    QFile *fileToParse;
+    // CheckableFile *currentFile;
+    CheckableFile *fileToParse;
     QStringList thermochemistry;
     QStringList harmonicFrequencies;
     QStringList standardCoordinates;

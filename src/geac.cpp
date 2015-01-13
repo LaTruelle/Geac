@@ -31,6 +31,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QFuture>
 #include <QtConcurrent>
 #include "checkfiledialog.h"
+#include "logparser.h"
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -91,6 +92,8 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
+        LogParser *parser = new LogParser(file);
+        parser->parse();
     }
 }
 
@@ -213,6 +216,7 @@ void Geac::on_createEsi_clicked()
     // Add files to thread, and launch their conversion
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
+        qDebug() << fileDisplayerModel.getFile(i).getHartreeFockEnergy();
         // Check if the file needs to be converted
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
