@@ -93,7 +93,8 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
         LogParser *parser = new LogParser(file);
-        parser->parse();
+        QtConcurrent::run(parser,&LogParser::parse);
+//        parser->parse();
     }
 }
 
