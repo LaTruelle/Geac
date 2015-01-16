@@ -34,7 +34,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QDir>
 #include <QFileInfoList>
 #include <QCloseEvent>
-#include <QThread>
 
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
@@ -64,7 +63,6 @@ private:
 
     FileManager fileDisplayerModel;
     FileManagerDelegate fileDisplayerDelegate;
-    QThread processingThread;
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;

@@ -47,8 +47,6 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     hideProgressBar();
     // Read Preferences (previously used folders, state of buttons, etc.)
     readSettings();
-    // Start Processing thread
-    processingThread.start();
 }
 
 void Geac::setupFileDisplayer()
@@ -93,8 +91,8 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
         file->setFileName(fileNames.takeFirst().absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
         LogParser *parser = new LogParser(file);
+        // Start parsing in an other thread
         QtConcurrent::run(parser,&LogParser::parse);
-//        parser->parse();
     }
 }
 
@@ -126,10 +124,6 @@ void Geac::writeSettings()
 
 void Geac::closeEvent(QCloseEvent *event)
  {
-    processingThread.quit();
-    while (processingThread.isRunning()) {
-        // Do Nothing but wait
-    }
     writeSettings();
     event->accept();
  }
