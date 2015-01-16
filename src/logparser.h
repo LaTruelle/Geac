@@ -30,6 +30,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include <QString>
 #include <QStringList>
+#include <QHash>
 
 #include "checkablefile.h"
 
@@ -63,7 +64,8 @@ private:
     QList<Atom> standardCoordinates;
     QString hartreeFockEnergy;
     QString nAtoms;
-
+    QHash<int, QString> periodicTable;
+    void initPeriodicTable();
 };
 
 #endif // LOGPARSER_H
