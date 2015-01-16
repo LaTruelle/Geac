@@ -55,9 +55,26 @@ void LogParser::parse()
         if (line.contains("Standard orientation") || line.contains("Input orientation"))
         {
             standardCoordinates.clear(); // We empty the list from previous coordinates
-            for(int ctr = 1; ctr<= nAtoms.toInt()+5; ctr++)
+            // Skip header
+            for (int ctr = 1; ctr<=4; ctr++)
             {
-                standardCoordinates.append(fileToParse->readLine());
+                fileToParse->readLine();
+            }
+
+            for(int ctr = 1; ctr<= nAtoms.toInt(); ctr++)
+            {
+                // Read current line, of the form
+                // "N  AtomicNumber 0 Xcoord Ycoord Zcoord"
+                QString coordLine = fileToParse->readLine();
+                // Split the string acoording to previously described pattern
+                QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
+                Atom atom;
+                atom.element = list.at(1); // TODO Conversion from Atomic number to Atomic symbol
+                // TODO emit error if element is not a float, to avoid crash for wrong casting.
+                atom.x = list.at(3).toFloat();
+                atom.y = list.at(4).toFloat();
+                atom.z = list.at(5).toFloat();
+                standardCoordinates.append(atom);
             }
         }
         if (line.contains("Gibbs"))
@@ -98,9 +115,10 @@ void LogParser::parse()
     // Save everything in CheckableFile
     fileToParse->setHarmonicFrequencies(this->getHarmonicFrequencies());
     fileToParse->setThermochemistry(this->getThermochemistry());
-    // currentFile->setCoordinates(this->getStandardCoordinates()); // Needs conversion to QList<Atom>
+    fileToParse->setCoordinates(this->getStandardCoordinates());
     fileToParse->setHartreeFockEnergy(this->getHartreeFockEnergy());
     fileToParse->setNAtoms(this->getNAtoms());
+    fileToParse->setConversionState(true);
 }
 
 void LogParser::setFileToParse(CheckableFile &file)
@@ -108,27 +126,57 @@ void LogParser::setFileToParse(CheckableFile &file)
     fileToParse = &file;
 }
 
-QStringList LogParser::getThermochemistry()
-{
-    return thermochemistry;
-}
-
-QStringList LogParser::getHarmonicFrequencies()
-{
-    return harmonicFrequencies;
-}
-
-QStringList LogParser::getStandardCoordinates()
+QList<Atom> LogParser::getStandardCoordinates() const
 {
     return standardCoordinates;
 }
 
-QString LogParser::getHartreeFockEnergy()
+void LogParser::setStandardCoordinates(const QList<Atom> &value)
+{
+    standardCoordinates = value;
+}
+
+QStringList LogParser::getThermochemistry() const
+{
+    return thermochemistry;
+}
+
+void LogParser::setThermochemistry(const QStringList &value)
+{
+    thermochemistry = value;
+}
+
+QStringList LogParser::getHarmonicFrequencies() const
+{
+    return harmonicFrequencies;
+}
+
+void LogParser::setHarmonicFrequencies(const QStringList &value)
+{
+    harmonicFrequencies = value;
+}
+
+QString LogParser::getHartreeFockEnergy() const
 {
     return hartreeFockEnergy;
 }
 
-QString LogParser::getNAtoms()
+void LogParser::setHartreeFockEnergy(const QString &value)
+{
+    hartreeFockEnergy = value;
+}
+
+QString LogParser::getNAtoms() const
 {
     return nAtoms;
 }
+
+void LogParser::setNAtoms(const QString &value)
+{
+    nAtoms = value;
+}
+
+
+
+
+

@@ -36,9 +36,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 struct Atom{
     QString element;
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
 };
 
 class CheckableFile : public QFile

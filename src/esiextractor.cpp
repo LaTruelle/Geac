@@ -73,6 +73,7 @@ void EsiExtractor::writeData()
     QTextStream out(&outputFile);
     // Add data according to requirements
     // TODO: insert headers
+    /* TODO: Use the QList<Atom> scheme
     if (reqStandardCoordinates)
         out << parser.getStandardCoordinates().join("") << endl;
     if (reqHarmonicFrequencies)
@@ -81,6 +82,7 @@ void EsiExtractor::writeData()
         out << parser.getThermochemistry().join("") << endl;
     if (reqHartreeFock)
         out << parser.getHartreeFockEnergy() << endl;
+    */
     // We close the file
     outputFile.close();
     // Emit signal

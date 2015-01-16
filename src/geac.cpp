@@ -217,11 +217,12 @@ void Geac::on_createEsi_clicked()
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
         qDebug() << fileDisplayerModel.getFile(i).getHartreeFockEnergy();
+        qDebug() << fileDisplayerModel.getFile(i).getCoordinates().first().element;
         // Check if the file needs to be converted
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
             /*
-             * TODO:
+             * TODO: Qt Concurent example here.
              * Implement qtconcurrent, and remove processing thread
              * Process is watched from QFutureWatcher signals, set around the QFuture returned by run() function.
              * QFuture<void> future = QtConcurrent::run(...);
