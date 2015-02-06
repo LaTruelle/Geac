@@ -71,6 +71,7 @@ void LogParser::parse()
                 // Split the string acoording to previously described pattern
                 QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
                 Atom atom;
+                // TODO Check for case of atoms Bq and X (Ghost and Dummy atoms)
                 atom.element = periodicTable.value(list.at(1).toInt());
                 // TODO emit error if element is not a float, to avoid crash for wrong casting.
                 atom.x = list.at(3).toFloat();
@@ -79,6 +80,8 @@ void LogParser::parse()
                 standardCoordinates.append(atom);
                 coordLine = fileToParse->readLine();
             }
+            // Update nAtoms with length of coordinates
+            nAtoms = standardCoordinates.size();
         }
         if (line.contains("Gibbs"))
         {
