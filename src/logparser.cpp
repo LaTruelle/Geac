@@ -62,12 +62,12 @@ void LogParser::parse()
             {
                 fileToParse->readLine();
             }
-
-            for(int ctr = 1; ctr<= nAtoms.toInt(); ctr++)
+            QString coordLine = fileToParse->readLine();
+            while (!coordLine.contains("------------")) // i.e. not at the end of the table
             {
                 // Read current line, of the form
                 // "N  AtomicNumber 0 Xcoord Ycoord Zcoord"
-                QString coordLine = fileToParse->readLine();
+                qDebug() << coordLine;
                 // Split the string acoording to previously described pattern
                 QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
                 Atom atom;
@@ -77,6 +77,7 @@ void LogParser::parse()
                 atom.y = list.at(4).toFloat();
                 atom.z = list.at(5).toFloat();
                 standardCoordinates.append(atom);
+                coordLine = fileToParse->readLine();
             }
         }
         if (line.contains("Gibbs"))
@@ -114,6 +115,8 @@ void LogParser::parse()
         }
     }
     fileToParse->close();
+    // TODO: Check that all data is there. (And do something with it!)
+    // (like some warning, or wrong conversion state, something)
     // Save everything in CheckableFile
     fileToParse->setHarmonicFrequencies(this->getHarmonicFrequencies());
     fileToParse->setThermochemistry(this->getThermochemistry());

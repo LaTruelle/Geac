@@ -212,7 +212,7 @@ void Geac::on_createEsi_clicked()
     for(int i=0; i<fileDisplayerModel.rowCount(); i++)
     {
         qDebug() << fileDisplayerModel.getFile(i).getHartreeFockEnergy();
-        qDebug() << fileDisplayerModel.getFile(i).getCoordinates().first().element;
+        //qDebug() << fileDisplayerModel.getFile(i).getCoordinates().first().element;
         // Check if the file needs to be converted
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
