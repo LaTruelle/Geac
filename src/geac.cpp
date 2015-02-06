@@ -85,10 +85,10 @@ void Geac::clearLog()
 void Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
-    for (int i=0; i<fileNames.count(); i++)
+    for (int i=0; i<fileNames.size(); i++)
     {
         CheckableFile *file = new CheckableFile(this);
-        file->setFileName(fileNames.takeFirst().absoluteFilePath());
+        file->setFileName(fileNames.at(i).absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
         LogParser *parser = new LogParser(file);
         // Start parsing in an other thread
