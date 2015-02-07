@@ -72,8 +72,8 @@ void LogParser::parse()
                 QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
                 Atom atom;
                 // TODO Check for case of atoms Bq and X (Ghost and Dummy atoms)
-                atom.element = periodicTable.value(list.at(1).toInt());
                 // TODO emit error if element is not a float, to avoid crash for wrong casting.
+                atom.element = periodicTable.value(list.at(1).toInt());
                 atom.x = list.at(3).toFloat();
                 atom.y = list.at(4).toFloat();
                 atom.z = list.at(5).toFloat();

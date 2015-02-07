@@ -18,9 +18,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
   ---
 
-  Emmanuel Nicolas - EsiExtractor.h
-
-    The class EsiExtractor extracts all necessary elements from a given file to build an ESI.
+  Emmanuel Nicolas - EsiWriter
+    The class EsiWriter extracts all necessary elements from a given file to build an ESI.
     -> Harmonic Frequencies
     -> Standard Coordinates (Using NAtoms value)
     -> Thermochemistry (energies, enthalpies)
@@ -28,8 +27,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 */
 
-#ifndef ESIEXTRACTOR_H
-#define ESIEXTRACTOR_H
+#ifndef ESIWRITER_H
+#define ESIWRITER_H
 
 #include <QDir>
 #include <QFile>
@@ -38,13 +37,13 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "logparser.h"
 #include "checkablefile.h"
 
-class EsiExtractor : public QObject
+class EsiWriter : public QObject
 {
     Q_OBJECT
 
 public:
-    EsiExtractor();
-    EsiExtractor(CheckableFile &inputFile);
+    EsiWriter();
+    EsiWriter(CheckableFile &inputFile);
     void setInputFile(CheckableFile &inputFile);
     void setOutputFolder(QDir &outputFolder);
     void setRequiredFields(bool &thermochemistry,
@@ -82,4 +81,4 @@ private:
 
 };
 
-#endif // ESIEXTRACTOR_H
+#endif // ESIWRITER_H

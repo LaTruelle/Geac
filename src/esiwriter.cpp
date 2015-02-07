@@ -18,9 +18,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
   ---
 
-  Emmanuel Nicolas - EsiExtractor.cpp
+  Emmanuel Nicolas - esiwriter
 
-    The class EsiExtractor extracts all necessary elements from a given file to build an ESI.
+    The class esiewriter extracts all necessary elements from a given file to build an ESI.
     -> Harmonic Frequencies
     -> Standard Coordinates (Using NAtoms value)
     -> Thermochemistry (energies, enthalpies)
@@ -28,31 +28,31 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 */
 
-#include "esiextractor.h"
+#include "esiwriter.h"
 #include <QMessageBox>
 #include <QTextStream>
 
 // Define static variables
-bool EsiExtractor::alwaysOverwrite = false;
-bool EsiExtractor::neverOverwrite = false;
+bool EsiWriter::alwaysOverwrite = false;
+bool EsiWriter::neverOverwrite = false;
 
-EsiExtractor::EsiExtractor()
+EsiWriter::EsiWriter()
 {
     canWriteFile = false;
 }
 
-EsiExtractor::EsiExtractor(CheckableFile &inputFile)
+EsiWriter::EsiWriter(CheckableFile &inputFile)
 {
     setInputFile(inputFile);
     canWriteFile = false;
 }
 
-void EsiExtractor::setExtension(QString extension)
+void EsiWriter::setExtension(QString extension)
 {
     fileExtension = extension;
 }
 
-void EsiExtractor::createEsi()
+void EsiWriter::createEsi()
 {
     checkInputFile();
     // Set up the parser
@@ -65,7 +65,7 @@ void EsiExtractor::createEsi()
     }
 }
 
-void EsiExtractor::writeData()
+void EsiWriter::writeData()
 {
     // Open the file
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -89,7 +89,7 @@ void EsiExtractor::writeData()
     emit fileProcessed();
 }
 
-void EsiExtractor::checkInputFile()
+void EsiWriter::checkInputFile()
 {
     // Include all test about Include file here
     QMessageBox msg;
@@ -156,17 +156,17 @@ void EsiExtractor::checkInputFile()
     }
 }
 
-void EsiExtractor::setInputFile(CheckableFile &inputFile)
+void EsiWriter::setInputFile(CheckableFile &inputFile)
 {
-    EsiExtractor::inputFile.setFileName(inputFile.fileName());
+    EsiWriter::inputFile.setFileName(inputFile.fileName());
 }
 
-void EsiExtractor::setOutputFolder(QDir &outputFolder)
+void EsiWriter::setOutputFolder(QDir &outputFolder)
 {
     this->outputFolder.setPath(outputFolder.absolutePath());
 }
 
-void EsiExtractor::setRequiredFields(bool &thermochemistry,
+void EsiWriter::setRequiredFields(bool &thermochemistry,
                                      bool &harmonicFrequencies,
                                      bool &standardCoordinates,
                                      bool &hartreeFockEnergy)
@@ -177,7 +177,7 @@ void EsiExtractor::setRequiredFields(bool &thermochemistry,
     reqHartreeFock = hartreeFockEnergy;
 }
 
-void EsiExtractor::setupExtractor(bool &thermochemistry,
+void EsiWriter::setupExtractor(bool &thermochemistry,
                                   bool &harmonicFrequencies,
                                   bool &standardCoordinates,
                                   bool &hartreeFockEnergy,

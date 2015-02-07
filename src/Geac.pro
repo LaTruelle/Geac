@@ -11,20 +11,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     geac.cpp \
-    esiextractor.cpp \
     checkfiledialog.cpp \
     logparser.cpp \
     filemanager.cpp \
     checkablefile.cpp \
-    filemanagerdelegate.cpp
+    filemanagerdelegate.cpp \
+    esiwriter.cpp
 
 HEADERS  += geac.h \
-    esiextractor.h \
     checkfiledialog.h \
     logparser.h \
     filemanager.h \
     checkablefile.h \
-    filemanagerdelegate.h
+    filemanagerdelegate.h \
+    esiwriter.h
 
 FORMS    += geac.ui
 
