@@ -1,0 +1,147 @@
+\hypertarget{class_log_parser}{}\section{Log\+Parser Class Reference}
+\label{class_log_parser}\index{Log\+Parser@{Log\+Parser}}
+
+
+{\ttfamily \#include $<$logparser.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_log_parser_ad920ca5d46af8d3689a1541a65397d08}{Log\+Parser} ()
+\item 
+\hyperlink{class_log_parser_abf05dd6e12f329b442af32c9387f5df0}{Log\+Parser} (\hyperlink{class_checkable_file}{Checkable\+File} $\ast$file)
+\item 
+void \hyperlink{class_log_parser_a996bf677bb0c4b6966491bf12fac0539}{set\+File\+To\+Parse} (\hyperlink{class_checkable_file}{Checkable\+File} \&file)
+\item 
+void \hyperlink{class_log_parser_af5e235c8c1233eb13d6631ecfdd212fb}{parse} ()
+\item 
+Q\+List$<$ \hyperlink{struct_atom}{Atom} $>$ \hyperlink{class_log_parser_ae1d61243d20e3534910bdcfa1b120a1c}{get\+Standard\+Coordinates} () const 
+\item 
+void \hyperlink{class_log_parser_a29add798425ca3fb9ace1e8d69ead9b5}{set\+Standard\+Coordinates} (const Q\+List$<$ \hyperlink{struct_atom}{Atom} $>$ \&value)
+\item 
+Q\+String\+List \hyperlink{class_log_parser_a43c32f53d2ee84001bc5598964c550ce}{get\+Thermochemistry} () const 
+\item 
+void \hyperlink{class_log_parser_a6c5fe30147adfe67efdbc92cb34929eb}{set\+Thermochemistry} (const Q\+String\+List \&value)
+\item 
+Q\+String\+List \hyperlink{class_log_parser_ae1fee2524455c73e984f058f2398f44a}{get\+Harmonic\+Frequencies} () const 
+\item 
+void \hyperlink{class_log_parser_ae82ffb40c6a254a4d6c4697d63c36b1a}{set\+Harmonic\+Frequencies} (const Q\+String\+List \&value)
+\item 
+Q\+String \hyperlink{class_log_parser_a2e51ca38092ebb37dbcd67463c3ee5a1}{get\+Hartree\+Fock\+Energy} () const 
+\item 
+void \hyperlink{class_log_parser_a39d39fab9dfdb29187359e9dbbfdc879}{set\+Hartree\+Fock\+Energy} (const Q\+String \&value)
+\item 
+Q\+String \hyperlink{class_log_parser_a5198c448b9e2cf76e2e75f34bea0e90d}{get\+N\+Atoms} () const 
+\item 
+void \hyperlink{class_log_parser_aaebd75b2bdfc8fb416b1cc7744dae598}{set\+N\+Atoms} (const Q\+String \&value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_log_parser_ad920ca5d46af8d3689a1541a65397d08}{}\index{Log\+Parser@{Log\+Parser}!Log\+Parser@{Log\+Parser}}
+\index{Log\+Parser@{Log\+Parser}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{Log\+Parser}]{\setlength{\rightskip}{0pt plus 5cm}Log\+Parser\+::\+Log\+Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_ad920ca5d46af8d3689a1541a65397d08}
+\hypertarget{class_log_parser_abf05dd6e12f329b442af32c9387f5df0}{}\index{Log\+Parser@{Log\+Parser}!Log\+Parser@{Log\+Parser}}
+\index{Log\+Parser@{Log\+Parser}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{Log\+Parser}]{\setlength{\rightskip}{0pt plus 5cm}Log\+Parser\+::\+Log\+Parser (
+\begin{DoxyParamCaption}
+\item[{{\bf Checkable\+File} $\ast$}]{file}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_abf05dd6e12f329b442af32c9387f5df0}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_log_parser_ae1fee2524455c73e984f058f2398f44a}{}\index{Log\+Parser@{Log\+Parser}!get\+Harmonic\+Frequencies@{get\+Harmonic\+Frequencies}}
+\index{get\+Harmonic\+Frequencies@{get\+Harmonic\+Frequencies}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{get\+Harmonic\+Frequencies}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String\+List Log\+Parser\+::get\+Harmonic\+Frequencies (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_log_parser_ae1fee2524455c73e984f058f2398f44a}
+\hypertarget{class_log_parser_a2e51ca38092ebb37dbcd67463c3ee5a1}{}\index{Log\+Parser@{Log\+Parser}!get\+Hartree\+Fock\+Energy@{get\+Hartree\+Fock\+Energy}}
+\index{get\+Hartree\+Fock\+Energy@{get\+Hartree\+Fock\+Energy}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{get\+Hartree\+Fock\+Energy}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Log\+Parser\+::get\+Hartree\+Fock\+Energy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_log_parser_a2e51ca38092ebb37dbcd67463c3ee5a1}
+\hypertarget{class_log_parser_a5198c448b9e2cf76e2e75f34bea0e90d}{}\index{Log\+Parser@{Log\+Parser}!get\+N\+Atoms@{get\+N\+Atoms}}
+\index{get\+N\+Atoms@{get\+N\+Atoms}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{get\+N\+Atoms}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Log\+Parser\+::get\+N\+Atoms (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_log_parser_a5198c448b9e2cf76e2e75f34bea0e90d}
+\hypertarget{class_log_parser_ae1d61243d20e3534910bdcfa1b120a1c}{}\index{Log\+Parser@{Log\+Parser}!get\+Standard\+Coordinates@{get\+Standard\+Coordinates}}
+\index{get\+Standard\+Coordinates@{get\+Standard\+Coordinates}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{get\+Standard\+Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ {\bf Atom} $>$ Log\+Parser\+::get\+Standard\+Coordinates (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_log_parser_ae1d61243d20e3534910bdcfa1b120a1c}
+\hypertarget{class_log_parser_a43c32f53d2ee84001bc5598964c550ce}{}\index{Log\+Parser@{Log\+Parser}!get\+Thermochemistry@{get\+Thermochemistry}}
+\index{get\+Thermochemistry@{get\+Thermochemistry}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{get\+Thermochemistry}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String\+List Log\+Parser\+::get\+Thermochemistry (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_log_parser_a43c32f53d2ee84001bc5598964c550ce}
+\hypertarget{class_log_parser_af5e235c8c1233eb13d6631ecfdd212fb}{}\index{Log\+Parser@{Log\+Parser}!parse@{parse}}
+\index{parse@{parse}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{parse}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::parse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_af5e235c8c1233eb13d6631ecfdd212fb}
+\hypertarget{class_log_parser_a996bf677bb0c4b6966491bf12fac0539}{}\index{Log\+Parser@{Log\+Parser}!set\+File\+To\+Parse@{set\+File\+To\+Parse}}
+\index{set\+File\+To\+Parse@{set\+File\+To\+Parse}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+File\+To\+Parse}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+File\+To\+Parse (
+\begin{DoxyParamCaption}
+\item[{{\bf Checkable\+File} \&}]{file}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_a996bf677bb0c4b6966491bf12fac0539}
+\hypertarget{class_log_parser_ae82ffb40c6a254a4d6c4697d63c36b1a}{}\index{Log\+Parser@{Log\+Parser}!set\+Harmonic\+Frequencies@{set\+Harmonic\+Frequencies}}
+\index{set\+Harmonic\+Frequencies@{set\+Harmonic\+Frequencies}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+Harmonic\+Frequencies}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+Harmonic\+Frequencies (
+\begin{DoxyParamCaption}
+\item[{const Q\+String\+List \&}]{value}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_ae82ffb40c6a254a4d6c4697d63c36b1a}
+\hypertarget{class_log_parser_a39d39fab9dfdb29187359e9dbbfdc879}{}\index{Log\+Parser@{Log\+Parser}!set\+Hartree\+Fock\+Energy@{set\+Hartree\+Fock\+Energy}}
+\index{set\+Hartree\+Fock\+Energy@{set\+Hartree\+Fock\+Energy}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+Hartree\+Fock\+Energy}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+Hartree\+Fock\+Energy (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{value}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_a39d39fab9dfdb29187359e9dbbfdc879}
+\hypertarget{class_log_parser_aaebd75b2bdfc8fb416b1cc7744dae598}{}\index{Log\+Parser@{Log\+Parser}!set\+N\+Atoms@{set\+N\+Atoms}}
+\index{set\+N\+Atoms@{set\+N\+Atoms}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+N\+Atoms}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+N\+Atoms (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{value}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_aaebd75b2bdfc8fb416b1cc7744dae598}
+\hypertarget{class_log_parser_a29add798425ca3fb9ace1e8d69ead9b5}{}\index{Log\+Parser@{Log\+Parser}!set\+Standard\+Coordinates@{set\+Standard\+Coordinates}}
+\index{set\+Standard\+Coordinates@{set\+Standard\+Coordinates}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+Standard\+Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+Standard\+Coordinates (
+\begin{DoxyParamCaption}
+\item[{const Q\+List$<$ {\bf Atom} $>$ \&}]{value}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_a29add798425ca3fb9ace1e8d69ead9b5}
+\hypertarget{class_log_parser_a6c5fe30147adfe67efdbc92cb34929eb}{}\index{Log\+Parser@{Log\+Parser}!set\+Thermochemistry@{set\+Thermochemistry}}
+\index{set\+Thermochemistry@{set\+Thermochemistry}!Log\+Parser@{Log\+Parser}}
+\subsubsection[{set\+Thermochemistry}]{\setlength{\rightskip}{0pt plus 5cm}void Log\+Parser\+::set\+Thermochemistry (
+\begin{DoxyParamCaption}
+\item[{const Q\+String\+List \&}]{value}
+\end{DoxyParamCaption}
+)}\label{class_log_parser_a6c5fe30147adfe67efdbc92cb34929eb}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{logparser_8h}{logparser.\+h}\item 
+src/\hyperlink{logparser_8cpp}{logparser.\+cpp}\end{DoxyCompactItemize}
