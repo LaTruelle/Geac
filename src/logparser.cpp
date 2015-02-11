@@ -67,17 +67,26 @@ void LogParser::parse()
             {
                 // Read current line, of the form
                 // "N  AtomicNumber 0 Xcoord Ycoord Zcoord"
-                qDebug() << coordLine;
-                // Split the string acoording to previously described pattern
+                // Split the string acoording to pattern
                 QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
                 Atom atom;
-                // TODO Check for case of atoms Bq and X (Ghost and Dummy atoms)
-                // TODO emit error if element is not a float, to avoid crash for wrong casting.
-                atom.element = periodicTable.value(list.at(1).toInt());
-                atom.x = list.at(3).toFloat();
-                atom.y = list.at(4).toFloat();
-                atom.z = list.at(5).toFloat();
-                standardCoordinates.append(atom);
+                bool *testElement = new bool(true);
+                bool *testX = new bool(true);
+                bool *testY = new bool(true);
+                bool *testZ = new bool(true);
+                // TODO Check the case of atoms Bq and X (Ghost and Dummy atoms)
+                // (Are they even included in the coordinates?)
+                atom.element = periodicTable.value(list.at(1).toInt(testElement));
+                atom.x = list.at(3).toFloat(testX);
+                atom.y = list.at(4).toFloat(testY);
+                atom.z = list.at(5).toFloat(testZ);
+                if (testElement && testX && testY && testZ) {// Meaning all casts worked properly
+                    standardCoordinates.append(atom);
+                }
+                else{
+                    // Maybe do something? Warn about file?
+                    qDebug() << "Faulty line: " + list.join(" / ");
+                }
                 coordLine = fileToParse->readLine();
             }
             // Update nAtoms with length of coordinates
