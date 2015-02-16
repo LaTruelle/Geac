@@ -35,10 +35,11 @@ LogParser::LogParser()
     this->initPeriodicTable();
 }
 
-LogParser::LogParser(CheckableFile *file)
+LogParser::LogParser(CheckableFile *file, int id)
 {
     fileToParse = file;
     this->initPeriodicTable();
+    this->id = id;
 }
 
 void LogParser::parse()
@@ -136,6 +137,7 @@ void LogParser::parse()
     fileToParse->setHartreeFockEnergy(this->getHartreeFockEnergy());
     fileToParse->setNAtoms(this->getNAtoms());
     fileToParse->setConversionState(true);
+    emit fileConverted(id);
 }
 
 void LogParser::setFileToParse(CheckableFile &file)

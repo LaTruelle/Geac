@@ -91,10 +91,16 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.at(i).absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
-        LogParser *parser = new LogParser(file);
+        LogParser *parser = new LogParser(file,id);
         // Start parsing in an other thread
+        connect(parser,&LogParser::fileConverted,this,&Geac::fileConverted);
         QtConcurrent::run(parser,&LogParser::parse);
     }
+}
+
+void Geac::fileConverted(int id)
+{
+    qDebug() << "File converted: " << id;
 }
 
 void Geac::readSettings()

@@ -34,11 +34,13 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "checkablefile.h"
 
-class LogParser
+class LogParser : public QObject
 {
+    Q_OBJECT
+
 public:
     LogParser();
-    LogParser(CheckableFile *file);
+    LogParser(CheckableFile *file, int id);
     void setFileToParse(CheckableFile &file);
     void parse();
 
@@ -57,7 +59,12 @@ public:
     QString getNAtoms() const;
     void setNAtoms(const QString &value);
 
+signals:
+    void fileConverted(int id);
+    void fileConversionProblem();
+
 private:
+    int id;
     CheckableFile *fileToParse;
     QStringList thermochemistry;
     QStringList harmonicFrequencies;
