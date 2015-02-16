@@ -20,7 +20,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
   Emmanuel Nicolas - esiwriter
 
-    The class esiewriter extracts all necessary elements from a given file to build an ESI.
+    The class esiwriter extracts all necessary elements from a given file to build an ESI.
     -> Harmonic Frequencies
     -> Standard Coordinates (Using NAtoms value)
     -> Thermochemistry (energies, enthalpies)
@@ -55,10 +55,6 @@ void EsiWriter::setExtension(QString extension)
 void EsiWriter::createEsi()
 {
     checkInputFile();
-    // Set up the parser
-    parser.setFileToParse(inputFile);
-    // Parse the data
-    parser.parse();
 
     if (canWriteFile) {
         writeData();
@@ -72,7 +68,6 @@ void EsiWriter::writeData()
     // Setup a QTextStream
     QTextStream out(&outputFile);
     // Add data according to requirements
-    // TODO: insert headers
     /* TODO: Use the QList<Atom> scheme
     if (reqStandardCoordinates)
         out << parser.getStandardCoordinates().join("") << endl;

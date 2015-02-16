@@ -34,7 +34,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QFile>
 #include <QString>
 #include <QStringList>
-#include "logparser.h"
 #include "checkablefile.h"
 
 class EsiWriter : public QObject
@@ -70,7 +69,6 @@ private:
     bool reqStandardCoordinates;
     bool reqHartreeFock;
     bool canWriteFile;
-    LogParser parser;
     QDir outputFolder;
     CheckableFile inputFile;
     QFile outputFile;
