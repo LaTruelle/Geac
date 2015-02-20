@@ -42,7 +42,7 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
     // Connect Log signals to the log displayer
-    connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
+    connect(&fileDisplayerModel, &FileManager::eventToDisplay, this, &Geac::displayLog);
     // Hide Progress Bar and set its max to 0
     ui.progressBar->setMaximum(0);
     hideProgressBar();
