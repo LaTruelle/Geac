@@ -230,13 +230,7 @@ void Geac::on_createEsi_clicked()
         if(fileDisplayerModel.getFile(i).getConversionRequired())
         {
             /*
-             * TODO: Qt Concurent example here.
-             * Implement qtconcurrent, and remove processing thread
-             * Process is watched from QFutureWatcher signals, set around the QFuture returned by run() function.
-             * QFuture<void> future = QtConcurrent::run(...);
-             * watcher.setFuture(future);
-             */
-  /*          // Define a File Processor for the file i
+            // Define a File Processor for the file i
             FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
             // Connect the processor signal to the adequate slot
             connect(processor, SIGNAL(fileProcessed(int)), SLOT(showFileFinished(int)));
@@ -292,6 +286,8 @@ void Geac::on_SaveFolderSelection_clicked()
                       );
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
+    // Select the Folder Setting
+    ui.Button_DedicatedFolder->click();
 }
 
 void Geac::on_standardCoordinates_stateChanged(int state)
