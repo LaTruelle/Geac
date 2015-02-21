@@ -76,6 +76,7 @@ public slots:
 private slots:
     void showProgressBar();
     void hideProgressBar();
+    void repaintFileDisplayer();
     void on_actionFran_ais_triggered();
     void on_actionEnglish_triggered();
     void on_Button_DedicatedFolder_clicked();

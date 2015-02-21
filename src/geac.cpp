@@ -101,6 +101,7 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
 void Geac::fileConverted(int id)
 {
     qDebug() << "File converted: " << id;
+    this->repaintFileDisplayer();
 }
 
 void Geac::readSettings()
@@ -209,8 +210,13 @@ void Geac::on_fileDisplayer_clicked(QModelIndex index)
     // Use the Model to change the data upon clicking
     if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
         // Update the view
-        ui.fileDisplayer->viewport()->update();
+        this->repaintFileDisplayer();
     }
+}
+
+void Geac::repaintFileDisplayer()
+{
+    ui.fileDisplayer->viewport()->update();
 }
 
 void Geac::on_createEsi_clicked()
