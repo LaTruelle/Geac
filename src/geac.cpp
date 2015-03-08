@@ -32,7 +32,6 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QtConcurrent>
 #include "checkfiledialog.h"
 #include "logparser.h"
-#include "esiwriter.h"
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -221,51 +220,52 @@ void Geac::repaintFileDisplayer()
 
 void Geac::on_createEsi_clicked()
 {
-    // Add files to thread, and launch their conversion
-    for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+    // Check CIF File case
+    if (ui.Button_CIF->isChecked())
     {
-        qDebug() << fileDisplayerModel.getFile(i).getHartreeFockEnergy();
-        qDebug() << fileDisplayerModel.getFile(i).getCoordinates().first().element;
-        // Check if the file needs to be converted
-        if(fileDisplayerModel.getFile(i).getConversionRequired())
+        // TODO Treat CIF File Case
+    }
+    else // File by file
+    {
+        // Add files to thread, and launch their conversion
+        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
         {
-            /*
-            // Define a File Processor for the file i
-            FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
-            // Connect the processor signal to the adequate slot
-            connect(processor, SIGNAL(fileProcessed(int)), SLOT(showFileFinished(int)));
-
-            // Setup Processor according to the dedicated folder
-            if (ui.Button_DedicatedFolder->isChecked())
+            // Retrieve appropriate file
+            CheckableFile currentFile = fileDisplayerModel.getFile(i);
+            // Stuff to test
+            qDebug() << currentFile.fileName();
+            qDebug() << currentFile.getHartreeFockEnergy();
+            // Check if the file needs to be converted
+            if(currentFile.getConversionRequired())
             {
-                // Set a dedicated folder
-                processor->setupProcessor(reqThermochemistry,
-                                          reqHarmonicFrequencies,
-                                          reqStandardCoordinates,
-                                          reqHartreeFock,
-                                          esiFolder,
-                                          ui.esiExtension->text());
+                // Setup writer
+                writer.setInputFile(currentFile);
+                // Connect signal for finishing file writing
+                // connect();
+                // Set options
+                writer.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
+                writer.setInputFile(currentFile);
+                writer.setExtension(ui.esiExtension->text());
+                // Select out Folder according to appropriate mode
+                if (ui.Button_DedicatedFolder->isChecked())
+                {
+                    writer.setOutputFolder(esiFolder);
+                }
+                else if (ui.Button_SameFolder->isChecked())
+                {
+                    // Set the folder of the current file to be the output path
+                    QString fileDir = currentFile.fileName();
+                    fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
+                    QDir dir(fileDir);
+                    // Put it in the writer
+                    writer.setOutputFolder(dir);
+                }
+                // Shift progress bar value
+                increaseProgressBarMax();
+                // Write the file
+                // TODO:
+                writer.createEsi();
             }
-            else if(ui.Button_SameFolder->isChecked())
-            {
-                // Set the folder of the current file to be the output path
-                QString fileDir = processor->getFileName();
-                fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
-                QDir dir(fileDir);
-                processor->setupProcessor(reqThermochemistry,
-                                          reqHarmonicFrequencies,
-                                          reqStandardCoordinates,
-                                          reqHartreeFock,
-                                          dir,
-                                          ui.esiExtension->text());
-            }
-            // Move the file processor to the processing thread
-            // processor->moveToThread(&processingThread);
-            // Increase the progress bar value (and show it doing this)
-            increaseProgressBarMax();
-            // Start the conversion
-            QtConcurrent::run(processor, &FileProcessor::convertFile);
-            */
         }
     }
 }

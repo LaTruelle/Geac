@@ -37,6 +37,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
+#include "esiwriter.h"
 
 class Geac : public QMainWindow
 {
@@ -67,6 +68,7 @@ private:
     QDir baseFolder;
     QDir esiFolder;
     QStringList dirList;
+    EsiWriter writer;
 
 public slots:
     void displayLog(QString string);

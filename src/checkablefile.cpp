@@ -48,6 +48,12 @@ CheckableFile::CheckableFile(CheckableFile & file) :
     converted = file.getConversionState();
     toConvert = file.getConversionRequired();
     id = file.getId();
+    dataExtracted = file.getDataExtracted();
+    nAtoms = file.getNAtoms();
+    hartreeFockEnergy = file.getHartreeFockEnergy();
+    harmonicFrequencies = file.getHarmonicFrequencies();
+    thermochemistry = file.getThermochemistry();
+    coordinates = file.getCoordinates();
 }
 
 bool CheckableFile::getConversionRequired()
@@ -145,4 +151,7 @@ void CheckableFile::setCoordinates(const QList<Atom> &value)
     coordinates = value;
 }
 
-
+QStringList CheckableFile::getXYZCoordinates()
+{
+    // TODO Return XYZ coordinates
+}

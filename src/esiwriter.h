@@ -43,7 +43,7 @@ class EsiWriter : public QObject
 public:
     EsiWriter();
     EsiWriter(CheckableFile &inputFile);
-    void setInputFile(CheckableFile &inputFile);
+    void setInputFile(CheckableFile &inFile);
     void setOutputFolder(QDir &outputFolder);
     void setRequiredFields(bool &thermochemistry,
                            bool &harmonicFrequencies,

@@ -72,6 +72,8 @@ public:
     QList<Atom> getCoordinates() const;
     void setCoordinates(const QList<Atom> &value);
 
+    QStringList getXYZCoordinates();
+
 private:
     bool converted;
     bool toConvert;
@@ -84,6 +86,8 @@ private:
     QList<Atom> coordinates;
 
 signals:
+//    void conversionStateChanged(bool convState);
+//    void conversionRequiredChanged(bool convReq);
 
 public slots:
     void setConversionState(bool boolean);

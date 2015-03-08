@@ -31,6 +31,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "esiwriter.h"
 #include <QMessageBox>
 #include <QTextStream>
+#include <QDebug>
 
 // Define static variables
 bool EsiWriter::alwaysOverwrite = false;
@@ -67,17 +68,21 @@ void EsiWriter::writeData()
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
     // Setup a QTextStream
     QTextStream out(&outputFile);
+    qDebug() << inputFile.fileName();
+    qDebug() << inputFile.getHartreeFockEnergy();
     // Add data according to requirements
-    /* TODO: Use the QList<Atom> scheme
     if (reqStandardCoordinates)
-        out << parser.getStandardCoordinates().join("") << endl;
+        // TODO: Use Atom namespace properly
+        for (int i = 0; i < inputFile.nAtoms; ++i) {
+            out << inputFile.getCoordinates().at(i) << endl;
+        }
+    //    out << parser.getStandardCoordinates().join("") << endl;
     if (reqHarmonicFrequencies)
-        out << parser.getHarmonicFrequencies().join("") << endl;
+        out << inputFile.getHarmonicFrequencies().join("") << endl;
     if (reqThermochemistry)
-        out << parser.getThermochemistry().join("") << endl;
+        out << inputFile.getThermochemistry().join("") << endl;
     if (reqHartreeFock)
-        out << parser.getHartreeFockEnergy() << endl;
-    */
+        out << inputFile.getHartreeFockEnergy() << endl;
     // We close the file
     outputFile.close();
     // Emit signal
@@ -154,9 +159,15 @@ void EsiWriter::checkInputFile()
     }
 }
 
-void EsiWriter::setInputFile(CheckableFile &inputFile)
+void EsiWriter::setInputFile(CheckableFile &inFile)
 {
-    EsiWriter::inputFile.setFileName(inputFile.fileName());
+    inputFile.setFileName(inFile.fileName());
+    inputFile.setCoordinates(inFile.getCoordinates());
+    inputFile.setThermochemistry(inFile.getThermochemistry());
+    inputFile.setHarmonicFrequencies(inFile.getHarmonicFrequencies());
+    inputFile.setHartreeFockEnergy(inFile.getHartreeFockEnergy());
+    inputFile.setId(inFile.getId());
+    inputFile.setNAtoms(inFile.getNAtoms());
 }
 
 void EsiWriter::setOutputFolder(QDir &outputFolder)
