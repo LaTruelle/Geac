@@ -143,6 +143,9 @@ void EsiWriter::checkInputFile()
                     break;
                 }
             }
+            else if (outputFile.exists() && neverOverwrite) {
+                canWriteFile = false;
+            }
             else
             {
                 canWriteFile = true;
