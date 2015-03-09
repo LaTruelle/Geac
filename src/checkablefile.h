@@ -72,7 +72,7 @@ public:
     QList<Atom> getCoordinates() const;
     void setCoordinates(const QList<Atom> &value);
 
-    QStringList getXYZCoordinates();
+    QList<QStringList> getXYZCoordinates();
 
 private:
     bool converted;

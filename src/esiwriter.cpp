@@ -68,15 +68,24 @@ void EsiWriter::writeData()
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
     // Setup a QTextStream
     QTextStream out(&outputFile);
-    qDebug() << inputFile.fileName();
-    qDebug() << inputFile.getHartreeFockEnergy();
     // Add data according to requirements
     if (reqStandardCoordinates)
-        // TODO: Use Atom namespace properly
-        for (int i = 0; i < inputFile.nAtoms; ++i) {
-            out << inputFile.getCoordinates().at(i) << endl;
+    {
+        QList<QStringList> XYZcoordinates = inputFile.getXYZCoordinates();
+        out << "=======================================================" << endl;
+        out << "Element               X               Y               Z" << endl;
+        out << "=======================================================" << endl;
+        for (int i = 0; i < inputFile.getNAtoms().toInt(); ++i) {
+            QStringList line = XYZcoordinates.at(i);
+            QString formattedLine;
+            formattedLine += line.at(0).leftJustified(7,' ');
+            formattedLine += line.at(1).rightJustified(16,' ');
+            formattedLine += line.at(2).rightJustified(16,' ');
+            formattedLine += line.at(3).rightJustified(16,' ');
+            out << formattedLine << endl;
         }
-    //    out << parser.getStandardCoordinates().join("") << endl;
+        out << "=======================================================" << endl << endl;
+    }
     if (reqHarmonicFrequencies)
         out << inputFile.getHarmonicFrequencies().join("") << endl;
     if (reqThermochemistry)

@@ -151,7 +151,22 @@ void CheckableFile::setCoordinates(const QList<Atom> &value)
     coordinates = value;
 }
 
-QStringList CheckableFile::getXYZCoordinates()
+QList<QStringList> CheckableFile::getXYZCoordinates()
 {
     // TODO Return XYZ coordinates
+    QList<QStringList> XYZcoordinates;
+    for (int line = 0; line < nAtoms.toInt(); ++line) {
+        // Add line to coordinates list
+        QString element = coordinates.at(line).element;
+        QString x = QString::number(coordinates.at(line).x,'f',8);
+        QString y = QString::number(coordinates.at(line).y,'f',8);
+        QString z = QString::number(coordinates.at(line).z,'f',8);
+        QStringList stringList;
+        stringList.append(element);
+        stringList.append(x);
+        stringList.append(y);
+        stringList.append(z);
+        XYZcoordinates.append(stringList);
+    }
+    return XYZcoordinates;
 }
