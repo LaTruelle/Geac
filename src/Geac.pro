@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     filemanager.cpp \
     checkablefile.cpp \
     filemanagerdelegate.cpp \
-    esiwriter.cpp
+    esiwriter.cpp \
+    cifwriter.cpp
 
 HEADERS  += geac.h \
     checkfiledialog.h \
@@ -24,7 +25,8 @@ HEADERS  += geac.h \
     filemanager.h \
     checkablefile.h \
     filemanagerdelegate.h \
-    esiwriter.h
+    esiwriter.h \
+    cifwriter.h
 
 FORMS    += geac.ui
 

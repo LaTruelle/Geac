@@ -236,8 +236,12 @@ void Geac::on_createEsi_clicked()
             qDebug() << currentFile.fileName();
             qDebug() << currentFile.getHartreeFockEnergy();
             // Check if the file needs to be converted
-            if(currentFile.getConversionRequired())
+            if (currentFile.getConversionRequired())
             {
+                if (!currentFile.getConversionState()) {
+                    // Current File not converted yet.
+                    // TODO: Decide what to do!
+                }
                 // Setup writer
                 writer.setInputFile(currentFile);
                 // Connect signal for finishing file writing

@@ -153,7 +153,6 @@ void CheckableFile::setCoordinates(const QList<Atom> &value)
 
 QList<QStringList> CheckableFile::getXYZCoordinates()
 {
-    // TODO Return XYZ coordinates
     QList<QStringList> XYZcoordinates;
     for (int line = 0; line < nAtoms.toInt(); ++line) {
         // Add line to coordinates list
