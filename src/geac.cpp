@@ -241,7 +241,7 @@ void Geac::on_createEsi_clicked()
                 // Setup writer
                 writer.setInputFile(currentFile);
                 // Connect signal for finishing file writing
-                // connect();
+                connect(&writer, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
                 // Set options
                 writer.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
                 writer.setInputFile(currentFile);
@@ -263,7 +263,6 @@ void Geac::on_createEsi_clicked()
                 // Shift progress bar value
                 increaseProgressBarMax();
                 // Write the file
-                // TODO:
                 writer.createEsi();
             }
         }
