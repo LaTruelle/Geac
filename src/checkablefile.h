@@ -46,12 +46,12 @@ class CheckableFile : public QFile
     Q_OBJECT
 public:
     explicit CheckableFile(QObject *parent);
-    CheckableFile(CheckableFile & file);
+    CheckableFile(const CheckableFile & file);
     CheckableFile();
-    bool getConversionState();
-    bool getConversionRequired();
+    bool getConversionState() const;
+    bool getConversionRequired() const;
     void setId(int i);
-    int getId();
+    int getId() const;
     QString displayName();
 
     QString getNAtoms() const;
@@ -72,7 +72,7 @@ public:
     QList<Atom> getCoordinates() const;
     void setCoordinates(const QList<Atom> &value);
 
-    QList<QStringList> getXYZCoordinates();
+    QList<QStringList> getXYZCoordinates() const;
 
 private:
     bool converted;

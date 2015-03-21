@@ -42,7 +42,7 @@ CheckableFile::CheckableFile() :
     // Nothing to do
 }
 
-CheckableFile::CheckableFile(CheckableFile & file) :
+CheckableFile::CheckableFile(const CheckableFile &file) :
     QFile(file.fileName())
 {
     converted = file.getConversionState();
@@ -56,12 +56,12 @@ CheckableFile::CheckableFile(CheckableFile & file) :
     coordinates = file.getCoordinates();
 }
 
-bool CheckableFile::getConversionRequired()
+bool CheckableFile::getConversionRequired() const
 {
     return toConvert;
 }
 
-bool CheckableFile::getConversionState()
+bool CheckableFile::getConversionState() const
 {
     return converted;
 }
@@ -81,7 +81,7 @@ void CheckableFile::setId(int i)
     id = i;
 }
 
-int CheckableFile::getId()
+int CheckableFile::getId() const
 {
     return id;
 }
@@ -151,7 +151,7 @@ void CheckableFile::setCoordinates(const QList<Atom> &value)
     coordinates = value;
 }
 
-QList<QStringList> CheckableFile::getXYZCoordinates()
+QList<QStringList> CheckableFile::getXYZCoordinates() const
 {
     QList<QStringList> XYZcoordinates;
     for (int line = 0; line < nAtoms.toInt(); ++line) {

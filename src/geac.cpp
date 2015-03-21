@@ -32,6 +32,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QtConcurrent>
 #include "checkfiledialog.h"
 #include "logparser.h"
+#include <QDebug>
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -224,6 +225,26 @@ void Geac::on_createEsi_clicked()
     if (ui.Button_CIF->isChecked())
     {
         // TODO Treat CIF File Case
+        cifWriter.setOutputFile(cifOutput);
+        connect(&cifWriter,&CifWriter::fileProcessed, this, &Geac::displayLog);
+        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+        {
+            // Retrieve appropriate file
+            CheckableFile currentFile = fileDisplayerModel.getFile(i);
+            // Stuff to test
+//            qDebug() << currentFile.fileName();
+//            qDebug() << currentFile.getHartreeFockEnergy();
+//            // Check if the file needs to be converted
+            if (currentFile.getConversionRequired())
+            {
+                if (!currentFile.getConversionState()) {
+                    // Current File not converted yet.
+                    // TODO: Decide what to do!
+                }
+                cifWriter.addFiletoList(currentFile);
+            }
+        }
+        cifWriter.createCif();
     }
     else // File by file
     {
@@ -243,17 +264,17 @@ void Geac::on_createEsi_clicked()
                     // TODO: Decide what to do!
                 }
                 // Setup writer
-                writer.setInputFile(currentFile);
+                esiWriter.setInputFile(currentFile);
                 // Connect signal for finishing file writing
-                connect(&writer, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
+                connect(&esiWriter, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
                 // Set options
-                writer.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
-                writer.setInputFile(currentFile);
-                writer.setExtension(ui.esiExtension->text());
+                esiWriter.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
+                esiWriter.setInputFile(currentFile);
+                esiWriter.setExtension(ui.esiExtension->text());
                 // Select out Folder according to appropriate mode
                 if (ui.Button_DedicatedFolder->isChecked())
                 {
-                    writer.setOutputFolder(esiFolder);
+                    esiWriter.setOutputFolder(esiFolder);
                 }
                 else if (ui.Button_SameFolder->isChecked())
                 {
@@ -262,12 +283,12 @@ void Geac::on_createEsi_clicked()
                     fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
                     QDir dir(fileDir);
                     // Put it in the writer
-                    writer.setOutputFolder(dir);
+                    esiWriter.setOutputFolder(dir);
                 }
                 // Shift progress bar value
                 increaseProgressBarMax();
                 // Write the file
-                writer.createEsi();
+                esiWriter.createEsi();
             }
         }
     }
@@ -415,4 +436,35 @@ void Geac::on_actionOpen_File_triggered()
 void Geac::on_actionQuit_triggered()
 {
     emit this->close();
+}
+
+void Geac::on_Button_CIF_clicked()
+{
+    // Select output File
+    // TODO: Implement this
+    QString fileName = QFileDialog::getSaveFileName(this, tr("CIF File name"),
+                               esiFolder.absolutePath(),
+                               tr("CIF Files (*.cif)"));
+    if (QFile(fileName).exists())
+    {
+        // Ask for Overwriting or not
+        // TODO: Check for Overwrite
+        bool overwrite = true;
+        if (overwrite) // Later switch to if overwrite=true
+        {
+            cifOutput.setFileName(fileName);
+            ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
+        }
+        else
+        {
+            // Not Overwriting, Display Warning and reset the display as default (same folder)
+            // TODO: To Implement
+        }
+    }
+    else
+    {
+        // Save it to global variables, plus update display
+        cifOutput.setFileName(fileName);
+        ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
+    }
 }
