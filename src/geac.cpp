@@ -32,6 +32,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QtConcurrent>
 #include "checkfiledialog.h"
 #include "logparser.h"
+#include "esiwriter.h"
+#include "cifwriter.h"
+
 #include <QDebug>
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
@@ -224,7 +227,7 @@ void Geac::on_createEsi_clicked()
     // Check CIF File case
     if (ui.Button_CIF->isChecked())
     {
-        // TODO Treat CIF File Case
+        CifWriter cifWriter;
         cifWriter.setOutputFile(cifOutput);
         connect(&cifWriter,&CifWriter::fileProcessed, this, &Geac::displayLog);
         for(int i=0; i<fileDisplayerModel.rowCount(); i++)
@@ -264,6 +267,7 @@ void Geac::on_createEsi_clicked()
                     // TODO: Decide what to do!
                 }
                 // Setup writer
+                EsiWriter esiWriter;
                 esiWriter.setInputFile(currentFile);
                 // Connect signal for finishing file writing
                 connect(&esiWriter, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
@@ -441,30 +445,14 @@ void Geac::on_actionQuit_triggered()
 void Geac::on_Button_CIF_clicked()
 {
     // Select output File
-    // TODO: Implement this
     QString fileName = QFileDialog::getSaveFileName(this, tr("CIF File name"),
                                esiFolder.absolutePath(),
                                tr("CIF Files (*.cif)"));
+    // Dialog autmoagically asks about overwriting. We just need to empty the file if it exists.
     if (QFile(fileName).exists())
     {
-        // Ask for Overwriting or not
-        // TODO: Check for Overwrite
-        bool overwrite = true;
-        if (overwrite) // Later switch to if overwrite=true
-        {
-            cifOutput.setFileName(fileName);
-            ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
-        }
-        else
-        {
-            // Not Overwriting, Display Warning and reset the display as default (same folder)
-            // TODO: To Implement
-        }
+        // Clear contents of file
     }
-    else
-    {
-        // Save it to global variables, plus update display
-        cifOutput.setFileName(fileName);
-        ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
-    }
+    cifOutput.setFileName(fileName);
+    ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
 }
