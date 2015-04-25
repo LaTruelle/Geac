@@ -35,7 +35,7 @@ FileManager::FileManager(QObject *parent) :
     header << "File Names" << " " << " " << " ";
 }
 
-void FileManager::addFile(CheckableFile *file)
+int FileManager::addFile(CheckableFile *file)
 {
     // We iterate over the fileList. If the file exists we return
     for(int i = 0; i < listOfFiles.count(); i++)
@@ -43,16 +43,18 @@ void FileManager::addFile(CheckableFile *file)
         if(file->fileName() == listOfFiles.at(i)->fileName()) // meaning the file exists already in the list
         {
             emit eventToDisplay(tr("File %1 already exists").arg(file->displayName()));
-            return;
+            return 0; // TODO: Transform this properly
         }
     }
     // We attribute an Id to the current file
-    file->setId(listOfFiles.count()+1); // Ugly, because if we replace the file, it gets the same id. --> Add proper counter
+    int id = listOfFiles.count()+1; // Ugly, because if we replace the file, it gets the same id. --> Add proper counter
+    file->setId(id);
     // If we reached the end then the file is new, we save it.
     beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
     listOfFiles.append(file);
     endInsertRows();
     emit eventToDisplay(tr("File %1 added").arg(file->displayName()));
+    return id;
 }
 
 void FileManager::clearFiles()

@@ -42,20 +42,26 @@ CheckableFile::CheckableFile() :
     // Nothing to do
 }
 
-CheckableFile::CheckableFile(CheckableFile & file) :
+CheckableFile::CheckableFile(const CheckableFile &file) :
     QFile(file.fileName())
 {
     converted = file.getConversionState();
     toConvert = file.getConversionRequired();
     id = file.getId();
+    dataExtracted = file.getDataExtracted();
+    nAtoms = file.getNAtoms();
+    hartreeFockEnergy = file.getHartreeFockEnergy();
+    harmonicFrequencies = file.getHarmonicFrequencies();
+    thermochemistry = file.getThermochemistry();
+    coordinates = file.getCoordinates();
 }
 
-bool CheckableFile::getConversionRequired()
+bool CheckableFile::getConversionRequired() const
 {
     return toConvert;
 }
 
-bool CheckableFile::getConversionState()
+bool CheckableFile::getConversionState() const
 {
     return converted;
 }
@@ -75,7 +81,7 @@ void CheckableFile::setId(int i)
     id = i;
 }
 
-int CheckableFile::getId()
+int CheckableFile::getId() const
 {
     return id;
 }
@@ -83,4 +89,83 @@ int CheckableFile::getId()
 QString CheckableFile::displayName()
 {
     return this->fileName().remove(0,this->fileName().lastIndexOf(QDir::separator())+1);
+}
+
+QString CheckableFile::getNAtoms() const
+{
+    return nAtoms;
+}
+
+void CheckableFile::setNAtoms(const QString &value)
+{
+    nAtoms = value;
+}
+
+QString CheckableFile::getHartreeFockEnergy() const
+{
+    return hartreeFockEnergy;
+}
+
+void CheckableFile::setHartreeFockEnergy(const QString &value)
+{
+    hartreeFockEnergy = value;
+}
+
+QStringList CheckableFile::getThermochemistry() const
+{
+    return thermochemistry;
+}
+
+void CheckableFile::setThermochemistry(const QStringList &value)
+{
+    thermochemistry = value;
+}
+
+QStringList CheckableFile::getHarmonicFrequencies() const
+{
+    return harmonicFrequencies;
+}
+
+void CheckableFile::setHarmonicFrequencies(const QStringList &value)
+{
+    harmonicFrequencies = value;
+}
+
+bool CheckableFile::getDataExtracted() const
+{
+    return dataExtracted;
+}
+
+void CheckableFile::setDataExtracted(bool value)
+{
+    dataExtracted = value;
+}
+
+QList<Atom> CheckableFile::getCoordinates() const
+{
+    return coordinates;
+}
+
+void CheckableFile::setCoordinates(const QList<Atom> &value)
+{
+    coordinates = value;
+}
+
+QList<QStringList> CheckableFile::getXYZCoordinates() const
+{
+    QList<QStringList> XYZcoordinates;
+    for (int line = 0; line < nAtoms.toInt(); ++line) {
+        // Add line to coordinates list
+        QString element = coordinates.at(line).element;
+        QString x = QString::number(coordinates.at(line).x,'f',8);
+        QString y = QString::number(coordinates.at(line).y,'f',8);
+        QString z = QString::number(coordinates.at(line).z,'f',8);
+        QStringList stringList;
+        stringList.append(element);
+        stringList.append(x);
+        stringList.append(y);
+        stringList.append(z);
+        XYZcoordinates.append(stringList);
+    }
+    return XYZcoordinates;
 }

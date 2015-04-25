@@ -31,7 +31,11 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include <QFuture>
 #include <QtConcurrent>
 #include "checkfiledialog.h"
-#include "fileprocessor.h"
+#include "logparser.h"
+#include "esiwriter.h"
+#include "cifwriter.h"
+
+#include <QDebug>
 
 Geac::Geac(QWidget *parent) : QMainWindow(parent)
 {
@@ -41,14 +45,12 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
     // Connect Log signals to the log displayer
-    connect(&fileDisplayerModel, SIGNAL(eventToDisplay(QString)), this, SLOT(displayLog(QString)));
+    connect(&fileDisplayerModel, &FileManager::eventToDisplay, this, &Geac::displayLog);
     // Hide Progress Bar and set its max to 0
     ui.progressBar->setMaximum(0);
     hideProgressBar();
     // Read Preferences (previously used folders, state of buttons, etc.)
     readSettings();
-    // Start Processing thread
-    processingThread.start();
 }
 
 void Geac::setupFileDisplayer()
@@ -87,13 +89,22 @@ void Geac::clearLog()
 void Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
-    int limit = fileNames.count();
-    for (int i=0; i<limit; i++)
+    for (int i=0; i<fileNames.size(); i++)
     {
         CheckableFile *file = new CheckableFile(this);
-        file->setFileName(fileNames.takeFirst().absoluteFilePath());
-        fileDisplayerModel.addFile(file);
+        file->setFileName(fileNames.at(i).absoluteFilePath());
+        int id = fileDisplayerModel.addFile(file);
+        LogParser *parser = new LogParser(file,id);
+        // Start parsing in an other thread
+        connect(parser,&LogParser::fileConverted,this,&Geac::fileConverted);
+        QtConcurrent::run(parser,&LogParser::parse);
     }
+}
+
+void Geac::fileConverted(int id)
+{
+    qDebug() << "File converted: " << id;
+    this->repaintFileDisplayer();
 }
 
 void Geac::readSettings()
@@ -124,10 +135,6 @@ void Geac::writeSettings()
 
 void Geac::closeEvent(QCloseEvent *event)
  {
-    processingThread.quit();
-    while (processingThread.isRunning()) {
-        // Do Nothing but wait
-    }
     writeSettings();
     event->accept();
  }
@@ -206,60 +213,87 @@ void Geac::on_fileDisplayer_clicked(QModelIndex index)
     // Use the Model to change the data upon clicking
     if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
         // Update the view
-        ui.fileDisplayer->viewport()->update();
+        this->repaintFileDisplayer();
     }
+}
+
+void Geac::repaintFileDisplayer()
+{
+    ui.fileDisplayer->viewport()->update();
 }
 
 void Geac::on_createEsi_clicked()
 {
-    // Add files to thread, and launch their conversion
-    for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+    // Check CIF File case
+    if (ui.Button_CIF->isChecked())
     {
-        // Check if the file needs to be converted
-        if(fileDisplayerModel.getFile(i).getConversionRequired())
+        CifWriter cifWriter;
+        cifWriter.setOutputFile(cifOutput);
+        connect(&cifWriter,&CifWriter::fileProcessed, this, &Geac::displayLog);
+        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
         {
-            /*
-             * TODO:
-             * Implement qtconcurrent, and remove processing thread
-             * Process is watched from QFutureWatcher signals, set around the QFuture returned by run() function.
-             * QFuture<void> future = QtConcurrent::run(...);
-             * watcher.setFuture(future);
-             */
-            // Define a File Processor for the file i
-            FileProcessor *processor = new FileProcessor(fileDisplayerModel.getFile(i));
-            // Connect the processor signal to the adequate slot
-            connect(processor, SIGNAL(fileProcessed(int)), SLOT(showFileFinished(int)));
-
-            // Setup Processor according to the dedicated folder
-            if (ui.Button_DedicatedFolder->isChecked())
+            // Retrieve appropriate file
+            CheckableFile currentFile = fileDisplayerModel.getFile(i);
+            // Stuff to test
+//            qDebug() << currentFile.fileName();
+//            qDebug() << currentFile.getHartreeFockEnergy();
+//            // Check if the file needs to be converted
+            if (currentFile.getConversionRequired())
             {
-                // Set a dedicated folder
-                processor->setupProcessor(reqThermochemistry,
-                                          reqHarmonicFrequencies,
-                                          reqStandardCoordinates,
-                                          reqHartreeFock,
-                                          esiFolder,
-                                          ui.esiExtension->text());
+                if (!currentFile.getConversionState()) {
+                    // Current File not converted yet.
+                    // TODO: Decide what to do!
+                }
+                cifWriter.addFiletoList(currentFile);
             }
-            else if(ui.Button_SameFolder->isChecked())
+        }
+        cifWriter.createCif();
+    }
+    else // File by file
+    {
+        // Add files to thread, and launch their conversion
+        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
+        {
+            // Retrieve appropriate file
+            CheckableFile currentFile = fileDisplayerModel.getFile(i);
+            // Stuff to test
+            qDebug() << currentFile.fileName();
+            qDebug() << currentFile.getHartreeFockEnergy();
+            // Check if the file needs to be converted
+            if (currentFile.getConversionRequired())
             {
-                // Set the folder of the current file to be the output path
-                QString fileDir = processor->getFileName();
-                fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
-                QDir dir(fileDir);
-                processor->setupProcessor(reqThermochemistry,
-                                          reqHarmonicFrequencies,
-                                          reqStandardCoordinates,
-                                          reqHartreeFock,
-                                          dir,
-                                          ui.esiExtension->text());
+                if (!currentFile.getConversionState()) {
+                    // Current File not converted yet.
+                    // TODO: Decide what to do!
+                }
+                // Setup writer
+                EsiWriter esiWriter;
+                esiWriter.setInputFile(currentFile);
+                // Connect signal for finishing file writing
+                connect(&esiWriter, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
+                // Set options
+                esiWriter.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
+                esiWriter.setInputFile(currentFile);
+                esiWriter.setExtension(ui.esiExtension->text());
+                // Select out Folder according to appropriate mode
+                if (ui.Button_DedicatedFolder->isChecked())
+                {
+                    esiWriter.setOutputFolder(esiFolder);
+                }
+                else if (ui.Button_SameFolder->isChecked())
+                {
+                    // Set the folder of the current file to be the output path
+                    QString fileDir = currentFile.fileName();
+                    fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
+                    QDir dir(fileDir);
+                    // Put it in the writer
+                    esiWriter.setOutputFolder(dir);
+                }
+                // Shift progress bar value
+                increaseProgressBarMax();
+                // Write the file
+                esiWriter.createEsi();
             }
-            // Move the file processor to the processing thread
-            // processor->moveToThread(&processingThread);
-            // Increase the progress bar value (and show it doing this)
-            increaseProgressBarMax();
-            // Start the conversion
-            QFuture<void> future = QtConcurrent::run(processor, &FileProcessor::convertFile);
         }
     }
 }
@@ -280,6 +314,8 @@ void Geac::on_SaveFolderSelection_clicked()
                       );
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
+    // Select the Folder Setting
+    ui.Button_DedicatedFolder->click();
 }
 
 void Geac::on_standardCoordinates_stateChanged(int state)
@@ -404,4 +440,19 @@ void Geac::on_actionOpen_File_triggered()
 void Geac::on_actionQuit_triggered()
 {
     emit this->close();
+}
+
+void Geac::on_Button_CIF_clicked()
+{
+    // Select output File
+    QString fileName = QFileDialog::getSaveFileName(this, tr("CIF File name"),
+                               esiFolder.absolutePath(),
+                               tr("CIF Files (*.cif)"));
+    // Dialog autmoagically asks about overwriting. We just need to empty the file if it exists.
+    if (QFile(fileName).exists())
+    {
+        // Clear contents of file
+    }
+    cifOutput.setFileName(fileName);
+    ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
 }

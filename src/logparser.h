@@ -30,31 +30,49 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include <QString>
 #include <QStringList>
+#include <QHash>
 
 #include "checkablefile.h"
 
-class LogParser
+class LogParser : public QObject
 {
+    Q_OBJECT
+
 public:
     LogParser();
-    LogParser(CheckableFile &file);
+    LogParser(CheckableFile *file, int id);
     void setFileToParse(CheckableFile &file);
     void parse();
 
-    QStringList getThermochemistry();
-    QStringList getHarmonicFrequencies();
-    QStringList getStandardCoordinates();
-    QString getHartreeFockEnergy();
-    QString getNAtoms();
+    QList<Atom> getStandardCoordinates() const;
+    void setStandardCoordinates(const QList<Atom> &value);
+
+    QStringList getThermochemistry() const;
+    void setThermochemistry(const QStringList &value);
+
+    QStringList getHarmonicFrequencies() const;
+    void setHarmonicFrequencies(const QStringList &value);
+
+    QString getHartreeFockEnergy() const;
+    void setHartreeFockEnergy(const QString &value);
+
+    QString getNAtoms() const;
+    void setNAtoms(const QString &value);
+
+signals:
+    void fileConverted(int id);
+    void fileConversionProblem();
 
 private:
-    QFile *fileToParse;
+    int id;
+    CheckableFile *fileToParse;
     QStringList thermochemistry;
     QStringList harmonicFrequencies;
-    QStringList standardCoordinates;
+    QList<Atom> standardCoordinates;
     QString hartreeFockEnergy;
     QString nAtoms;
-
+    QHash<int, QString> periodicTable;
+    void initPeriodicTable();
 };
 
 #endif // LOGPARSER_H

@@ -1,0 +1,193 @@
+\hypertarget{class_file_manager}{}\section{File\+Manager Class Reference}
+\label{class_file_manager}\index{File\+Manager@{File\+Manager}}
+
+
+{\ttfamily \#include $<$filemanager.\+h$>$}
+
+
+
+Inheritance diagram for File\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{class_file_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for File\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{class_file_manager__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_file_manager_a122e43a43028aaa6e1fafe3a2966cc72}{event\+To\+Display} (Q\+String string)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_file_manager_aed06615dba6e3987ba4f129505e92edc}{File\+Manager} (Q\+Object $\ast$parent=0)
+\item 
+int \hyperlink{class_file_manager_aa9d31eb3298e9d05834ab95beb7d2bb5}{row\+Count} (const Q\+Model\+Index \&parent) const 
+\item 
+int \hyperlink{class_file_manager_a7764e12ab002099b462242ff9bb5337c}{row\+Count} () const 
+\item 
+int \hyperlink{class_file_manager_ae2423ac9abd3c52d156222cefef3555d}{column\+Count} (const Q\+Model\+Index \&parent) const 
+\item 
+Q\+Variant \hyperlink{class_file_manager_ab4ad090512825bc604b437be76bc5b46}{data} (const Q\+Model\+Index \&index, int role) const 
+\item 
+bool \hyperlink{class_file_manager_a5cf1a76c4ab08028ff10468086bdaf92}{set\+Data} (const Q\+Model\+Index \&index, const Q\+Variant \&value, int role)
+\item 
+Q\+String \hyperlink{class_file_manager_a40338fced75a011297a6cd96da82aa0b}{get\+File\+Path} (int row)
+\item 
+\hyperlink{class_checkable_file}{Checkable\+File} \& \hyperlink{class_file_manager_a93ffce845f7df82220f3dc450a4fb8fe}{get\+File} (int i)
+\item 
+\hyperlink{class_checkable_file}{Checkable\+File} $\ast$ \hyperlink{class_file_manager_a3d3c605f92a96d971f18fcdfb283443a}{get\+File\+By\+Id} (int id)
+\item 
+Q\+Variant \hyperlink{class_file_manager_a158b776ba8de289ce669302ab35367c8}{header\+Data} (int section, Qt\+::\+Orientation orientation, int role) const 
+\item 
+int \hyperlink{class_file_manager_a4a64b560d32e734dbd42acf6303f9397}{add\+File} (\hyperlink{class_checkable_file}{Checkable\+File} $\ast$file)
+\item 
+void \hyperlink{class_file_manager_a69455bdd744fdad91a21ca383e93ef7a}{clear\+Files} ()
+\item 
+bool \hyperlink{class_file_manager_a4505478c3876877d38486994910e35d6}{get\+Required\+Conversion} (Q\+Model\+Index \&index)
+\item 
+bool \hyperlink{class_file_manager_a38c9259c6681263406ad2c2b21d06aa4}{get\+Required\+Conversion} (int i)
+\item 
+void \hyperlink{class_file_manager_a354563436fd7d1545edb98c4d9b5de98}{set\+Converted} (int i)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_file_manager_aed06615dba6e3987ba4f129505e92edc}{}\index{File\+Manager@{File\+Manager}!File\+Manager@{File\+Manager}}
+\index{File\+Manager@{File\+Manager}!File\+Manager@{File\+Manager}}
+\subsubsection[{File\+Manager}]{\setlength{\rightskip}{0pt plus 5cm}File\+Manager\+::\+File\+Manager (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_aed06615dba6e3987ba4f129505e92edc}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_file_manager_a4a64b560d32e734dbd42acf6303f9397}{}\index{File\+Manager@{File\+Manager}!add\+File@{add\+File}}
+\index{add\+File@{add\+File}!File\+Manager@{File\+Manager}}
+\subsubsection[{add\+File}]{\setlength{\rightskip}{0pt plus 5cm}int File\+Manager\+::add\+File (
+\begin{DoxyParamCaption}
+\item[{{\bf Checkable\+File} $\ast$}]{file}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a4a64b560d32e734dbd42acf6303f9397}
+\hypertarget{class_file_manager_a69455bdd744fdad91a21ca383e93ef7a}{}\index{File\+Manager@{File\+Manager}!clear\+Files@{clear\+Files}}
+\index{clear\+Files@{clear\+Files}!File\+Manager@{File\+Manager}}
+\subsubsection[{clear\+Files}]{\setlength{\rightskip}{0pt plus 5cm}void File\+Manager\+::clear\+Files (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a69455bdd744fdad91a21ca383e93ef7a}
+\hypertarget{class_file_manager_ae2423ac9abd3c52d156222cefef3555d}{}\index{File\+Manager@{File\+Manager}!column\+Count@{column\+Count}}
+\index{column\+Count@{column\+Count}!File\+Manager@{File\+Manager}}
+\subsubsection[{column\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int File\+Manager\+::column\+Count (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{parent}
+\end{DoxyParamCaption}
+) const}\label{class_file_manager_ae2423ac9abd3c52d156222cefef3555d}
+\hypertarget{class_file_manager_ab4ad090512825bc604b437be76bc5b46}{}\index{File\+Manager@{File\+Manager}!data@{data}}
+\index{data@{data}!File\+Manager@{File\+Manager}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Variant File\+Manager\+::data (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{index, }
+\item[{int}]{role}
+\end{DoxyParamCaption}
+) const}\label{class_file_manager_ab4ad090512825bc604b437be76bc5b46}
+\hypertarget{class_file_manager_a122e43a43028aaa6e1fafe3a2966cc72}{}\index{File\+Manager@{File\+Manager}!event\+To\+Display@{event\+To\+Display}}
+\index{event\+To\+Display@{event\+To\+Display}!File\+Manager@{File\+Manager}}
+\subsubsection[{event\+To\+Display}]{\setlength{\rightskip}{0pt plus 5cm}void File\+Manager\+::event\+To\+Display (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_file_manager_a122e43a43028aaa6e1fafe3a2966cc72}
+\hypertarget{class_file_manager_a93ffce845f7df82220f3dc450a4fb8fe}{}\index{File\+Manager@{File\+Manager}!get\+File@{get\+File}}
+\index{get\+File@{get\+File}!File\+Manager@{File\+Manager}}
+\subsubsection[{get\+File}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Checkable\+File} \& File\+Manager\+::get\+File (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a93ffce845f7df82220f3dc450a4fb8fe}
+\hypertarget{class_file_manager_a3d3c605f92a96d971f18fcdfb283443a}{}\index{File\+Manager@{File\+Manager}!get\+File\+By\+Id@{get\+File\+By\+Id}}
+\index{get\+File\+By\+Id@{get\+File\+By\+Id}!File\+Manager@{File\+Manager}}
+\subsubsection[{get\+File\+By\+Id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Checkable\+File} $\ast$ File\+Manager\+::get\+File\+By\+Id (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a3d3c605f92a96d971f18fcdfb283443a}
+\hypertarget{class_file_manager_a40338fced75a011297a6cd96da82aa0b}{}\index{File\+Manager@{File\+Manager}!get\+File\+Path@{get\+File\+Path}}
+\index{get\+File\+Path@{get\+File\+Path}!File\+Manager@{File\+Manager}}
+\subsubsection[{get\+File\+Path}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String File\+Manager\+::get\+File\+Path (
+\begin{DoxyParamCaption}
+\item[{int}]{row}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a40338fced75a011297a6cd96da82aa0b}
+\hypertarget{class_file_manager_a4505478c3876877d38486994910e35d6}{}\index{File\+Manager@{File\+Manager}!get\+Required\+Conversion@{get\+Required\+Conversion}}
+\index{get\+Required\+Conversion@{get\+Required\+Conversion}!File\+Manager@{File\+Manager}}
+\subsubsection[{get\+Required\+Conversion}]{\setlength{\rightskip}{0pt plus 5cm}bool File\+Manager\+::get\+Required\+Conversion (
+\begin{DoxyParamCaption}
+\item[{Q\+Model\+Index \&}]{index}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a4505478c3876877d38486994910e35d6}
+\hypertarget{class_file_manager_a38c9259c6681263406ad2c2b21d06aa4}{}\index{File\+Manager@{File\+Manager}!get\+Required\+Conversion@{get\+Required\+Conversion}}
+\index{get\+Required\+Conversion@{get\+Required\+Conversion}!File\+Manager@{File\+Manager}}
+\subsubsection[{get\+Required\+Conversion}]{\setlength{\rightskip}{0pt plus 5cm}bool File\+Manager\+::get\+Required\+Conversion (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a38c9259c6681263406ad2c2b21d06aa4}
+\hypertarget{class_file_manager_a158b776ba8de289ce669302ab35367c8}{}\index{File\+Manager@{File\+Manager}!header\+Data@{header\+Data}}
+\index{header\+Data@{header\+Data}!File\+Manager@{File\+Manager}}
+\subsubsection[{header\+Data}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Variant File\+Manager\+::header\+Data (
+\begin{DoxyParamCaption}
+\item[{int}]{section, }
+\item[{Qt\+::\+Orientation}]{orientation, }
+\item[{int}]{role}
+\end{DoxyParamCaption}
+) const}\label{class_file_manager_a158b776ba8de289ce669302ab35367c8}
+\hypertarget{class_file_manager_aa9d31eb3298e9d05834ab95beb7d2bb5}{}\index{File\+Manager@{File\+Manager}!row\+Count@{row\+Count}}
+\index{row\+Count@{row\+Count}!File\+Manager@{File\+Manager}}
+\subsubsection[{row\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int File\+Manager\+::row\+Count (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{parent}
+\end{DoxyParamCaption}
+) const}\label{class_file_manager_aa9d31eb3298e9d05834ab95beb7d2bb5}
+\hypertarget{class_file_manager_a7764e12ab002099b462242ff9bb5337c}{}\index{File\+Manager@{File\+Manager}!row\+Count@{row\+Count}}
+\index{row\+Count@{row\+Count}!File\+Manager@{File\+Manager}}
+\subsubsection[{row\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int File\+Manager\+::row\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_file_manager_a7764e12ab002099b462242ff9bb5337c}
+\hypertarget{class_file_manager_a354563436fd7d1545edb98c4d9b5de98}{}\index{File\+Manager@{File\+Manager}!set\+Converted@{set\+Converted}}
+\index{set\+Converted@{set\+Converted}!File\+Manager@{File\+Manager}}
+\subsubsection[{set\+Converted}]{\setlength{\rightskip}{0pt plus 5cm}void File\+Manager\+::set\+Converted (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a354563436fd7d1545edb98c4d9b5de98}
+\hypertarget{class_file_manager_a5cf1a76c4ab08028ff10468086bdaf92}{}\index{File\+Manager@{File\+Manager}!set\+Data@{set\+Data}}
+\index{set\+Data@{set\+Data}!File\+Manager@{File\+Manager}}
+\subsubsection[{set\+Data}]{\setlength{\rightskip}{0pt plus 5cm}bool File\+Manager\+::set\+Data (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{index, }
+\item[{const Q\+Variant \&}]{value, }
+\item[{int}]{role}
+\end{DoxyParamCaption}
+)}\label{class_file_manager_a5cf1a76c4ab08028ff10468086bdaf92}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{filemanager_8h}{filemanager.\+h}\item 
+src/\hyperlink{filemanager_8cpp}{filemanager.\+cpp}\end{DoxyCompactItemize}
