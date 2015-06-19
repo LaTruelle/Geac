@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/LaTruelle/Geac.svg)](https://travis-ci.org/LaTruelle/Geac)
 Geac
 ====
 
