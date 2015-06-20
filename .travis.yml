@@ -14,9 +14,6 @@ before_install:
 - sudo apt-get install zlib1g-dev libudev-dev
 script:
 - qmake -project
+- cat Geac.pro
 - qmake src/Geac.pro
-- ls -al ./
-- echo "############################"
-- cat Makefile
-- echo "############################"
 - make
