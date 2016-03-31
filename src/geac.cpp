@@ -446,13 +446,18 @@ void Geac::on_Button_CIF_clicked()
 {
     // Select output File
     QString fileName = QFileDialog::getSaveFileName(this, tr("CIF File name"),
-                               esiFolder.absolutePath(),
-                               tr("CIF Files (*.cif)"));
-    // Dialog autmoagically asks about overwriting. We just need to empty the file if it exists.
-    if (QFile(fileName).exists())
-    {
-        // Clear contents of file
+                                                    esiFolder.absolutePath(),
+                                                    tr("CIF Files (*.cif)"));
+    if (fileName.isEmpty()) {
+        ui.Button_SameFolder->click();
+    } else {
+        // Dialog autmoagically asks about overwriting. We just need to empty
+        // the file if it exists.
+        if (QFile(fileName).exists()) {
+            // Clear contents of file
+        }
+        cifOutput.setFileName(fileName);
+        ui.cifFileName->setText(
+            fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
     }
-    cifOutput.setFileName(fileName);
-    ui.cifFileName->setText(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
 }
