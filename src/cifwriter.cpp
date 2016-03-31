@@ -1,6 +1,6 @@
-#include <QTextStream>
 #include "cifwriter.h"
 #include <QDebug>
+#include <QTextStream>
 
 CifWriter::CifWriter()
 {
@@ -41,9 +41,9 @@ void CifWriter::createCif()
 
     for (int i = 0; i < files.size(); ++i) {
         // Add each file as a new cif block
-        QString fileName = files.at(i)->fileName().right(files.at(i)->fileName().size()
-                                                        - files.at(i)->fileName().lastIndexOf("/")
-                                                        - 1);
+        QString fileName = files.at(i)->fileName().right(
+            files.at(i)->fileName().size() -
+            files.at(i)->fileName().lastIndexOf("/") - 1);
         QList<QStringList> XYZCoordinates = files.at(i)->getXYZCoordinates();
         out << "data_" + fileName << endl;
         out << endl;
@@ -64,10 +64,10 @@ void CifWriter::createCif()
         for (int j = 0; j < files.at(i)->getNAtoms().toInt(); ++j) {
             QStringList line = XYZCoordinates.at(j);
             QString formattedLine;
-            formattedLine += line.at(0).leftJustified(7,' ');
-            formattedLine += line.at(1).rightJustified(16,' ');
-            formattedLine += line.at(2).rightJustified(16,' ');
-            formattedLine += line.at(3).rightJustified(16,' ');
+            formattedLine += line.at(0).leftJustified(7, ' ');
+            formattedLine += line.at(1).rightJustified(16, ' ');
+            formattedLine += line.at(2).rightJustified(16, ' ');
+            formattedLine += line.at(3).rightJustified(16, ' ');
             out << formattedLine << endl;
         }
         out << endl;
@@ -77,5 +77,7 @@ void CifWriter::createCif()
     out << "__ Full End " << endl;
     outputFile.close();
     QString fileName = outputFile.fileName();
-    emit fileProcessed(fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1) + " written.");
+    emit fileProcessed(
+        fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1) +
+        " written.");
 }

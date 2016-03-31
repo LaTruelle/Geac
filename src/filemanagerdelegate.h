@@ -28,20 +28,20 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef FILEMANAGERDELEGATE_H
 #define FILEMANAGERDELEGATE_H
 
-#include <QStyledItemDelegate>
 #include <QSize>
+#include <QStyledItemDelegate>
 
 class FileManagerDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
     explicit FileManagerDelegate(QObject *parent = 0);
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option,
+               const QModelIndex &index) const;
 
 signals:
 
 public slots:
-
 };
 
 #endif // FILEMANAGERDELEGATE_H

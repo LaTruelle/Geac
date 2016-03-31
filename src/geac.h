@@ -31,9 +31,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "ui_geac.h"
 
+#include <QCloseEvent>
 #include <QDir>
 #include <QFileInfoList>
-#include <QCloseEvent>
 
 #include "filemanager.h"
 #include "filemanagerdelegate.h"
@@ -85,10 +85,10 @@ private slots:
     void on_createEsi_clicked();
     void on_clearFiles_clicked();
     void on_SaveFolderSelection_clicked();
-    void on_standardCoordinates_stateChanged(int );
-    void on_hartreeFock_stateChanged(int );
-    void on_thermochemistry_stateChanged(int );
-    void on_harmonicFrequencies_stateChanged(int );
+    void on_standardCoordinates_stateChanged(int);
+    void on_hartreeFock_stateChanged(int);
+    void on_thermochemistry_stateChanged(int);
+    void on_harmonicFrequencies_stateChanged(int);
     void on_actionOpen_Folder_triggered();
     void on_actionOpen_File_triggered();
     void on_actionQuit_triggered();

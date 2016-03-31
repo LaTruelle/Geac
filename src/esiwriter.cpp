@@ -20,7 +20,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
   Emmanuel Nicolas - esiwriter
 
-    The class esiwriter extracts all necessary elements from a given file to build an ESI.
+    The class esiwriter extracts all necessary elements from a given file to
+build an ESI.
     -> Harmonic Frequencies
     -> Standard Coordinates (Using NAtoms value)
     -> Thermochemistry (energies, enthalpies)
@@ -29,9 +30,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "esiwriter.h"
+#include <QDebug>
 #include <QMessageBox>
 #include <QTextStream>
-#include <QDebug>
 
 // Define static variables
 bool EsiWriter::alwaysOverwrite = false;
@@ -69,22 +70,25 @@ void EsiWriter::writeData()
     // Setup a QTextStream
     QTextStream out(&outputFile);
     // Add data according to requirements
-    if (reqStandardCoordinates)
-    {
+    if (reqStandardCoordinates) {
         QList<QStringList> XYZcoordinates = inputFile.getXYZCoordinates();
-        out << "=======================================================" << endl;
-        out << "Element               X               Y               Z" << endl;
-        out << "=======================================================" << endl;
+        out << "======================================================="
+            << endl;
+        out << "Element               X               Y               Z"
+            << endl;
+        out << "======================================================="
+            << endl;
         for (int i = 0; i < inputFile.getNAtoms().toInt(); ++i) {
             QStringList line = XYZcoordinates.at(i);
             QString formattedLine;
-            formattedLine += line.at(0).leftJustified(7,' ');
-            formattedLine += line.at(1).rightJustified(16,' ');
-            formattedLine += line.at(2).rightJustified(16,' ');
-            formattedLine += line.at(3).rightJustified(16,' ');
+            formattedLine += line.at(0).leftJustified(7, ' ');
+            formattedLine += line.at(1).rightJustified(16, ' ');
+            formattedLine += line.at(2).rightJustified(16, ' ');
+            formattedLine += line.at(3).rightJustified(16, ' ');
             out << formattedLine << endl;
         }
-        out << "=======================================================" << endl << endl;
+        out << "=======================================================" << endl
+            << endl;
     }
     if (reqHarmonicFrequencies)
         out << inputFile.getHarmonicFrequencies().join("") << endl;
@@ -103,47 +107,49 @@ void EsiWriter::checkInputFile()
     // Include all test about Include file here
     QMessageBox msg;
     // We check the existence of the input File
-    if(!inputFile.exists())
-    {
-        msg.setText(QObject::tr("The file %1 does not exist !").arg(inputFile.fileName()));
+    if (!inputFile.exists()) {
+        msg.setText(QObject::tr("The file %1 does not exist !")
+                        .arg(inputFile.fileName()));
         msg.exec();
         // Emit log signal !
-    }
-    else{
+    } else {
         // We check if the file can be read
-        if (!QFileInfo(inputFile).isReadable())
-        {
-            msg.setText(QObject::tr("The file %1 cannot be opened !").arg(inputFile.fileName()));
+        if (!QFileInfo(inputFile).isReadable()) {
+            msg.setText(QObject::tr("The file %1 cannot be opened !")
+                            .arg(inputFile.fileName()));
             msg.exec();
-        }
-        else
-        {
+        } else {
             // We can setup the outputFile
-            QString outFile = inputFile.fileName().remove(0,inputFile.fileName().lastIndexOf("/")+1);
+            QString outFile = inputFile.fileName().remove(
+                0, inputFile.fileName().lastIndexOf("/") + 1);
             // --> inputName.log
-            outFile.remove(outFile.lastIndexOf("."), outFile.length()-1);
+            outFile.remove(outFile.lastIndexOf("."), outFile.length() - 1);
             // --> inputName
             outFile.append(fileExtension);
             // --> inputName_fileExtension
             // We can setup the QFile outputFile
             outputFile.setFileName(outputFolder.absolutePath() + "/" + outFile);
-            // We have a proper QFile, we check its existence, and if we can write in the directory
-            if(outputFile.exists() && !alwaysOverwrite && !neverOverwrite)
-            {
+            // We have a proper QFile, we check its existence, and if we can
+            // write in the directory
+            if (outputFile.exists() && !alwaysOverwrite && !neverOverwrite) {
                 // We have a problem : Ask for the user to decide
-                msg.setText(QObject::tr("The file %1 already exists").arg(outputFile.fileName()));
-                msg.setInformativeText(QObject::tr("Do you want to overwrite it ?"));
-                msg.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::NoToAll);
+                msg.setText(QObject::tr("The file %1 already exists")
+                                .arg(outputFile.fileName()));
+                msg.setInformativeText(
+                    QObject::tr("Do you want to overwrite it ?"));
+                msg.setStandardButtons(QMessageBox::Yes |
+                                       QMessageBox::YesToAll | QMessageBox::No |
+                                       QMessageBox::NoToAll);
                 msg.setDefaultButton(QMessageBox::YesToAll);
-                switch (msg.exec())
-                {
+                switch (msg.exec()) {
                 case QMessageBox::Yes:
                     // Delete and authorize overwrite
                     QFile(outFile).remove();
                     canWriteFile = true;
                     break;
                 case QMessageBox::YesToAll:
-                    // Delete file, authorize overwrite and save it for next time
+                    // Delete file, authorize overwrite and save it for next
+                    // time
                     QFile(outFile).remove();
                     canWriteFile = true;
                     alwaysOverwrite = true;
@@ -156,12 +162,9 @@ void EsiWriter::checkInputFile()
                     neverOverwrite = true;
                     break;
                 }
-            }
-            else if (outputFile.exists() && neverOverwrite) {
+            } else if (outputFile.exists() && neverOverwrite) {
                 canWriteFile = false;
-            }
-            else
-            {
+            } else {
                 canWriteFile = true;
             }
         }
@@ -185,9 +188,9 @@ void EsiWriter::setOutputFolder(QDir &outputFolder)
 }
 
 void EsiWriter::setRequiredFields(bool &thermochemistry,
-                                     bool &harmonicFrequencies,
-                                     bool &standardCoordinates,
-                                     bool &hartreeFockEnergy)
+                                  bool &harmonicFrequencies,
+                                  bool &standardCoordinates,
+                                  bool &hartreeFockEnergy)
 {
     reqThermochemistry = thermochemistry;
     reqHarmonicFrequencies = harmonicFrequencies;
@@ -195,15 +198,14 @@ void EsiWriter::setRequiredFields(bool &thermochemistry,
     reqHartreeFock = hartreeFockEnergy;
 }
 
-void EsiWriter::setupExtractor(bool &thermochemistry,
-                                  bool &harmonicFrequencies,
-                                  bool &standardCoordinates,
-                                  bool &hartreeFockEnergy,
-                                  QDir &outputFolder,
-                                  QString extension)
+void EsiWriter::setupExtractor(bool &thermochemistry, bool &harmonicFrequencies,
+                               bool &standardCoordinates,
+                               bool &hartreeFockEnergy, QDir &outputFolder,
+                               QString extension)
 {
     // Setup Fields to save
-    setRequiredFields(thermochemistry, harmonicFrequencies, standardCoordinates, hartreeFockEnergy);
+    setRequiredFields(thermochemistry, harmonicFrequencies, standardCoordinates,
+                      hartreeFockEnergy);
     // Set output Folder
     setOutputFolder(outputFolder);
     // Set Extension of ESI

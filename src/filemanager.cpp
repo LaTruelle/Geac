@@ -29,28 +29,35 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #include "filemanager.h"
 #include <QDir>
 
-FileManager::FileManager(QObject *parent) :
-    QAbstractTableModel(parent)
+FileManager::FileManager(QObject *parent) : QAbstractTableModel(parent)
 {
-    header << "File Names" << " " << " " << " ";
+    header << "File Names"
+           << " "
+           << " "
+           << " ";
 }
 
 int FileManager::addFile(CheckableFile *file)
 {
     // We iterate over the fileList. If the file exists we return
-    for(int i = 0; i < listOfFiles.count(); i++)
-    {
-        if(file->fileName() == listOfFiles.at(i)->fileName()) // meaning the file exists already in the list
+    for (int i = 0; i < listOfFiles.count(); i++) {
+        if (file->fileName() ==
+            listOfFiles.at(i)
+                ->fileName()) // meaning the file exists already in the list
         {
-            emit eventToDisplay(tr("File %1 already exists").arg(file->displayName()));
+            emit eventToDisplay(
+                tr("File %1 already exists").arg(file->displayName()));
             return 0; // TODO: Transform this properly
         }
     }
     // We attribute an Id to the current file
-    int id = listOfFiles.count()+1; // Ugly, because if we replace the file, it gets the same id. --> Add proper counter
+    int id = listOfFiles.count() + 1; // Ugly, because if we replace the file,
+                                      // it gets the same id. --> Add proper
+                                      // counter
     file->setId(id);
     // If we reached the end then the file is new, we save it.
-    beginInsertRows(index(listOfFiles.count(),0),listOfFiles.count(),listOfFiles.count());
+    beginInsertRows(index(listOfFiles.count(), 0), listOfFiles.count(),
+                    listOfFiles.count());
     listOfFiles.append(file);
     endInsertRows();
     emit eventToDisplay(tr("File %1 added").arg(file->displayName()));
@@ -59,16 +66,16 @@ int FileManager::addFile(CheckableFile *file)
 
 void FileManager::clearFiles()
 {
-    if(!listOfFiles.isEmpty())
-    {
-        beginRemoveRows(index(listOfFiles.count(),0),0,listOfFiles.count()-1);
+    if (!listOfFiles.isEmpty()) {
+        beginRemoveRows(index(listOfFiles.count(), 0), 0,
+                        listOfFiles.count() - 1);
         listOfFiles.clear();
         endRemoveRows();
         emit eventToDisplay(tr("List of files cleared"));
     }
 }
 
-int FileManager::rowCount(const QModelIndex & /* parent */ ) const
+int FileManager::rowCount(const QModelIndex & /* parent */) const
 {
     return listOfFiles.count();
 }
@@ -78,7 +85,7 @@ int FileManager::rowCount() const
     return listOfFiles.count();
 }
 
-int FileManager::columnCount(const QModelIndex & /* parent */ ) const
+int FileManager::columnCount(const QModelIndex & /* parent */) const
 {
     return header.count();
 }
@@ -89,15 +96,14 @@ QVariant FileManager::data(const QModelIndex &index, int role) const
         return QVariant();
     else if (role == Qt::TextAlignmentRole)
         return QVariant();
-    else if (role == Qt::DisplayRole)
-    {
-        switch (index.column()){
-        case 0:
-            {
-                QString name = listOfFiles.at(index.row())->fileName();
-                name.remove(0,name.lastIndexOf(QDir::separator())+1); // Returns name of file, without its path
-                return name;
-            }
+    else if (role == Qt::DisplayRole) {
+        switch (index.column()) {
+        case 0: {
+            QString name = listOfFiles.at(index.row())->fileName();
+            name.remove(0, name.lastIndexOf(QDir::separator()) +
+                               1); // Returns name of file, without its path
+            return name;
+        }
         case 1:
             return listOfFiles.at(index.row())->getConversionRequired();
         case 2:
@@ -114,30 +120,33 @@ QString FileManager::getFilePath(int row)
     return listOfFiles.at(row)->fileName();
 }
 
-QVariant FileManager::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FileManager::headerData(int section, Qt::Orientation orientation,
+                                 int role) const
 {
-    if (role==Qt::DisplayRole && orientation==Qt::Horizontal)
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal)
         return header[section];
     else
         return QVariant();
 }
 
-bool FileManager::setData(const QModelIndex &index, const QVariant & /* value */, int /* role */)
+bool FileManager::setData(const QModelIndex &index,
+                          const QVariant & /* value */, int /* role */)
 {
     if (!index.isValid())
         return false;
 
-    switch(index.column())
-    {
+    switch (index.column()) {
     case 1:
-        listOfFiles.at(index.row())->setConversionRequired(!listOfFiles.at(index.row())->getConversionRequired());
+        listOfFiles.at(index.row())
+            ->setConversionRequired(
+                !listOfFiles.at(index.row())->getConversionRequired());
         break;
     case 3:
-        beginRemoveRows(index.parent(),index.row(), index.row());
+        beginRemoveRows(index.parent(), index.row(), index.row());
         listOfFiles.removeAt(index.row());
         endRemoveRows();
     }
-    emit dataChanged(index,index);
+    emit dataChanged(index, index);
     return true;
 }
 
@@ -162,18 +171,16 @@ void FileManager::setConverted(int i)
     listOfFiles.at(i)->setConversionState(true);
 }
 
-CheckableFile& FileManager::getFile(int i)
+CheckableFile &FileManager::getFile(int i)
 {
     return *listOfFiles.at(i);
 }
 
-CheckableFile* FileManager::getFileById(int id)
+CheckableFile *FileManager::getFileById(int id)
 {
     // Iterate over listOfFiles, return file matching id
-    for (int var = 0; var < listOfFiles.count(); ++var)
-    {
-        if(listOfFiles.at(var)->getId() == id)
-        {
+    for (int var = 0; var < listOfFiles.count(); ++var) {
+        if (listOfFiles.at(var)->getId() == id) {
             return listOfFiles.at(var);
         }
     }

@@ -28,20 +28,15 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef CHECKFILEDIALOG_H
 #define CHECKFILEDIALOG_H
 
-#include <QFileDialog>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QFileDialog>
 
 class CheckFileDialog : public QFileDialog
 {
     Q_OBJECT
 public:
-    enum fileFilter{
-        all,
-        outAndLog,
-        out,
-        log
-    };
+    enum fileFilter { all, outAndLog, out, log };
     CheckFileDialog();
     void setMultipleFilesMode();
     void setDirectoryMode();

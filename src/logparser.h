@@ -28,9 +28,9 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef LOGPARSER_H
 #define LOGPARSER_H
 
+#include <QHash>
 #include <QString>
 #include <QStringList>
-#include <QHash>
 
 #include "checkablefile.h"
 

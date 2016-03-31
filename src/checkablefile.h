@@ -30,11 +30,11 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #define CHECKABLEFILE_H
 
 #include <QFile>
+#include <QList>
 #include <QString>
 #include <QStringList>
-#include <QList>
 
-struct Atom{
+struct Atom {
     QString element;
     double x;
     double y;
@@ -46,7 +46,7 @@ class CheckableFile : public QFile
     Q_OBJECT
 public:
     explicit CheckableFile(QObject *parent);
-    CheckableFile(const CheckableFile & file);
+    CheckableFile(const CheckableFile &file);
     CheckableFile();
     bool getConversionState() const;
     bool getConversionRequired() const;
@@ -86,8 +86,8 @@ private:
     QList<Atom> coordinates;
 
 signals:
-//    void conversionStateChanged(bool convState);
-//    void conversionRequiredChanged(bool convReq);
+    //    void conversionStateChanged(bool convState);
+    //    void conversionRequiredChanged(bool convReq);
 
 public slots:
     void setConversionState(bool boolean);

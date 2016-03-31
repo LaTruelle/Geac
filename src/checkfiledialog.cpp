@@ -26,8 +26,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "checkfiledialog.h"
-#include <QHBoxLayout>
 #include <QDialogButtonBox>
+#include <QHBoxLayout>
 #include <assert.h>
 
 CheckFileDialog::CheckFileDialog() : QFileDialog()
@@ -55,15 +55,14 @@ void CheckFileDialog::setDirectoryMode()
     //             ---------------------
     this->setOptions(QFileDialog::DontUseNativeDialog);
     // Retrieve Layout of QFileDialog
-    QGridLayout *mainLayout = dynamic_cast<QGridLayout*>(this->layout());
-    if(!mainLayout){
+    QGridLayout *mainLayout = dynamic_cast<QGridLayout *>(this->layout());
+    if (!mainLayout) {
         assert(0);
-    }
-    else{
+    } else {
         // Create custom QGridLayout to add our own widgets
         QHBoxLayout *hbl = new QHBoxLayout();
         // Create checkboxes
-        recursive = new QCheckBox(tr("Search Subfolders"),this);
+        recursive = new QCheckBox(tr("Search Subfolders"), this);
         fileFilterBox = new QComboBox(this);
         fileFilterBox->addItem(tr("All Files"));
         fileFilterBox->addItem(tr("Out and Log Files"));
@@ -74,7 +73,7 @@ void CheckFileDialog::setDirectoryMode()
         hbl->addWidget(recursive);
         // Add QGridLayout at the bottom of the main layout
         int numRow = mainLayout->rowCount();
-        mainLayout->addLayout(hbl,numRow, 0);
+        mainLayout->addLayout(hbl, numRow, 0);
     }
 }
 

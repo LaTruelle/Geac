@@ -19,7 +19,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
   ---
 
   Emmanuel Nicolas - EsiWriter
-    The class EsiWriter extracts all necessary elements from a given file to build an ESI.
+    The class EsiWriter extracts all necessary elements from a given file to
+build an ESI.
     -> Harmonic Frequencies
     -> Standard Coordinates (Using NAtoms value)
     -> Thermochemistry (energies, enthalpies)
@@ -30,11 +31,11 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef ESIWRITER_H
 #define ESIWRITER_H
 
+#include "checkablefile.h"
 #include <QDir>
 #include <QFile>
 #include <QString>
 #include <QStringList>
-#include "checkablefile.h"
 
 class EsiWriter : public QObject
 {
@@ -45,18 +46,13 @@ public:
     EsiWriter(CheckableFile &inputFile);
     void setInputFile(CheckableFile &inFile);
     void setOutputFolder(QDir &outputFolder);
-    void setRequiredFields(bool &thermochemistry,
-                           bool &harmonicFrequencies,
-                           bool &standardCoordinates,
-                           bool &hartreeFockEnergy);
+    void setRequiredFields(bool &thermochemistry, bool &harmonicFrequencies,
+                           bool &standardCoordinates, bool &hartreeFockEnergy);
     void createEsi();
     void setExtension(QString extension);
-    void setupExtractor(bool &thermochemistry,
-                        bool &harmonicFrequencies,
-                        bool &standardCoordinates,
-                        bool &hartreeFockEnergy,
-                        QDir &outputFolder,
-                        QString extension);
+    void setupExtractor(bool &thermochemistry, bool &harmonicFrequencies,
+                        bool &standardCoordinates, bool &hartreeFockEnergy,
+                        QDir &outputFolder, QString extension);
 
 signals:
     void fileProcessed();
@@ -76,7 +72,6 @@ private:
 
     static bool alwaysOverwrite;
     static bool neverOverwrite;
-
 };
 
 #endif // ESIWRITER_H

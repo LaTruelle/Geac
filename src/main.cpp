@@ -25,10 +25,10 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 */
 
-#include <QApplication>
-#include <QTranslator>
-#include <QLibraryInfo>
 #include "geac.h"
+#include <QApplication>
+#include <QLibraryInfo>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
@@ -41,7 +41,8 @@ int main(int argc, char *argv[])
 
     // Enable translation
     QTranslator geacTranslator;
-    geacTranslator.load("geac_" + QLocale::system().name().section('_',0,0),":/translations/");
+    geacTranslator.load("geac_" + QLocale::system().name().section('_', 0, 0),
+                        ":/translations/");
     app.installTranslator(&geacTranslator);
 
     // Launch Main Window

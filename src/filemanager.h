@@ -29,11 +29,11 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
+#include "checkablefile.h"
 #include <QAbstractTableModel>
-#include <QVariant>
 #include <QList>
 #include <QStringList>
-#include "checkablefile.h"
+#include <QVariant>
 
 class FileManager : public QAbstractTableModel
 {
@@ -46,9 +46,10 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QString getFilePath(int row);
-    CheckableFile& getFile(int i);
-    CheckableFile* getFileById(int id);
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    CheckableFile &getFile(int i);
+    CheckableFile *getFileById(int id);
+    QVariant headerData(int section, Qt::Orientation orientation,
+                        int role) const;
     int addFile(CheckableFile *file);
     void clearFiles();
     bool getRequiredConversion(QModelIndex &index);
@@ -63,7 +64,6 @@ signals:
     void eventToDisplay(QString string);
 
 public slots:
-
 };
 
 #endif // FILEMANAGER_H

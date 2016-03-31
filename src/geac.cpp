@@ -26,14 +26,14 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "geac.h"
-#include <QFileDialog>
-#include <QSettings>
-#include <QFuture>
-#include <QtConcurrent>
 #include "checkfiledialog.h"
-#include "logparser.h"
-#include "esiwriter.h"
 #include "cifwriter.h"
+#include "esiwriter.h"
+#include "logparser.h"
+#include <QFileDialog>
+#include <QFuture>
+#include <QSettings>
+#include <QtConcurrent>
 
 #include <QDebug>
 
@@ -45,7 +45,8 @@ Geac::Geac(QWidget *parent) : QMainWindow(parent)
     ui.fileDisplayer->setItemDelegate(&fileDisplayerDelegate);
     setupFileDisplayer();
     // Connect Log signals to the log displayer
-    connect(&fileDisplayerModel, &FileManager::eventToDisplay, this, &Geac::displayLog);
+    connect(&fileDisplayerModel, &FileManager::eventToDisplay, this,
+            &Geac::displayLog);
     // Hide Progress Bar and set its max to 0
     ui.progressBar->setMaximum(0);
     hideProgressBar();
@@ -59,21 +60,31 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setSectionsClickable(false);
     ui.fileDisplayer->horizontalHeader()->setFixedHeight(30);
     ui.fileDisplayer->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-    ui.fileDisplayer->horizontalHeader()->setStyleSheet("QHeaderView::section{padding-left: 10px; font: 15px; color: black;}");
+    ui.fileDisplayer->horizontalHeader()->setStyleSheet(
+        "QHeaderView::section{padding-left: 10px; font: 15px; color: black;}");
     // Set File Displayer Style
     ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
     ui.fileDisplayer->setShowGrid(false);
-    ui.fileDisplayer->setStyleSheet("selection-background-color : rgba(0, 0, 255, 25%)");
+    ui.fileDisplayer->setStyleSheet(
+        "selection-background-color : rgba(0, 0, 255, 25%)");
     // Set Sizes of columns
-    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch); // As big as possible
-    ui.fileDisplayer->setColumnWidth(1,ui.fileDisplayer->horizontalHeader()->height()); // Squares at the end of the table
-    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
-    ui.fileDisplayer->setColumnWidth(2,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
-    ui.fileDisplayer->setColumnWidth(3,ui.fileDisplayer->horizontalHeader()->height());
-    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(3,QHeaderView::Fixed);
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
+        0, QHeaderView::Stretch); // As big as possible
+    ui.fileDisplayer->setColumnWidth(
+        1, ui.fileDisplayer->horizontalHeader()
+               ->height()); // Squares at the end of the table
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
+        1, QHeaderView::Fixed);
+    ui.fileDisplayer->setColumnWidth(
+        2, ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
+        2, QHeaderView::Fixed);
+    ui.fileDisplayer->setColumnWidth(
+        3, ui.fileDisplayer->horizontalHeader()->height());
+    ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
+        3, QHeaderView::Fixed);
 }
 
 void Geac::display(QString string)
@@ -89,15 +100,14 @@ void Geac::clearLog()
 void Geac::addFilesFromList(QFileInfoList fileNames)
 {
     // Retrieve files in the list and add them to model
-    for (int i=0; i<fileNames.size(); i++)
-    {
+    for (int i = 0; i < fileNames.size(); i++) {
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.at(i).absoluteFilePath());
         int id = fileDisplayerModel.addFile(file);
-        LogParser *parser = new LogParser(file,id);
+        LogParser *parser = new LogParser(file, id);
         // Start parsing in an other thread
-        connect(parser,&LogParser::fileConverted,this,&Geac::fileConverted);
-        QtConcurrent::run(parser,&LogParser::parse);
+        connect(parser, &LogParser::fileConverted, this, &Geac::fileConverted);
+        QtConcurrent::run(parser, &LogParser::parse);
     }
 }
 
@@ -110,47 +120,54 @@ void Geac::fileConverted(int id)
 void Geac::readSettings()
 {
     QSettings settings;
-    reqHarmonicFrequencies = settings.value("reqHarmonicFrequencies",false).toBool();
+    reqHarmonicFrequencies =
+        settings.value("reqHarmonicFrequencies", false).toBool();
     ui.harmonicFrequencies->setChecked(reqHarmonicFrequencies);
-    reqHartreeFock = settings.value("reqHartreeFock",false).toBool();
+    reqHartreeFock = settings.value("reqHartreeFock", false).toBool();
     ui.hartreeFock->setChecked(reqHartreeFock);
-    reqStandardCoordinates = settings.value("reqStandardCoordinates",false).toBool();
+    reqStandardCoordinates =
+        settings.value("reqStandardCoordinates", false).toBool();
     ui.standardCoordinates->setChecked(reqStandardCoordinates);
-    reqThermochemistry = settings.value("reqThermochemistry",false).toBool();
+    reqThermochemistry = settings.value("reqThermochemistry", false).toBool();
     ui.thermochemistry->setChecked(reqThermochemistry);
-    baseFolder.setPath(settings.value("logFilesFolder",QDir::homePath()).toString());
-    esiFolder.setPath(settings.value("ESI Folder", QDir::homePath()).toString());
+    baseFolder.setPath(
+        settings.value("logFilesFolder", QDir::homePath()).toString());
+    esiFolder.setPath(
+        settings.value("ESI Folder", QDir::homePath()).toString());
 }
 
 void Geac::writeSettings()
 {
     QSettings settings;
     settings.setValue("reqHarmonicFrequencies", reqHarmonicFrequencies);
-    settings.setValue("reqHartreeFock",reqHartreeFock);
-    settings.setValue("reqStandardCoordinates",reqStandardCoordinates);
-    settings.setValue("reqThermochemistry",reqThermochemistry);
-    settings.setValue("logFilesFolder",baseFolder.absolutePath());
+    settings.setValue("reqHartreeFock", reqHartreeFock);
+    settings.setValue("reqStandardCoordinates", reqStandardCoordinates);
+    settings.setValue("reqThermochemistry", reqThermochemistry);
+    settings.setValue("logFilesFolder", baseFolder.absolutePath());
     settings.setValue("ESI Folder", esiFolder.absolutePath());
 }
 
 void Geac::closeEvent(QCloseEvent *event)
- {
+{
     writeSettings();
     event->accept();
- }
+}
 
-void Geac::increaseProgressBarMax(){
+void Geac::increaseProgressBarMax()
+{
     // Add 1 to the max --> serves as a counter for number of files
-    ui.progressBar->setMaximum(ui.progressBar->maximum()+1);
+    ui.progressBar->setMaximum(ui.progressBar->maximum() + 1);
     // Show the progress bar
     showProgressBar();
 }
 
-void Geac::increaseProgressBarValue(){
+void Geac::increaseProgressBarValue()
+{
     // Increase the value of one
-    ui.progressBar->setValue(ui.progressBar->value()+1);
-    // We check if it was the last file to process, in which case we hide the progress bar.
-    if(ui.progressBar->value() == ui.progressBar->maximum()){
+    ui.progressBar->setValue(ui.progressBar->value() + 1);
+    // We check if it was the last file to process, in which case we hide the
+    // progress bar.
+    if (ui.progressBar->value() == ui.progressBar->maximum()) {
         hideProgressBar();
     }
 }
@@ -199,11 +216,12 @@ void Geac::on_actionEnglish_triggered()
 void Geac::on_Button_DedicatedFolder_clicked()
 {
     // If clicked, this forces the user to enter a valid directory.
-    if(ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()){
+    if (ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()) {
         ui.SaveFolderSelection->click();
     }
-    // Checks if the user has entered a valid directory, if not, we get back to the "same folder" setting
-    if(ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()){
+    // Checks if the user has entered a valid directory, if not, we get back to
+    // the "same folder" setting
+    if (ui.folderToSave->text() == "..." || ui.folderToSave->text().isEmpty()) {
         ui.Button_SameFolder->click();
     }
 }
@@ -211,7 +229,7 @@ void Geac::on_Button_DedicatedFolder_clicked()
 void Geac::on_fileDisplayer_clicked(QModelIndex index)
 {
     // Use the Model to change the data upon clicking
-    if (fileDisplayerModel.setData(index, true, Qt::EditRole)){
+    if (fileDisplayerModel.setData(index, true, Qt::EditRole)) {
         // Update the view
         this->repaintFileDisplayer();
     }
@@ -225,21 +243,18 @@ void Geac::repaintFileDisplayer()
 void Geac::on_createEsi_clicked()
 {
     // Check CIF File case
-    if (ui.Button_CIF->isChecked())
-    {
+    if (ui.Button_CIF->isChecked()) {
         CifWriter cifWriter;
         cifWriter.setOutputFile(cifOutput);
-        connect(&cifWriter,&CifWriter::fileProcessed, this, &Geac::displayLog);
-        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
-        {
+        connect(&cifWriter, &CifWriter::fileProcessed, this, &Geac::displayLog);
+        for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
             // Stuff to test
-//            qDebug() << currentFile.fileName();
-//            qDebug() << currentFile.getHartreeFockEnergy();
-//            // Check if the file needs to be converted
-            if (currentFile.getConversionRequired())
-            {
+            //            qDebug() << currentFile.fileName();
+            //            qDebug() << currentFile.getHartreeFockEnergy();
+            //            // Check if the file needs to be converted
+            if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
                     // Current File not converted yet.
                     // TODO: Decide what to do!
@@ -248,20 +263,17 @@ void Geac::on_createEsi_clicked()
             }
         }
         cifWriter.createCif();
-    }
-    else // File by file
+    } else // File by file
     {
         // Add files to thread, and launch their conversion
-        for(int i=0; i<fileDisplayerModel.rowCount(); i++)
-        {
+        for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
             // Stuff to test
             qDebug() << currentFile.fileName();
             qDebug() << currentFile.getHartreeFockEnergy();
             // Check if the file needs to be converted
-            if (currentFile.getConversionRequired())
-            {
+            if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
                     // Current File not converted yet.
                     // TODO: Decide what to do!
@@ -270,18 +282,18 @@ void Geac::on_createEsi_clicked()
                 EsiWriter esiWriter;
                 esiWriter.setInputFile(currentFile);
                 // Connect signal for finishing file writing
-                connect(&esiWriter, &EsiWriter::fileProcessed, this, &Geac::increaseProgressBarValue);
+                connect(&esiWriter, &EsiWriter::fileProcessed, this,
+                        &Geac::increaseProgressBarValue);
                 // Set options
-                esiWriter.setRequiredFields(reqThermochemistry,reqHarmonicFrequencies,reqStandardCoordinates,reqHartreeFock);
+                esiWriter.setRequiredFields(
+                    reqThermochemistry, reqHarmonicFrequencies,
+                    reqStandardCoordinates, reqHartreeFock);
                 esiWriter.setInputFile(currentFile);
                 esiWriter.setExtension(ui.esiExtension->text());
                 // Select out Folder according to appropriate mode
-                if (ui.Button_DedicatedFolder->isChecked())
-                {
+                if (ui.Button_DedicatedFolder->isChecked()) {
                     esiWriter.setOutputFolder(esiFolder);
-                }
-                else if (ui.Button_SameFolder->isChecked())
-                {
+                } else if (ui.Button_SameFolder->isChecked()) {
                     // Set the folder of the current file to be the output path
                     QString fileDir = currentFile.fileName();
                     fileDir.remove(fileDir.lastIndexOf("/"), fileDir.length());
@@ -309,9 +321,9 @@ void Geac::on_clearFiles_clicked()
 void Geac::on_SaveFolderSelection_clicked()
 {
     // Sets the dedicated folder in which all files will be stored
-    esiFolder.setPath(QFileDialog::getExistingDirectory(this, tr("Store ESI in this directory"),
-                                                        esiFolder.absolutePath(), QFileDialog::ShowDirsOnly)
-                      );
+    esiFolder.setPath(QFileDialog::getExistingDirectory(
+        this, tr("Store ESI in this directory"), esiFolder.absolutePath(),
+        QFileDialog::ShowDirsOnly));
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
     // Select the Folder Setting
@@ -320,7 +332,7 @@ void Geac::on_SaveFolderSelection_clicked()
 
 void Geac::on_standardCoordinates_stateChanged(int state)
 {
-    if(state == Qt::Unchecked)
+    if (state == Qt::Unchecked)
         reqStandardCoordinates = false;
     else
         reqStandardCoordinates = true;
@@ -328,7 +340,7 @@ void Geac::on_standardCoordinates_stateChanged(int state)
 
 void Geac::on_hartreeFock_stateChanged(int state)
 {
-    if(state == Qt::Unchecked)
+    if (state == Qt::Unchecked)
         reqHartreeFock = false;
     else
         reqHartreeFock = true;
@@ -336,7 +348,7 @@ void Geac::on_hartreeFock_stateChanged(int state)
 
 void Geac::on_thermochemistry_stateChanged(int state)
 {
-    if(state == Qt::Unchecked)
+    if (state == Qt::Unchecked)
         reqThermochemistry = false;
     else
         reqThermochemistry = true;
@@ -344,7 +356,7 @@ void Geac::on_thermochemistry_stateChanged(int state)
 
 void Geac::on_harmonicFrequencies_stateChanged(int state)
 {
-    if(state == Qt::Unchecked)
+    if (state == Qt::Unchecked)
         reqHarmonicFrequencies = false;
     else
         reqHarmonicFrequencies = true;
@@ -358,13 +370,11 @@ void Geac::on_actionOpen_Folder_triggered()
     CheckFileDialog *dialog = new CheckFileDialog();
     dialog->setDirectoryMode();
     dialog->setDirectory(baseFolder);
-    if (dialog->exec())
-    {
+    if (dialog->exec()) {
         baseFolder = dialog->selectedFiles().first();
         // Set filters
         QStringList filters;
-        switch (dialog->getFileFilter())
-        {
+        switch (dialog->getFileFilter()) {
         case CheckFileDialog::out:
             filters << "*.out";
             break;
@@ -372,46 +382,46 @@ void Geac::on_actionOpen_Folder_triggered()
             filters << "*.log";
             break;
         case CheckFileDialog::outAndLog:
-            filters << "*.out" << "*.log";
+            filters << "*.out"
+                    << "*.log";
             break;
         default:
             filters << "*.*";
             break;
         }
         // If recursive Checked
-        if (dialog->getRecursivity())
-        {
+        if (dialog->getRecursivity()) {
             // Add contents of baseFolder
-            if (!baseFolder.entryList(QDir::Files).isEmpty())
-            {
-                addFilesFromList(baseFolder.entryInfoList(filters, QDir::Files,QDir::Name));
+            if (!baseFolder.entryList(QDir::Files).isEmpty()) {
+                addFilesFromList(
+                    baseFolder.entryInfoList(filters, QDir::Files, QDir::Name));
             }
-            // Add all directories in baseFolder, initiating a list of folder to search
-            QFileInfoList list(baseFolder.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
-            for(int i=0; i<list.count(); i++)
-            {
+            // Add all directories in baseFolder, initiating a list of folder to
+            // search
+            QFileInfoList list(
+                baseFolder.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
+            for (int i = 0; i < list.count(); i++) {
                 dirList.append(list.at(i).absoluteFilePath());
             }
             list.clear();
-            // Iterate on the list, adding files in first folder, and appending included folders to the list
-            while (!dirList.isEmpty())
-            {
+            // Iterate on the list, adding files in first folder, and appending
+            // included folders to the list
+            while (!dirList.isEmpty()) {
                 QDir *dir = new QDir(dirList.takeFirst());
-                if (!dir->entryList(QDir::Files).isEmpty())
-                {
-                    addFilesFromList(dir->entryInfoList(filters, QDir::Files | QDir::NoDotAndDotDot));
+                if (!dir->entryList(QDir::Files).isEmpty()) {
+                    addFilesFromList(dir->entryInfoList(
+                        filters, QDir::Files | QDir::NoDotAndDotDot));
                 }
-                list.append(dir->entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
-                for(int i=0; i<list.count(); i++)
-                {
+                list.append(
+                    dir->entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot));
+                for (int i = 0; i < list.count(); i++) {
                     dirList.append(list.at(i).absoluteFilePath());
                 }
                 list.clear();
             }
-        }
-        else
-        {
-            addFilesFromList(baseFolder.entryInfoList(filters, QDir::Files,QDir::Name));
+        } else {
+            addFilesFromList(
+                baseFolder.entryInfoList(filters, QDir::Files, QDir::Name));
         }
     }
     delete dialog;
@@ -426,8 +436,7 @@ void Geac::on_actionOpen_File_triggered()
     dialog->exec();
     QFileInfoList fileList;
     // Iterate over the selected files to retrieve them
-    for(int i=0; i<dialog->selectedFiles().count(); i++)
-    {
+    for (int i = 0; i < dialog->selectedFiles().count(); i++) {
         fileList.append(QFileInfo(dialog->selectedFiles().at(i)));
     }
     // Add the files in the model
