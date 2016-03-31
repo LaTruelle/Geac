@@ -15,7 +15,7 @@ install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
          sudo apt-add-repository -y ppa:beineri/opt-qt56-trusty
       && sudo apt-get -qq update
-      && sudo apt-get -qq install build-essential qt55tools qt55base
+      && sudo apt-get -qq install build-essential qt56tools qt56base
       && QTDIR="/opt/qt56"
       && PATH=$QTDIR/bin:$PATH
       && qt56-env.sh
