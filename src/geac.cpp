@@ -113,7 +113,6 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
 
 void Geac::fileConverted(int id)
 {
-    qDebug() << "File converted: " << id;
     this->repaintFileDisplayer();
 }
 
@@ -250,10 +249,7 @@ void Geac::on_createEsi_clicked()
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
-            // Stuff to test
-            //            qDebug() << currentFile.fileName();
-            //            qDebug() << currentFile.getHartreeFockEnergy();
-            //            // Check if the file needs to be converted
+            // Check if the file needs to be converted
             if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
                     // Current File not converted yet.
@@ -269,9 +265,6 @@ void Geac::on_createEsi_clicked()
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
-            // Stuff to test
-            qDebug() << currentFile.fileName();
-            qDebug() << currentFile.getHartreeFockEnergy();
             // Check if the file needs to be converted
             if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
