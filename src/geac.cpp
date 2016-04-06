@@ -326,8 +326,13 @@ void Geac::on_SaveFolderSelection_clicked()
         QFileDialog::ShowDirsOnly));
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
-    // Select the Folder Setting
-    ui.Button_DedicatedFolder->click();
+    if (esiFolder.dirName().isEmpty()) {
+        // Folder not set, switch to esi in same folder as log files
+        ui.Button_SameFolder->toggle();
+    } else {
+        // Folder is set, toggle "dedicated folder" button
+        ui.Button_DedicatedFolder->toggle();
+    }
 }
 
 void Geac::on_standardCoordinates_stateChanged(int state)
