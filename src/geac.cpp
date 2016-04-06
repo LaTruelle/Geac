@@ -68,7 +68,7 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->setAlternatingRowColors(true);
     ui.fileDisplayer->setShowGrid(false);
     ui.fileDisplayer->setStyleSheet(
-        "selection-background-color : rgba(0, 0, 255, 25%)");
+        "selection-background-color : rgba(0, 0, 0, 25%)");
     // Set Sizes of columns
     ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
         0, QHeaderView::Stretch); // As big as possible
@@ -85,6 +85,10 @@ void Geac::setupFileDisplayer()
         3, ui.fileDisplayer->horizontalHeader()->height());
     ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
         3, QHeaderView::Fixed);
+    // Setup Drag and Drop
+    ui.fileDisplayer->setDragEnabled(true);
+    ui.fileDisplayer->setAcceptDrops(true);
+    ui.fileDisplayer->setDropIndicatorShown(true);
 }
 
 void Geac::display(QString string)
