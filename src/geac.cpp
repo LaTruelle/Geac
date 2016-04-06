@@ -63,7 +63,6 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setStyleSheet(
         "QHeaderView::section{padding-left: 10px; font: 15px; color: black;}");
     // Set File Displayer Style
-    ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.fileDisplayer->verticalHeader()->hide();
     ui.fileDisplayer->setAlternatingRowColors(true);
     ui.fileDisplayer->setShowGrid(false);
@@ -86,9 +85,12 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->horizontalHeader()->setSectionResizeMode(
         3, QHeaderView::Fixed);
     // Setup Drag and Drop
+    ui.fileDisplayer->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui.fileDisplayer->setSelectionMode(QAbstractItemView::ExtendedSelection);
     ui.fileDisplayer->setDragEnabled(true);
     ui.fileDisplayer->setAcceptDrops(true);
     ui.fileDisplayer->setDropIndicatorShown(true);
+    ui.fileDisplayer->setDragDropMode(QAbstractItemView::InternalMove);
 }
 
 void Geac::display(QString string)
