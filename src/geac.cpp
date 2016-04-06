@@ -114,6 +114,9 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
 void Geac::fileConverted(int id)
 {
     this->repaintFileDisplayer();
+    displayLog(
+        tr("File %1 parsed")
+            .arg(this->fileDisplayerModel.getFileById(id)->displayName()));
 }
 
 void Geac::readSettings()
