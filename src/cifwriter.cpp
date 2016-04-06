@@ -12,7 +12,6 @@ void CifWriter::addFiletoList(CheckableFile file)
     // Add file to the list of files to include in cif file
     // TODO Checks?
     CheckableFile *newFile = new CheckableFile(file);
-    qDebug() << newFile->fileName();
     files.append(newFile);
 }
 
