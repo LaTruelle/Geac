@@ -40,21 +40,27 @@ class FileManager : public QAbstractTableModel
     Q_OBJECT
 public:
     FileManager(QObject *parent = 0);
-    int rowCount(const QModelIndex &parent) const;
     int rowCount() const;
+    int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
-    QString getFilePath(int row);
-    CheckableFile &getFile(int i);
-    CheckableFile *getFileById(int id);
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role) const;
-    int addFile(CheckableFile *file);
+
+    void addFile(CheckableFile *file);
+    QString getFilePath(int row);
+    CheckableFile &getFile(int i);
     void clearFiles();
+    bool removeRows(int row, int count, const QModelIndex &parent);
+    bool insertRows(int row, int count, const QModelIndex &parent);
+
     bool getRequiredConversion(QModelIndex &index);
     bool getRequiredConversion(int i);
     void setConverted(int i);
+
+    Qt::DropActions supportedDropActions() const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
     QList<CheckableFile *> listOfFiles;

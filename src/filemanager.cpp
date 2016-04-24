@@ -28,6 +28,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "filemanager.h"
 #include <QDir>
+#include <QDebug>
 
 FileManager::FileManager(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -37,7 +38,7 @@ FileManager::FileManager(QObject *parent) : QAbstractTableModel(parent)
            << " ";
 }
 
-int FileManager::addFile(CheckableFile *file)
+void FileManager::addFile(CheckableFile *file)
 {
     // We iterate over the fileList. If the file exists we return
     for (int i = 0; i < listOfFiles.count(); i++) {
@@ -47,21 +48,15 @@ int FileManager::addFile(CheckableFile *file)
         {
             emit eventToDisplay(
                 tr("File %1 already exists").arg(file->displayName()));
-            return 0; // TODO: Transform this properly
+            return; // TODO: Transform this properly
         }
     }
-    // We attribute an Id to the current file
-    int id = listOfFiles.count() + 1; // Ugly, because if we replace the file,
-                                      // it gets the same id. --> Add proper
-                                      // counter
-    file->setId(id);
     // If we reached the end then the file is new, we save it.
     beginInsertRows(index(listOfFiles.count(), 0), listOfFiles.count(),
                     listOfFiles.count());
     listOfFiles.append(file);
     endInsertRows();
     emit eventToDisplay(tr("File %1 added").arg(file->displayName()));
-    return id;
 }
 
 void FileManager::clearFiles()
@@ -83,6 +78,35 @@ int FileManager::rowCount(const QModelIndex & /* parent */) const
 int FileManager::rowCount() const
 {
     return listOfFiles.count();
+}
+
+bool FileManager::removeRows(int row, int count, const QModelIndex &parent)
+{
+    beginRemoveRows(parent, row, row + count);
+    for (int currentRow = row; currentRow < row + count; ++currentRow) {
+        if (currentRow < listOfFiles.size()) {
+            listOfFiles.removeAt(currentRow);
+        } else {
+            return false;
+        }
+    }
+    endRemoveRows();
+    return true;
+}
+
+bool FileManager::insertRows(int row, int count, const QModelIndex &parent)
+{
+    beginInsertRows(parent, row, row + count);
+    for (int currentRow = row; currentRow < row + count; ++currentRow) {
+        if (currentRow < listOfFiles.size()) {
+            qDebug() << parent.data().type();
+            listOfFiles.insert(currentRow, qvariant_cast<CheckableFile *>(parent.data()));
+        } else {
+            return false;
+        }
+    }
+    endInsertRows();
+    return true;
 }
 
 int FileManager::columnCount(const QModelIndex & /* parent */) const
@@ -176,13 +200,17 @@ CheckableFile &FileManager::getFile(int i)
     return *listOfFiles.at(i);
 }
 
-CheckableFile *FileManager::getFileById(int id)
+Qt::DropActions FileManager::supportedDropActions() const
 {
-    // Iterate over listOfFiles, return file matching id
-    for (int var = 0; var < listOfFiles.count(); ++var) {
-        if (listOfFiles.at(var)->getId() == id) {
-            return listOfFiles.at(var);
-        }
-    }
-    return NULL;
+    return Qt::MoveAction;
+}
+
+Qt::ItemFlags FileManager::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags defaultFlags = QAbstractTableModel::flags(index);
+
+    if (index.isValid())
+        return Qt::ItemIsDragEnabled | defaultFlags;
+    else
+        return Qt::ItemIsDropEnabled | defaultFlags;
 }
