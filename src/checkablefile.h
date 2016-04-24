@@ -50,8 +50,6 @@ public:
     CheckableFile();
     bool getConversionState() const;
     bool getConversionRequired() const;
-    void setId(int i);
-    int getId() const;
     QString displayName();
 
     QString getNAtoms() const;
@@ -78,7 +76,6 @@ private:
     bool converted;
     bool toConvert;
     bool dataExtracted;
-    int id;
     QString nAtoms;
     QString hartreeFockEnergy;
     QStringList thermochemistry;

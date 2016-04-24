@@ -44,7 +44,6 @@ CheckableFile::CheckableFile(const CheckableFile &file) : QFile(file.fileName())
 {
     converted = file.getConversionState();
     toConvert = file.getConversionRequired();
-    id = file.getId();
     dataExtracted = file.getDataExtracted();
     nAtoms = file.getNAtoms();
     hartreeFockEnergy = file.getHartreeFockEnergy();
@@ -71,16 +70,6 @@ void CheckableFile::setConversionState(bool boolean)
 void CheckableFile::setConversionRequired(bool boolean)
 {
     toConvert = boolean;
-}
-
-void CheckableFile::setId(int i)
-{
-    id = i;
-}
-
-int CheckableFile::getId() const
-{
-    return id;
 }
 
 QString CheckableFile::displayName()

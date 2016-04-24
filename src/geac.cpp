@@ -109,8 +109,8 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
     for (int i = 0; i < fileNames.size(); i++) {
         CheckableFile *file = new CheckableFile(this);
         file->setFileName(fileNames.at(i).absoluteFilePath());
-        int id = fileDisplayerModel.addFile(file);
-        LogParser *parser = new LogParser(file, id);
+        fileDisplayerModel.addFile(file);
+        LogParser *parser = new LogParser(file);
         // Start parsing in an other thread
         connect(parser, &LogParser::fileConverted, this, &Geac::fileConverted);
         QtConcurrent::run(parser, &LogParser::parse);

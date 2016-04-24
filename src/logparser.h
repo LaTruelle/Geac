@@ -40,7 +40,7 @@ class LogParser : public QObject
 
 public:
     LogParser();
-    LogParser(CheckableFile *file, int id);
+    LogParser(CheckableFile *file);
     void setFileToParse(CheckableFile &file);
     void parse();
 
@@ -64,7 +64,6 @@ signals:
     void fileConversionProblem();
 
 private:
-    int id;
     CheckableFile *fileToParse;
     QStringList thermochemistry;
     QStringList harmonicFrequencies;

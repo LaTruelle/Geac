@@ -178,7 +178,6 @@ void EsiWriter::setInputFile(CheckableFile &inFile)
     inputFile.setThermochemistry(inFile.getThermochemistry());
     inputFile.setHarmonicFrequencies(inFile.getHarmonicFrequencies());
     inputFile.setHartreeFockEnergy(inFile.getHartreeFockEnergy());
-    inputFile.setId(inFile.getId());
     inputFile.setNAtoms(inFile.getNAtoms());
 }
 

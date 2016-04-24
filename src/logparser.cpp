@@ -35,11 +35,10 @@ LogParser::LogParser()
     this->initPeriodicTable();
 }
 
-LogParser::LogParser(CheckableFile *file, int id)
+LogParser::LogParser(CheckableFile *file)
 {
     fileToParse = file;
     this->initPeriodicTable();
-    this->id = id;
 }
 
 void LogParser::parse()
