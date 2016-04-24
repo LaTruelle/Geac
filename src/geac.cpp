@@ -117,7 +117,7 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
     }
 }
 
-void Geac::fileConverted(int id)
+void Geac::fileConverted()
 {
     this->repaintFileDisplayer();
 }
@@ -180,18 +180,6 @@ void Geac::increaseProgressBarValue()
 void Geac::displayLog(QString string)
 {
     display(string);
-}
-
-void Geac::showFileFinished(int id)
-{
-    // Retrieve the name of the Finished file according to the id
-    CheckableFile *file = fileDisplayerModel.getFileById(id);
-    // Set its conversion state
-    file->setConversionState(true);
-    // Display the right thing in the log
-    display(tr("File %1 converted").arg(file->displayName()));
-    // Increment the progress bar
-    this->increaseProgressBarValue();
 }
 
 void Geac::showProgressBar()

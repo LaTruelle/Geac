@@ -137,7 +137,7 @@ void LogParser::parse()
     fileToParse->setHartreeFockEnergy(this->getHartreeFockEnergy());
     fileToParse->setNAtoms(this->getNAtoms());
     fileToParse->setConversionState(true);
-    emit fileConverted(id);
+    emit fileConverted();
 }
 
 void LogParser::setFileToParse(CheckableFile &file)

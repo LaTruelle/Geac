@@ -60,7 +60,7 @@ public:
     void setNAtoms(const QString &value);
 
 signals:
-    void fileConverted(int id);
+    void fileConverted();
     void fileConversionProblem();
 
 private:

@@ -71,8 +71,7 @@ private:
 
 public slots:
     void displayLog(QString string);
-    void showFileFinished(int id);
-    void fileConverted(int id);
+    void fileConverted();
 
 private slots:
     void showProgressBar();
