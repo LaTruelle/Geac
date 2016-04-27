@@ -96,6 +96,9 @@ bool FileManager::removeRows(int row, int count, const QModelIndex &parent)
 
 bool FileManager::insertRows(int row, int count, const QModelIndex &parent)
 {
+    if (!parent.isValid()) {
+        return false;
+    }
     beginInsertRows(parent, row, row + count);
     for (int currentRow = row; currentRow < row + count; ++currentRow) {
         if (currentRow < listOfFiles.size()) {
