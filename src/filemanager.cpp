@@ -27,8 +27,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "filemanager.h"
-#include <QDir>
 #include <QDebug>
+#include <QDir>
 
 FileManager::FileManager(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -103,7 +103,8 @@ bool FileManager::insertRows(int row, int count, const QModelIndex &parent)
     for (int currentRow = row; currentRow < row + count; ++currentRow) {
         if (currentRow < listOfFiles.size()) {
             qDebug() << parent.data().type();
-            listOfFiles.insert(currentRow, qvariant_cast<CheckableFile *>(parent.data()));
+            listOfFiles.insert(currentRow,
+                               qvariant_cast<CheckableFile *>(parent.data()));
         } else {
             return false;
         }
