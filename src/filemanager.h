@@ -41,26 +41,32 @@ class FileManager : public QAbstractTableModel
 public:
     FileManager(QObject *parent = 0);
     int rowCount() const;
-    int rowCount(const QModelIndex &parent) const;
-    int columnCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    bool setData(const QModelIndex &index, const QVariant &value,
+                 int role) Q_DECL_OVERRIDE;
     QVariant headerData(int section, Qt::Orientation orientation,
-                        int role) const;
+                        int role) const Q_DECL_OVERRIDE;
 
     void addFile(CheckableFile *file);
     QString getFilePath(int row);
     CheckableFile &getFile(int i);
     void clearFiles();
-    bool removeRows(int row, int count, const QModelIndex &parent);
-    bool insertRows(int row, int count, const QModelIndex &parent);
-
+    bool removeRows(int row, int count,
+                    const QModelIndex &parent) Q_DECL_OVERRIDE;
+    bool insertRows(int row, int count,
+                    const QModelIndex &parent) Q_DECL_OVERRIDE;
+    QMimeData *mimeData(const QModelIndexList &indexes) const Q_DECL_OVERRIDE;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
+                      int column, const QModelIndex &parent) Q_DECL_OVERRIDE;
+    QStringList mimeTypes() const Q_DECL_OVERRIDE;
     bool getRequiredConversion(QModelIndex &index);
     bool getRequiredConversion(int i);
     void setConverted(int i);
 
-    Qt::DropActions supportedDropActions() const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
     QList<CheckableFile *> listOfFiles;

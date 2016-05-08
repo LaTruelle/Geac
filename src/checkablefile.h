@@ -29,6 +29,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 #ifndef CHECKABLEFILE_H
 #define CHECKABLEFILE_H
 
+#include <QDataStream>
 #include <QFile>
 #include <QList>
 #include <QString>
@@ -82,13 +83,12 @@ private:
     QStringList harmonicFrequencies;
     QList<Atom> coordinates;
 
-signals:
-    //    void conversionStateChanged(bool convState);
-    //    void conversionRequiredChanged(bool convReq);
-
 public slots:
     void setConversionState(bool boolean);
     void setConversionRequired(bool boolean);
 };
+
+QDataStream &operator<<(QDataStream &, const CheckableFile &);
+QDataStream &operator>>(QDataStream &, CheckableFile &);
 
 #endif // CHECKABLEFILE_H

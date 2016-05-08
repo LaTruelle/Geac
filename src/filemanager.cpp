@@ -27,8 +27,10 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "filemanager.h"
+#include <QDataStream>
 #include <QDebug>
 #include <QDir>
+#include <QMimeData>
 
 FileManager::FileManager(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -209,10 +211,55 @@ Qt::DropActions FileManager::supportedDropActions() const
     return Qt::MoveAction;
 }
 
+bool FileManager::dropMimeData(const QMimeData *data, Qt::DropAction action,
+                               int row, int /*column*/,
+                               const QModelIndex &parent)
+{
+    if (!data->hasFormat("text/checkable-file"))
+        return false;
+
+    if (action != Qt::MoveAction) {
+        return false;
+    } else {
+        QByteArray encodedData = data->data("text/checkable-file");
+        QDataStream stream(&encodedData, QIODevice::ReadOnly);
+
+        while (!stream.atEnd()) {
+            beginInsertRows(parent, row, row);
+            CheckableFile file;
+            stream >> file;
+            listOfFiles.insert(row, &file);
+            endInsertRows();
+            qDebug() << "Inserted file at row " << row;
+        }
+        return true;
+    }
+}
+
+QMimeData *FileManager::mimeData(const QModelIndexList &indexes) const
+{
+    QMimeData *mimeData = new QMimeData();
+    QByteArray encodedData;
+
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+    foreach (QModelIndex index, indexes) {
+        if (index.isValid()) {
+            stream << listOfFiles.at(index.row());
+        }
+    }
+    mimeData->setData("text/checkable-file", encodedData);
+    return mimeData;
+}
+
+QStringList FileManager::mimeTypes() const
+{
+    return QStringList("text/checkable-file");
+}
+
 Qt::ItemFlags FileManager::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractTableModel::flags(index);
-
     if (index.isValid())
         return Qt::ItemIsDragEnabled | defaultFlags;
     else

@@ -156,3 +156,87 @@ QList<QStringList> CheckableFile::getXYZCoordinates() const
     }
     return XYZcoordinates;
 }
+
+QDataStream &operator<<(QDataStream &stream, const CheckableFile &file)
+{
+    stream << file.fileName();
+    stream << file.getConversionState();
+    stream << file.getConversionRequired();
+    stream << file.getDataExtracted();
+    stream << file.getNAtoms();
+    stream << file.getHartreeFockEnergy();
+    QStringList thermochemistry = file.getThermochemistry();
+    stream << thermochemistry.size();
+    foreach (QString string, thermochemistry) {
+        stream << string;
+    }
+    QStringList harmonicFrequencies = file.getHarmonicFrequencies();
+    stream << harmonicFrequencies.size();
+    foreach (QString string, harmonicFrequencies) {
+        stream << string;
+    }
+    QList<Atom> coordinates = file.getCoordinates();
+    stream << coordinates.size();
+    foreach (Atom atom, coordinates) {
+        stream << atom.element;
+        stream << atom.x;
+        stream << atom.y;
+        stream << atom.z;
+    }
+    return stream;
+}
+
+QDataStream &operator>>(QDataStream &stream, CheckableFile &file)
+{
+    QString fileName;
+    bool conversionState;
+    bool conversionRequired;
+    bool dataExtracted;
+    QString NAtoms;
+    QString hartreeFockEnergy;
+    int thermoChemistrySize;
+    QStringList thermoChemistry;
+    int harmonicFrequenciesSize;
+    QStringList harmonicFrequencies;
+    int coordinatesSize;
+    QList<Atom> coordinates;
+
+    stream >> fileName;
+    stream >> conversionState;
+    stream >> conversionRequired;
+    stream >> dataExtracted;
+    stream >> NAtoms;
+    stream >> hartreeFockEnergy;
+    stream >> thermoChemistrySize;
+    for (int i = 0; i < thermoChemistrySize; ++i) {
+        QString string;
+        stream >> string;
+        thermoChemistry.append(string);
+    }
+    stream >> harmonicFrequenciesSize;
+    for (int i = 0; i < harmonicFrequenciesSize; ++i) {
+        QString string;
+        stream >> string;
+        harmonicFrequencies.append(string);
+    }
+    stream >> coordinatesSize;
+    for (int i = 0; i < coordinatesSize; ++i) {
+        Atom atom;
+        stream >> atom.element;
+        stream >> atom.x;
+        stream >> atom.y;
+        stream >> atom.z;
+        coordinates.append(atom);
+    }
+
+    file.setFileName(fileName);
+    file.setConversionState(conversionState);
+    file.setConversionRequired(conversionRequired);
+    file.setDataExtracted(dataExtracted);
+    file.setNAtoms(NAtoms);
+    file.setHartreeFockEnergy(hartreeFockEnergy);
+    file.setThermochemistry(thermoChemistry);
+    file.setHarmonicFrequencies(harmonicFrequencies);
+    file.setCoordinates(coordinates);
+    return stream;
+}

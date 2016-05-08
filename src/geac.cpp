@@ -90,7 +90,7 @@ void Geac::setupFileDisplayer()
     ui.fileDisplayer->setDragEnabled(true);
     ui.fileDisplayer->setAcceptDrops(true);
     ui.fileDisplayer->setDropIndicatorShown(true);
-    ui.fileDisplayer->setDragDropMode(QAbstractItemView::InternalMove);
+    ui.fileDisplayer->setDragDropMode(QAbstractItemView::DragDrop);
 }
 
 void Geac::display(QString string)
