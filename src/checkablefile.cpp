@@ -28,6 +28,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "checkablefile.h"
 #include <QDir>
+#include <QDebug>
 
 CheckableFile::CheckableFile(QObject *parent) : QFile(parent)
 {
@@ -157,25 +158,25 @@ QList<QStringList> CheckableFile::getXYZCoordinates() const
     return XYZcoordinates;
 }
 
-QDataStream &operator<<(QDataStream &stream, const CheckableFile &file)
+QDataStream &operator<<(QDataStream &stream, CheckableFile* const& file)
 {
-    stream << file.fileName();
-    stream << file.getConversionState();
-    stream << file.getConversionRequired();
-    stream << file.getDataExtracted();
-    stream << file.getNAtoms();
-    stream << file.getHartreeFockEnergy();
-    QStringList thermochemistry = file.getThermochemistry();
+    stream << file->fileName();
+    stream << file->getConversionState();
+    stream << file->getConversionRequired();
+    stream << file->getDataExtracted();
+    stream << file->getNAtoms();
+    stream << file->getHartreeFockEnergy();
+    QStringList thermochemistry = file->getThermochemistry();
     stream << thermochemistry.size();
     foreach (QString string, thermochemistry) {
         stream << string;
     }
-    QStringList harmonicFrequencies = file.getHarmonicFrequencies();
+    QStringList harmonicFrequencies = file->getHarmonicFrequencies();
     stream << harmonicFrequencies.size();
     foreach (QString string, harmonicFrequencies) {
         stream << string;
     }
-    QList<Atom> coordinates = file.getCoordinates();
+    QList<Atom> coordinates = file->getCoordinates();
     stream << coordinates.size();
     foreach (Atom atom, coordinates) {
         stream << atom.element;
@@ -183,10 +184,11 @@ QDataStream &operator<<(QDataStream &stream, const CheckableFile &file)
         stream << atom.y;
         stream << atom.z;
     }
+    qDebug() << "Operator << called";
     return stream;
 }
 
-QDataStream &operator>>(QDataStream &stream, CheckableFile &file)
+QDataStream &operator>>(QDataStream &stream, CheckableFile* &file)
 {
     QString fileName;
     bool conversionState;
@@ -229,14 +231,16 @@ QDataStream &operator>>(QDataStream &stream, CheckableFile &file)
         coordinates.append(atom);
     }
 
-    file.setFileName(fileName);
-    file.setConversionState(conversionState);
-    file.setConversionRequired(conversionRequired);
-    file.setDataExtracted(dataExtracted);
-    file.setNAtoms(NAtoms);
-    file.setHartreeFockEnergy(hartreeFockEnergy);
-    file.setThermochemistry(thermoChemistry);
-    file.setHarmonicFrequencies(harmonicFrequencies);
-    file.setCoordinates(coordinates);
+    file->setFileName(fileName);
+    file->setConversionState(conversionState);
+    file->setConversionRequired(conversionRequired);
+    file->setDataExtracted(dataExtracted);
+    file->setNAtoms(NAtoms);
+    file->setHartreeFockEnergy(hartreeFockEnergy);
+    file->setThermochemistry(thermoChemistry);
+    file->setHarmonicFrequencies(harmonicFrequencies);
+    file->setCoordinates(coordinates);
+
+    qDebug() << "Operator >> called";
     return stream;
 }

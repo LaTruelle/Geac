@@ -88,7 +88,7 @@ public slots:
     void setConversionRequired(bool boolean);
 };
 
-QDataStream &operator<<(QDataStream &, const CheckableFile &);
-QDataStream &operator>>(QDataStream &, CheckableFile &);
+QDataStream &operator<<(QDataStream &, CheckableFile* const &);
+QDataStream &operator>>(QDataStream &, CheckableFile* &);
 
 #endif // CHECKABLEFILE_H

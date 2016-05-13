@@ -226,11 +226,10 @@ bool FileManager::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
         while (!stream.atEnd()) {
             beginInsertRows(parent, row, row);
-            CheckableFile file;
+            CheckableFile* file = new CheckableFile();
             stream >> file;
-            listOfFiles.insert(row, &file);
+            listOfFiles.insert(row, file);
             endInsertRows();
-            qDebug() << "Inserted file at row " << row;
         }
         return true;
     }
@@ -249,6 +248,7 @@ QMimeData *FileManager::mimeData(const QModelIndexList &indexes) const
         }
     }
     mimeData->setData("text/checkable-file", encodedData);
+    qDebug() << listOfFiles.size();
     return mimeData;
 }
 
