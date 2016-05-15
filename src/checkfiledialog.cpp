@@ -77,11 +77,22 @@ void CheckFileDialog::setDirectoryMode()
     }
 }
 
+/**
+ * Returns the selected filter, to import all files, or only log, out or log and
+ * out.
+ * @method CheckFileDialog::getFileFilter
+ * @return File Filter selected
+ */
 int CheckFileDialog::getFileFilter()
 {
     return fileFilterBox->currentIndex();
 }
 
+/**
+ * Returns true if recursivity is required in dialog
+ * @method CheckFileDialog::getRecursivity
+ * @return true or false
+ */
 bool CheckFileDialog::getRecursivity()
 {
     return recursive->isChecked();

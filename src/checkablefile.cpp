@@ -27,8 +27,8 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 */
 
 #include "checkablefile.h"
-#include <QDir>
 #include <QDebug>
+#include <QDir>
 
 CheckableFile::CheckableFile(QObject *parent) : QFile(parent)
 {
@@ -158,7 +158,7 @@ QList<QStringList> CheckableFile::getXYZCoordinates() const
     return XYZcoordinates;
 }
 
-QDataStream &operator<<(QDataStream &stream, CheckableFile* const& file)
+QDataStream &operator<<(QDataStream &stream, CheckableFile *const &file)
 {
     stream << file->fileName();
     stream << file->getConversionState();
@@ -188,7 +188,7 @@ QDataStream &operator<<(QDataStream &stream, CheckableFile* const& file)
     return stream;
 }
 
-QDataStream &operator>>(QDataStream &stream, CheckableFile* &file)
+QDataStream &operator>>(QDataStream &stream, CheckableFile *&file)
 {
     QString fileName;
     bool conversionState;

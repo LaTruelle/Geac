@@ -226,7 +226,7 @@ bool FileManager::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
         while (!stream.atEnd()) {
             beginInsertRows(parent, row, row);
-            CheckableFile* file = new CheckableFile();
+            CheckableFile *file = new CheckableFile();
             stream >> file;
             listOfFiles.insert(row, file);
             endInsertRows();
