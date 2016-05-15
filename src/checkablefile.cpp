@@ -184,7 +184,7 @@ QDataStream &operator<<(QDataStream &stream, CheckableFile *const &file)
         stream << atom.y;
         stream << atom.z;
     }
-    qDebug() << "Operator << called";
+
     return stream;
 }
 
@@ -241,6 +241,5 @@ QDataStream &operator>>(QDataStream &stream, CheckableFile *&file)
     file->setHarmonicFrequencies(harmonicFrequencies);
     file->setCoordinates(coordinates);
 
-    qDebug() << "Operator >> called";
     return stream;
 }

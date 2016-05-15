@@ -224,11 +224,22 @@ bool FileManager::dropMimeData(const QMimeData *data, Qt::DropAction action,
         QByteArray encodedData = data->data("text/checkable-file");
         QDataStream stream(&encodedData, QIODevice::ReadOnly);
 
-        while (!stream.atEnd()) {
+        QList<int> rowsToMove;
+        CheckableFile *fileToMove;
+
+        // Push stream to List of indexes
+        stream >> rowsToMove;
+
+        // Iterate over list of indexes, take file at current index
+        // insert it at row.
+        foreach (int currentRow, rowsToMove) {
+            beginRemoveRows(parent, currentRow, currentRow);
+            fileToMove = listOfFiles.takeAt(currentRow);
+            endRemoveRows();
+            if (currentRow < row)
+                row--;
             beginInsertRows(parent, row, row);
-            CheckableFile *file = new CheckableFile();
-            stream >> file;
-            listOfFiles.insert(row, file);
+            listOfFiles.insert(row, fileToMove);
             endInsertRows();
         }
         return true;
@@ -242,13 +253,14 @@ QMimeData *FileManager::mimeData(const QModelIndexList &indexes) const
 
     QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
+    QList<int> rows;
     foreach (QModelIndex index, indexes) {
-        if (index.isValid()) {
-            stream << listOfFiles.at(index.row());
+        if (!rows.contains(index.row())) {
+            rows.append(index.row());
         }
     }
+    stream << rows;
     mimeData->setData("text/checkable-file", encodedData);
-    qDebug() << listOfFiles.size();
     return mimeData;
 }
 
