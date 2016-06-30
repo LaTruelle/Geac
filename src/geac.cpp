@@ -113,8 +113,10 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
 
 void Geac::fileConverted(int id)
 {
-    qDebug() << "File converted: " << id;
     this->repaintFileDisplayer();
+    displayLog(
+        tr("File %1 parsed")
+            .arg(this->fileDisplayerModel.getFileById(id)->displayName()));
 }
 
 void Geac::readSettings()
@@ -250,10 +252,7 @@ void Geac::on_createEsi_clicked()
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
-            // Stuff to test
-            //            qDebug() << currentFile.fileName();
-            //            qDebug() << currentFile.getHartreeFockEnergy();
-            //            // Check if the file needs to be converted
+            // Check if the file needs to be converted
             if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
                     // Current File not converted yet.
@@ -269,9 +268,6 @@ void Geac::on_createEsi_clicked()
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
-            // Stuff to test
-            qDebug() << currentFile.fileName();
-            qDebug() << currentFile.getHartreeFockEnergy();
             // Check if the file needs to be converted
             if (currentFile.getConversionRequired()) {
                 if (!currentFile.getConversionState()) {
@@ -326,8 +322,13 @@ void Geac::on_SaveFolderSelection_clicked()
         QFileDialog::ShowDirsOnly));
     // Display the name of the folder in the box
     ui.folderToSave->setText(esiFolder.dirName());
-    // Select the Folder Setting
-    ui.Button_DedicatedFolder->click();
+    if (esiFolder.dirName().isEmpty()) {
+        // Folder not set, switch to esi in same folder as log files
+        ui.Button_SameFolder->toggle();
+    } else {
+        // Folder is set, toggle "dedicated folder" button
+        ui.Button_DedicatedFolder->toggle();
+    }
 }
 
 void Geac::on_standardCoordinates_stateChanged(int state)
