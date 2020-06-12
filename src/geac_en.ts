@@ -298,7 +298,7 @@
     <message>
         <location filename="esiwriter.cpp" line="139"/>
         <source>Do you want to overwrite it ?</source>
-        <translation type="unfinished">Do you want to overwrite it ?</translation>
+        <translation>Do you want to overwrite it ?</translation>
     </message>
 </context>
 <context>
