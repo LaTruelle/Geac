@@ -372,7 +372,7 @@ void Geac::on_actionOpen_Folder_triggered()
     dialog->setDirectoryMode();
     dialog->setDirectory(baseFolder);
     if (dialog->exec()) {
-        baseFolder = dialog->selectedFiles().first();
+        baseFolder.setPath(dialog->selectedFiles().first());
         // Set filters
         QStringList filters;
         switch (dialog->getFileFilter()) {
