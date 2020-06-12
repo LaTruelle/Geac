@@ -116,7 +116,6 @@ void LogParser::parse()
             }
             // Update nAtoms with length of coordinates
             nAtoms = standardCoordinates.size();
-            qDebug() << standardCoordinates.first().element << "  " << standardCoordinates.first().x;
         }
         if (line.contains("Gibbs")) {
             thermochemistry.clear(); // Empty the list from previous energies
