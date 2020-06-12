@@ -60,7 +60,7 @@ void CifWriter::createCif()
     // Setup a QTextStream
     QTextStream out(&outputFile);
     // Add data according to requirements
-    out << "Starting CIF File" << endl;
+    out << "Starting CIF File" << Qt::endl;
 
     for (int i = 0; i < files.size(); ++i) {
         // Add each file as a new cif block
@@ -68,22 +68,22 @@ void CifWriter::createCif()
             files.at(i)->fileName().size() -
             files.at(i)->fileName().lastIndexOf("/") - 1);
         QList<QStringList> XYZCoordinates = files.at(i)->getXYZCoordinates();
-        out << "data_" + fileName << endl;
-        out << endl;
-        out << "_cell_length_a                    1.00" << endl;
-        out << "_cell_length_b                    1.00" << endl;
-        out << "_cell_length_c                    1.00" << endl;
-        out << "_cell_angle_alpha                90.00" << endl;
-        out << "_cell_angle_beta                 90.00" << endl;
-        out << "_cell_angle_gamma                90.00" << endl;
-        out << "_cell_volume                      1.00" << endl;
-        out << "_cell_formula_units_Z             1" << endl;
-        out << endl;
-        out << "loop_" << endl;
-        out << "_atom_site_type_symbol" << endl;
-        out << "_atom_site_fract_x" << endl;
-        out << "_atom_site_fract_y" << endl;
-        out << "_atom_site_fract_z" << endl;
+        out << "data_" + fileName << Qt::endl;
+        out << Qt::endl;
+        out << "_cell_length_a                    1.00" << Qt::endl;
+        out << "_cell_length_b                    1.00" << Qt::endl;
+        out << "_cell_length_c                    1.00" << Qt::endl;
+        out << "_cell_angle_alpha                90.00" << Qt::endl;
+        out << "_cell_angle_beta                 90.00" << Qt::endl;
+        out << "_cell_angle_gamma                90.00" << Qt::endl;
+        out << "_cell_volume                      1.00" << Qt::endl;
+        out << "_cell_formula_units_Z             1" << Qt::endl;
+        out << Qt::endl;
+        out << "loop_" << Qt::endl;
+        out << "_atom_site_type_symbol" << Qt::endl;
+        out << "_atom_site_fract_x" << Qt::endl;
+        out << "_atom_site_fract_y" << Qt::endl;
+        out << "_atom_site_fract_z" << Qt::endl;
         for (int j = 0; j < files.at(i)->getNAtoms().toInt(); ++j) {
             QStringList line = XYZCoordinates.at(j);
             QString formattedLine;
@@ -91,13 +91,13 @@ void CifWriter::createCif()
             formattedLine += line.at(1).rightJustified(16, ' ');
             formattedLine += line.at(2).rightJustified(16, ' ');
             formattedLine += line.at(3).rightJustified(16, ' ');
-            out << formattedLine << endl;
+            out << formattedLine << Qt::endl;
         }
-        out << endl;
-        out << "# end of " + fileName << endl;
-        out << endl;
+        out << Qt::endl;
+        out << "# end of " + fileName << Qt::endl;
+        out << Qt::endl;
     }
-    out << "__ Full End " << endl;
+    out << "__ Full End " << Qt::endl;
     outputFile.close();
     QString fileName = outputFile.fileName();
     emit fileProcessed(

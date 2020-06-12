@@ -73,11 +73,11 @@ void EsiWriter::writeData()
     if (reqStandardCoordinates) {
         QList<QStringList> XYZcoordinates = inputFile.getXYZCoordinates();
         out << "======================================================="
-            << endl;
+            << Qt::endl;
         out << "Element               X               Y               Z"
-            << endl;
+            << Qt::endl;
         out << "======================================================="
-            << endl;
+            << Qt::endl;
         for (int i = 0; i < inputFile.getNAtoms().toInt(); ++i) {
             QStringList line = XYZcoordinates.at(i);
             QString formattedLine;
@@ -85,17 +85,17 @@ void EsiWriter::writeData()
             formattedLine += line.at(1).rightJustified(16, ' ');
             formattedLine += line.at(2).rightJustified(16, ' ');
             formattedLine += line.at(3).rightJustified(16, ' ');
-            out << formattedLine << endl;
+            out << formattedLine << Qt::endl;
         }
-        out << "=======================================================" << endl
-            << endl;
+        out << "=======================================================" << Qt::endl
+            << Qt::endl;
     }
     if (reqHarmonicFrequencies)
-        out << inputFile.getHarmonicFrequencies().join("") << endl;
+        out << inputFile.getHarmonicFrequencies().join("") << Qt::endl;
     if (reqThermochemistry)
-        out << inputFile.getThermochemistry().join("") << endl;
+        out << inputFile.getThermochemistry().join("") << Qt::endl;
     if (reqHartreeFock)
-        out << inputFile.getHartreeFockEnergy() << endl;
+        out << inputFile.getHartreeFockEnergy() << Qt::endl;
     // We close the file
     outputFile.close();
     // Emit signal
