@@ -44,32 +44,55 @@ LogParser::LogParser(CheckableFile *file, int id)
 
 void LogParser::parse()
 {
+    // Open file for reading
     fileToParse->open(QIODevice::ReadOnly);
+    // Start parsing loop until end
     while (!fileToParse->atEnd()) {
+        // Parse current line
         QByteArray line = fileToParse->readLine();
-        if (line.contains("NAtoms")) {
+
+        // Retrieve NAtoms value. Line looks like:
+        // NAtoms=  119 NActive=  119 NUniq=  119 SFac= 1.00D+00 NAtFMM=   60 NAOKFM=T Big=T
+        if (line.contains("NAtoms=")) {
+            // Remove left part of line (NAtoms= and spaces around)
             int natPos = line.indexOf("NAtoms");
             nAtoms = line.right(line.length() - natPos - 8)
-                         .trimmed(); // Removes "NAtoms =" and all spaces
+                         .trimmed(); // Removes "NAtoms= " and all spaces
+            // Line looks like: 119 NActive=  119 NUniq=  119 SFac= 1.00D+00 NAtFMM=   60 NAOKFM=T Big=T
+            // Remove right part of line (everything after the first space)
             int spacePos = nAtoms.indexOf(" ");
             nAtoms = nAtoms.left(spacePos + 1);
         }
-        if (line.contains("Standard orientation") ||
-            line.contains("Input orientation")) {
-            standardCoordinates
-                .clear(); // We empty the list from previous coordinates
-            // Skip header
+
+        // Retrieve coordinates. Looks like:
+        //                        Standard orientation:
+        // ---------------------------------------------------------------------
+        // Center     Atomic      Atomic             Coordinates (Angstroms)
+        // Number     Number       Type             X           Y           Z
+        // ---------------------------------------------------------------------
+        //      1          6           0        4.842548    0.000031   -0.000038
+        //      2          6           0        4.141152    1.209166   -0.000012
+        //      3         27           0        2.748662    1.214091    0.000018
+        // ---------------------------------------------------------------------
+
+        if (line.contains("Standard orientation") || line.contains("Input orientation"))
+        {
+            // Empty list from previous coordinates to make sure we get the final optimized one
+            standardCoordinates.clear();
+            // Skip table header, 4 lines
             for (int ctr = 1; ctr <= 4; ctr++) {
                 fileToParse->readLine();
             }
+            // Start actual table parsing
             QString coordLine = fileToParse->readLine();
-            while (!coordLine.contains(
-                "------------")) // i.e. not at the end of the table
+            while (!coordLine.contains("------------")) // i.e. not at the end of the table
             {
                 // Read current line, of the form
                 // "N  AtomicNumber 0 Xcoord Ycoord Zcoord"
-                // Split the string acoording to pattern
+                // Split the string acoording to pattern (space like characters)
                 QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
+
+                // Build atom object corresponding to the current line
                 Atom atom;
                 bool *testElement = new bool(true);
                 bool *testX = new bool(true);
@@ -93,6 +116,7 @@ void LogParser::parse()
             }
             // Update nAtoms with length of coordinates
             nAtoms = standardCoordinates.size();
+            qDebug() << standardCoordinates.first().element << "  " << standardCoordinates.first().x;
         }
         if (line.contains("Gibbs")) {
             thermochemistry.clear(); // Empty the list from previous energies
@@ -116,8 +140,8 @@ void LogParser::parse()
         }
         if (line.contains("SCF Done")) {
             hartreeFockEnergy.clear(); // Removes previous definitions
-            // Line is of the form  " SCF Done: E(Functional) =   -123.456789
-            // A.U. after n cycles  "
+            // Line is of the form
+            // "SCF Done: E(Functional) = -123.456789 A.U. after n cycles"
             // Retrieve HF energy.
             int equalPosition = line.indexOf("=");
             hartreeFockEnergy =
