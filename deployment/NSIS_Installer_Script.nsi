@@ -1,3 +1,5 @@
+Unicode true
+
 # This installs all files, creates a start menu shortcut, builds an uninstaller, and
 # adds uninstall information to the registry for Add/Remove Programs
  
@@ -6,19 +8,19 @@
  
 # All the other settings can be tweaked by editing the !defines at the top of this script
 !define APPNAME "Geac"
-!define COMPANYNAME "LaTruelle"
+!define COMPANYNAME "E Nicolas"
 !define DESCRIPTION "Gaussian Automated ESI Creator"
 # These three must be integers
-!define VERSIONMAJOR 1
-!define VERSIONMINOR 1
-!define VERSIONBUILD 1
+!define VERSIONMAJOR 3
+!define VERSIONMINOR 5
+!define VERSIONBUILD 0
 # These will be displayed by the "Click here for support information" link in "Add/Remove Programs"
 # It is possible to use "mailto:" links in here to open the email client
 !define HELPURL "http://github.com/LaTruelle/Geac" # "Support Information" link
 !define UPDATEURL "http://github.com/LaTruelle/Geac" # "Product Updates" link
 !define ABOUTURL "http://github.com/LaTruelle/Geac" # "Publisher" link
 # This is the size (in kB) of all the files copied into "Program Files"
-!define INSTALLSIZE 7233
+!define INSTALLSIZE 66500
  
 RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
  
@@ -29,7 +31,7 @@ InstallDir "$PROGRAMFILES\${COMPANYNAME}\${APPNAME}"
 # This will be in the installer/uninstaller's title bar
 Name "${APPNAME}"
 #Icon "logo.ico"
-outFile "Geac-setup-win32.exe"
+outFile "Geac-setup-x86_64.exe"
 
 !include LogicLib.nsh
  
@@ -58,19 +60,20 @@ section "install"
 	setOutPath $INSTDIR
 	# Files added here should be removed by the uninstaller (see section "uninstall")
 	file "Geac.exe"
-	file "icudt53.dll"
-	file "icuin53.dll"
-	file "icuuc53.dll"
-	file "msvcp110.dll"
-	file "msvcr110.dll"
 	file "Qt5Core.dll"
 	file "Qt5Gui.dll"
 	file "Qt5Svg.dll"
-	file "Qt5Concurrent.dll"
-	file "Qt5Xml.dll"
 	file "Qt5Widgets.dll"
-	file /r "platforms"
+	file "d3dcompiler_47.dll"
+	file "libEGL.dll"
+	file "libGLESv2.dll"
+	file "opengl32sw.dll"
+	file /r "iconengines"
 	file /r "imageformats"
+	file /r "platforms"
+	file /r "styles"
+	file /r "translations"
+	file /r "vc_redist.x64.exe"
 #	file "logo.ico"
 	# Add any other files for the install directory (license files, app data, etc) here
  
@@ -123,20 +126,21 @@ section "uninstall"
  
 	# Remove files
 	delete $INSTDIR\Geac.exe
-	delete $INSTDIR\icudt53.dll
-	delete $INSTDIR\icuin53.dll
-	delete $INSTDIR\icuuc53.dll
-	delete $INSTDIR\msvcp110.dll
-	delete $INSTDIR\msvcr110.dll
 	delete $INSTDIR\Qt5Core.dll
 	delete $INSTDIR\Qt5Gui.dll
 	delete $INSTDIR\Qt5Svg.dll
-	delete $INSTDIR\Qt5Concurrent.dll
-	delete $INSTDIR\Qt5Xml.dll
 	delete $INSTDIR\Qt5Widgets.dll
-	rmDir /r $INSTDIR\platforms
+	delete $INSTDIR\d3dcompiler_47.dll
+	delete $INSTDIR\libEGL.dll
+	delete $INSTDIR\libGLESv2.dll
+	delete $INSTDIR\opengl32sw.dll
+	delete $INSTDIR\vc_redist.x64.exe
+	rmDir /r $INSTDIR\iconengines
 	rmDir /r $INSTDIR\imageformats
- 
+	rmDir /r $INSTDIR\platforms
+	rmDir /r $INSTDIR\styles
+	rmDir /r $INSTDIR\translations
+
 	# Always delete uninstaller as the last action
 	delete $INSTDIR\uninstall.exe
  
