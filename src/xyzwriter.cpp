@@ -9,7 +9,7 @@ XYZWriter::XYZWriter()
 
 void XYZWriter::addFiletoList(CheckableFile file)
 {
-    // Add file to the list of files to include in cif file
+    // Add file to the list of files to include in xyz file
     // TODO Checks?
     CheckableFile *newFile = new CheckableFile(file);
     files.append(newFile);

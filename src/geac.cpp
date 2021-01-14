@@ -247,7 +247,7 @@ void Geac::on_createEsi_clicked()
     // Check XYZ File case
     if (ui.Button_XYZ->isChecked()) {
         XYZWriter xyzWriter;
-        xyzWriter.setOutputFile(cifOutput);
+        xyzWriter.setOutputFile(xyzOutput);
         connect(&xyzWriter, &XYZWriter::fileProcessed, this, &Geac::displayLog);
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
@@ -466,7 +466,7 @@ void Geac::on_Button_XYZ_clicked()
         if (QFile(fileName).exists()) {
             // Clear contents of file
         }
-        cifOutput.setFileName(fileName);
+        xyzOutput.setFileName(fileName);
         ui.xyzFileName->setText(
             fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
     }

@@ -68,7 +68,7 @@
           <item row="3" column="0">
            <widget class="QRadioButton" name="Button_XYZ">
             <property name="text">
-             <string>As a single xyz file</string>
+             <string>In a single xyz file</string>
             </property>
            </widget>
           </item>

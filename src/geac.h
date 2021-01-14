@@ -66,7 +66,7 @@ private:
     Ui::Geac ui;
     QDir baseFolder;
     QDir esiFolder;
-    QFile cifOutput;
+    QFile xyzOutput;
     QStringList dirList;
 
 public slots:

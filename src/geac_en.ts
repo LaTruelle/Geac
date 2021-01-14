@@ -90,13 +90,15 @@
     </message>
     <message>
         <location filename="geac.cpp" line="458"/>
-        <source>CIF File name</source>
-        <translation>CIF file name</translation>
+        <source>XYZ File name</source>
+        <oldsource>XYZ File name</oldsource>
+        <translation>XYZ file name</translation>
     </message>
     <message>
         <location filename="geac.cpp" line="460"/>
-        <source>CIF Files (*.cif)</source>
-        <translation>CIF Files (*.cif)</translation>
+        <source>XYZ Files (*.xyz)</source>
+        <oldsource>XYZ Files (*.xyz)</oldsource>
+        <translation>XYZ Files (*.xyz)</translation>
     </message>
     <message>
         <location filename="geac.cpp" line="314"/>
@@ -129,8 +131,9 @@
     </message>
     <message>
         <location filename="geac.ui" line="71"/>
-        <source>As a single CIF file</source>
-        <translation>As a single CIF file</translation>
+        <source>As a single xyz file</source>
+        <oldsource>As a single XYZ file</oldsource>
+        <translation>As a single XYZ file</translation>
     </message>
     <message>
         <location filename="geac.ui" line="89"/>
