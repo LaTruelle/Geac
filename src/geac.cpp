@@ -27,7 +27,7 @@ This file is part of GEAC (Gaussian ESI Automated Creator)
 
 #include "geac.h"
 #include "checkfiledialog.h"
-#include "cifwriter.h"
+#include "xyzwriter.h"
 #include "esiwriter.h"
 #include "logparser.h"
 #include <QFileDialog>
@@ -244,11 +244,11 @@ void Geac::repaintFileDisplayer()
 
 void Geac::on_createEsi_clicked()
 {
-    // Check CIF File case
-    if (ui.Button_CIF->isChecked()) {
-        CifWriter cifWriter;
-        cifWriter.setOutputFile(cifOutput);
-        connect(&cifWriter, &CifWriter::fileProcessed, this, &Geac::displayLog);
+    // Check XYZ File case
+    if (ui.Button_XYZ->isChecked()) {
+        XYZWriter xyzWriter;
+        xyzWriter.setOutputFile(cifOutput);
+        connect(&xyzWriter, &XYZWriter::fileProcessed, this, &Geac::displayLog);
         for (int i = 0; i < fileDisplayerModel.rowCount(); i++) {
             // Retrieve appropriate file
             CheckableFile currentFile = fileDisplayerModel.getFile(i);
@@ -258,10 +258,10 @@ void Geac::on_createEsi_clicked()
                     // Current File not converted yet.
                     // TODO: Decide what to do!
                 }
-                cifWriter.addFiletoList(currentFile);
+                xyzWriter.addFiletoList(currentFile);
             }
         }
-        cifWriter.createCif();
+        xyzWriter.createXYZ();
     } else // File by file
     {
         // Add files to thread, and launch their conversion
@@ -452,12 +452,12 @@ void Geac::on_actionQuit_triggered()
     emit this->close();
 }
 
-void Geac::on_Button_CIF_clicked()
+void Geac::on_Button_XYZ_clicked()
 {
     // Select output File
-    QString fileName = QFileDialog::getSaveFileName(this, tr("CIF File name"),
+    QString fileName = QFileDialog::getSaveFileName(this, tr("XYZ File name"),
                                                     esiFolder.absolutePath(),
-                                                    tr("CIF Files (*.cif)"));
+                                                    tr("XYZ Files (*.xyz)"));
     if (fileName.isEmpty()) {
         ui.Button_SameFolder->click();
     } else {
@@ -467,7 +467,7 @@ void Geac::on_Button_CIF_clicked()
             // Clear contents of file
         }
         cifOutput.setFileName(fileName);
-        ui.cifFileName->setText(
+        ui.xyzFileName->setText(
             fileName.right(fileName.size() - fileName.lastIndexOf("/") - 1));
     }
 }
