@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/LaTruelle/Geac.svg)](https://travis-ci.org/LaTruelle/Geac) [![DOI](https://zenodo.org/badge/18964/LaTruelle/Geac.svg)](https://zenodo.org/badge/latestdoi/18964/LaTruelle/Geac)
+[![Build Status](https://travis-ci.org/LaTruelle/Geac.svg)](https://travis-ci.org/LaTruelle/Geac) 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4923171.svg)](https://doi.org/10.5281/zenodo.4923171)
+
 Geac
 ====
 
