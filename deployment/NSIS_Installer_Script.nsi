@@ -11,16 +11,15 @@ Unicode true
 !define COMPANYNAME "E Nicolas"
 !define DESCRIPTION "Gaussian Automated ESI Creator"
 # These three must be integers
-!define VERSIONMAJOR 3
-!define VERSIONMINOR 6
-!define VERSIONBUILD 0
+!define VERSIONMAJOR 4
+!define VERSIONMINOR 0
 # These will be displayed by the "Click here for support information" link in "Add/Remove Programs"
 # It is possible to use "mailto:" links in here to open the email client
 !define HELPURL "http://github.com/LaTruelle/Geac" # "Support Information" link
 !define UPDATEURL "http://github.com/LaTruelle/Geac" # "Product Updates" link
 !define ABOUTURL "http://github.com/LaTruelle/Geac" # "Publisher" link
 # This is the size (in kB) of all the files copied into "Program Files"
-!define INSTALLSIZE 66500
+!define INSTALLSIZE 61200
  
 RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
  
@@ -73,7 +72,7 @@ section "install"
 	file /r "platforms"
 	file /r "styles"
 	file /r "translations"
-	file /r "vc_redist.x64.exe"
+	file /r "vcredist_x64.exe"
 #	file "logo.ico"
 	# Add any other files for the install directory (license files, app data, etc) here
  
@@ -95,7 +94,7 @@ section "install"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "HelpLink" "$\"${HELPURL}$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "URLUpdateInfo" "$\"${UPDATEURL}$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "URLInfoAbout" "$\"${ABOUTURL}$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "DisplayVersion" "$\"${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "DisplayVersion" "${VERSIONMAJOR}.${VERSIONMINOR}"
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "VersionMajor" ${VERSIONMAJOR}
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "VersionMinor" ${VERSIONMINOR}
 	# There is no option for modifying or repairing the install
@@ -134,7 +133,7 @@ section "uninstall"
 	delete $INSTDIR\libEGL.dll
 	delete $INSTDIR\libGLESv2.dll
 	delete $INSTDIR\opengl32sw.dll
-	delete $INSTDIR\vc_redist.x64.exe
+	delete $INSTDIR\vcredist_x64.exe
 	rmDir /r $INSTDIR\iconengines
 	rmDir /r $INSTDIR\imageformats
 	rmDir /r $INSTDIR\platforms
