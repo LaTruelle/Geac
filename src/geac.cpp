@@ -107,7 +107,7 @@ void Geac::addFilesFromList(QFileInfoList fileNames)
         LogParser *parser = new LogParser(file, id);
         // Start parsing in an other thread
         connect(parser, &LogParser::fileConverted, this, &Geac::fileConverted);
-        QtConcurrent::run(parser, &LogParser::parse);
+        QtConcurrent::run(&LogParser::parse, parser);
     }
 }
 

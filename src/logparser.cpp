@@ -90,7 +90,8 @@ void LogParser::parse()
                 // Read current line, of the form
                 // "N  AtomicNumber 0 Xcoord Ycoord Zcoord"
                 // Split the string acoording to pattern (space like characters)
-                QStringList list = coordLine.trimmed().split(QRegExp("\\s+"));
+                QRegularExpression re("\\s+");
+                QStringList list = coordLine.trimmed().split(re);
 
                 // Build atom object corresponding to the current line
                 Atom atom;
@@ -115,7 +116,7 @@ void LogParser::parse()
                 coordLine = fileToParse->readLine();
             }
             // Update nAtoms with length of coordinates
-            nAtoms = standardCoordinates.size();
+            nAtoms = QString::number(standardCoordinates.size());
         }
         if (line.contains("Gibbs")) {
             thermochemistry.clear(); // Empty the list from previous energies
